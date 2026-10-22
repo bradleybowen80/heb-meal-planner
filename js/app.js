@@ -16,30 +16,49 @@
     'meat-and-three': 'Meat and three', pizza: 'Pizza', bbq: 'BBQ', wildcard: 'Wildcard',
   };
   const STORE_KEY = 'hmp.plan.v1';
+  const UI_KEY = 'hmp.ui.v1';
 
   // ---------- data ----------
   const [pantryDoc, mealsDoc, pricesDoc, checklistDoc, planSeed] = await Promise.all(
-    ['pantry', 'meals', 'prices', 'checklist', 'plan'].map(n => fetch(`data/${n}.json`, { cache: "no-cache" }).then(r => r.json()))
+    ['pantry', 'meals', 'prices', 'checklist', 'plan'].map(n => fetch(`data/${n}.json`, { cache: 'no-cache' }).then(r => r.json()))
   );
   const pantry = Object.fromEntries(pantryDoc.items.map(i => [i.key, i]));
   const prices = pricesDoc.prices;
   const meals = Object.fromEntries(mealsDoc.meals.map(m => [m.id, m]));
   const sectionOrder = pantryDoc.sectionOrder;
 
-  let plan = loadPlan();
+  // A shared plan arrives in the URL hash (#p=...). It wins over whatever this phone had.
+  let plan = importFromHash() || loadPlan();
+  function importFromHash() {
+    const m = location.hash.match(/^#p=(.+)$/);
+    if (!m) return null;
+    try {
+      const json = decodeURIComponent(escape(atob(m[1].replace(/-/g, '+').replace(/_/g, '/'))));
+      const p = JSON.parse(json);
+      history.replaceState(null, '', location.pathname + location.search);
+      setTimeout(() => toast('Loaded the shared plan'), 300);
+      return normalize(p);
+    } catch (e) { return null; }
+  }
   function loadPlan() {
     try {
       const saved = JSON.parse(localStorage.getItem(STORE_KEY));
-      if (saved && saved.weekOf >= planSeed.weekOf) return saved;
+      if (saved && saved.weekOf >= planSeed.weekOf) return normalize(saved);
     } catch (e) { /* fall through */ }
-    return structuredClone(planSeed);
+    return normalize(structuredClone(planSeed));
   }
-  function save() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* private mode */ }
-    render();
+  function normalize(p) {
+    p.days = p.days || {}; for (const d of DAYS) if (p.days[d.id] === undefined) p.days[d.id] = null;
+    if (!p.checklist || !Object.keys(p.checklist).length) p.checklist = { ...checklistDoc.defaults };
+    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {};
+    p.budget = Number(p.budget || 0); p.potluckTheme = p.potluckTheme || '';
+    return p;
   }
-  if (!plan.checklist || !Object.keys(plan.checklist).length) plan.checklist = { ...checklistDoc.defaults };
-  plan.have = plan.have || [];
+  function persist() { try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* private mode */ } }
+  function save() { persist(); render(); }
+  let ui = { weeklyOpen: false };
+  try { ui = { ...ui, ...JSON.parse(localStorage.getItem(UI_KEY) || '{}') }; } catch (e) { /* ignore */ }
+  const saveUi = () => { try { localStorage.setItem(UI_KEY, JSON.stringify(ui)); } catch (e) { /* ignore */ } };
 
   // ---------- helpers ----------
   const $ = id => document.getElementById(id);
@@ -48,8 +67,24 @@
   const price = key => (prices[key] && prices[key].price) || 0;
   const flagsFor = key => {
     const p = prices[key] || {};
-    return { sale: p.onSale || p.priceCut, coupon: !!p.coupon, couponLabel: p.couponType === 'combo' ? 'combo deal' : 'coupon' };
+    return { sale: !!(p.onSale || p.priceCut), coupon: !!p.coupon, couponLabel: p.couponType === 'combo' ? 'combo deal' : 'coupon' };
   };
+  const pillsFor = keys => keys.reduce((a, k) => { const f = flagsFor(k); a.sale = a.sale || f.sale; if (f.coupon && !a.coupon) { a.coupon = true; a.couponLabel = f.couponLabel; } return a; }, {});
+  const pillHtml = p => (p.edited ? '<span class="pill edited">edited</span>' : '') + (p.sale ? '<span class="pill sale">sale</span>' : '') + (p.coupon ? `<span class="pill coupon">${p.couponLabel}</span>` : '');
+  // "½ pack", "1 pack", "1½ packs", "3 pieces" for things sold by weight
+  function packText(qty, key) {
+    const byWeight = pantry[key] && /Avg\./.test(pantry[key].size);
+    if (byWeight) return `${qty} ${qty === 1 ? 'piece' : 'pieces'}`;
+    const whole = Math.floor(qty + 1e-9), frac = Math.round((qty - whole) * 4) / 4;
+    const fracTxt = { 0.25: '¼', 0.5: '½', 0.75: '¾' }[frac] || (frac ? String(frac) : '');
+    const n = (whole ? whole : '') + fracTxt;
+    return `${n || '0'} ${qty > 1 ? 'packs' : 'pack'}`;
+  }
+  function nextSunday() {
+    const d = new Date(); d.setHours(12, 0, 0, 0);
+    d.setDate(d.getDate() + ((7 - d.getDay()) % 7 || 7));
+    return d.toISOString().slice(0, 10);
+  }
 
   // Items a day's dinner actually needs this week (after this-week-only edits).
   function dayItems(d) {
@@ -59,26 +94,30 @@
       .filter(it => !(d.dropped || []).includes(it.key))
       .map(it => ({ key: it.key, qty: d.qty && d.qty[it.key] != null ? d.qty[it.key] : it.qty }));
   }
-  // Proportional cost of a dinner (what the ingredients used are worth).
   const dayCost = d => d && d.type === 'out' ? Number(d.amount || 0) : dayItems(d).reduce((s, it) => s + it.qty * price(it.key), 0);
 
-  // Shopping lines: combine across dinners + checklist, round up to packages.
+  // Shopping lines: combine across dinners, checklist and extras, round up to packages.
+  // A manual package override only holds while the computed need it was based on stays the same.
   function shoppingLines() {
     const need = {};
-    const add = (key, qty, src) => { if (!need[key]) need[key] = { key, qty: 0, from: new Set() }; need[key].qty += qty; need[key].from.add(src); };
+    const add = (key, qty, src) => { if (!pantry[key]) return; if (!need[key]) need[key] = { key, qty: 0, from: new Set() }; need[key].qty += qty; need[key].from.add(src); };
     for (const day of DAYS) for (const it of dayItems(plan.days[day.id])) add(it.key, it.qty, day.name);
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0) add(key, qty, 'weekly');
+    for (const [key, qty] of Object.entries(plan.extras)) if (qty > 0) add(key, qty, 'extra');
     return Object.values(need).map(n => {
-      const packs = plan.packs && plan.packs[n.key] != null ? plan.packs[n.key] : Math.ceil(n.qty - 1e-9);
+      const base = Math.max(1, Math.ceil(n.qty - 1e-9));
+      const ov = plan.packs[n.key];
+      const packs = ov && ov.base === base ? ov.packs : base;
       const have = plan.have.includes(n.key);
-      return { ...n, packs, have, each: price(n.key), total: have ? 0 : packs * price(n.key), from: [...n.from] };
+      return { ...n, base, packs, have, each: price(n.key), total: have ? 0 : packs * price(n.key), from: [...n.from] };
     });
   }
   function totals() {
     const lines = shoppingLines();
     const groceries = lines.reduce((s, l) => s + l.total, 0);
     const out = DAYS.reduce((s, d) => s + (plan.days[d.id] && plan.days[d.id].type === 'out' ? Number(plan.days[d.id].amount || 0) : 0), 0);
-    return { groceries, out, combined: groceries + out, lines };
+    const weekly = Object.entries(plan.checklist).reduce((s, [k, q]) => s + q * price(k), 0);
+    return { groceries, out, combined: groceries + out, lines, weekly };
   }
 
   // ---------- render ----------
@@ -110,14 +149,13 @@
         mealHtml = `<div class="day-meal empty">Pick dinner</div>`;
         priceHtml = `<div class="day-price">&nbsp;</div>`;
       } else if (d.type === 'out') {
-        mealHtml = `<div class="day-meal">${esc(d.label || 'Eat out')}</div><div class="day-sub">Tap to change the amount</div>`;
+        mealHtml = `<div class="day-meal">${esc(d.label || 'Eat out')}</div><div class="day-sub">Eating out</div>`;
         priceHtml = `<div class="day-price out">${money(d.amount || 0)}</div>`;
       } else {
         const m = meals[d.mealId];
-        const edited = (d.dropped && d.dropped.length) || (d.qty && Object.keys(d.qty).length);
-        const pills = dayItems(d).reduce((a, it) => { const f = flagsFor(it.key); a.sale = a.sale || f.sale; if (f.coupon && !a.coupon) { a.coupon = true; a.couponLabel = f.couponLabel; } return a; }, {});
-        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${edited ? '<span class="pill edited">edited</span>' : ''}${pills.sale ? '<span class="pill sale">sale</span>' : ''}${pills.coupon ? `<span class="pill coupon">${pills.couponLabel}</span>` : ''}</div>` +
-          `<div class="day-sub">${esc(m ? m.notes || '' : '')}</div>`;
+        const p = pillsFor(dayItems(d).map(it => it.key));
+        p.edited = (d.dropped && d.dropped.length) || (d.qty && Object.keys(d.qty).length);
+        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${pillHtml(p)}</div><div class="day-sub">${esc(m ? m.notes || '' : '')}</div>`;
         priceHtml = `<div class="day-price">${money(dayCost(d))}</div>`;
       }
       const themeLabel = day.id === 'sun' && plan.potluckTheme ? `${day.theme}: ${esc(plan.potluckTheme)}` : day.theme;
@@ -129,6 +167,12 @@
   }
 
   function renderChecklist() {
+    const t = totals();
+    const count = Object.values(plan.checklist).filter(q => q > 0).length;
+    $('weeklySummary').textContent = `${count} item${count === 1 ? '' : 's'} · ${money(t.weekly)}`;
+    $('weeklyToggle').setAttribute('aria-expanded', ui.weeklyOpen);
+    $('weeklyChevron').textContent = ui.weeklyOpen ? '▾' : '▸';
+    $('weeklyBody').classList.toggle('hidden', !ui.weeklyOpen);
     const wrap = $('checklist'); wrap.innerHTML = '';
     for (const g of checklistDoc.groups) {
       const box = document.createElement('div'); box.className = 'group';
@@ -163,19 +207,24 @@
       for (const l of bySec[s]) {
         const p = pantry[l.key], pr = prices[l.key] || {}, f = flagsFor(l.key);
         if (f.coupon) coupons++;
+        const forTxt = l.from.filter(x => x !== 'weekly' && x !== 'extra').join(', ');
         const row = document.createElement('div'); row.className = 'li' + (l.have ? ' have' : '');
         row.innerHTML =
           `<input class="li-check" type="checkbox" ${l.have ? 'checked' : ''} aria-label="have it">` +
-          `<div><div class="li-name">${esc(p.name)}${f.sale ? '<span class="pill sale">sale</span>' : ''}${f.coupon ? `<span class="pill coupon">${f.couponLabel}</span>` : ''}</div>` +
-          `<div class="li-sub">${esc(p.size)} · ${esc(pr.aisle || '')}${f.coupon ? '<br>' + esc(pr.coupon) : ''}</div></div>` +
+          `<div><div class="li-name">${esc(p.name)}${pillHtml(f)}</div>` +
+          `<div class="li-sub">${esc(p.size)} · ${esc(pr.aisle || '')}${forTxt ? ' · for ' + esc(forTxt) : ''}${f.coupon ? '<br>' + esc(pr.coupon) : ''}</div></div>` +
           `<div class="li-right"><div class="li-price">${f.sale && pr.listPrice ? `<span class="was">${money(pr.listPrice * l.packs)}</span>` : ''}${money(l.packs * l.each)}</div>` +
           `<div class="li-qty"><button type="button" aria-label="fewer">−</button><span class="n">${l.packs}</span><button type="button" aria-label="more">+</button></div></div>`;
         row.querySelector('.li-check').addEventListener('change', e => {
           plan.have = e.target.checked ? [...new Set([...plan.have, l.key])] : plan.have.filter(k => k !== l.key); save();
         });
         const [minus, plus] = row.querySelectorAll('.li-qty button');
-        minus.addEventListener('click', () => setPacks(l.key, Math.max(0, l.packs - 1)));
-        plus.addEventListener('click', () => setPacks(l.key, l.packs + 1));
+        minus.addEventListener('click', () => {
+          if (l.packs > 1) return setPacks(l.key, l.packs - 1, l.base);
+          if (plan.extras[l.key]) { plan.extras[l.key] = 0; save(); return; }   // an added extra: remove it
+          plan.have = [...new Set([...plan.have, l.key])]; save();               // otherwise: you have it
+        });
+        plus.addEventListener('click', () => setPacks(l.key, l.packs + 1, l.base));
         box.appendChild(row);
       }
       wrap.appendChild(box);
@@ -187,6 +236,8 @@
     $('spentDiff').textContent = plan.spent == null ? 'Enter the receipt total after the trip to see how close the estimate was.' :
       `Estimate ${money(t.groceries)} · actual ${money(plan.spent)} · ${plan.spent > t.groceries ? 'over by ' + money(plan.spent - t.groceries) : 'under by ' + money(t.groceries - plan.spent)}`;
   }
+  function setPacks(key, n, base) { plan.packs[key] = { packs: n, base }; save(); }
+
   function renderDeals() {
     const wrap = $('deals'); wrap.innerHTML = '';
     const deals = Object.keys(pantry).map(key => ({ key, p: pantry[key], pr: prices[key] || {} }))
@@ -194,15 +245,16 @@
       .map(d => ({ ...d, saved: (d.pr.listPrice || d.pr.price) - d.pr.price }))
       .sort((a, b) => b.saved - a.saved);
     const combos = Object.keys(pantry).filter(key => prices[key] && prices[key].coupon);
-    $('dealsMeta').textContent = `From your pantry, pulled ${pricesDoc.pulled} at ${pricesDoc.store.name}. Sale and price cut ring up automatically.`;
-    if (!deals.length) { wrap.innerHTML = '<div class="empty-bucket">Nothing from the pantry is on sale this week.</div>'; }
+    $('dealsMeta').textContent = `From your pantry, pulled ${pricesDoc.pulled} at ${pricesDoc.store.name}. Sale and price cut ring up automatically. Tap one to use it.`;
+    if (!deals.length) wrap.innerHTML = '<div class="empty-bucket">Nothing from the pantry is on sale this week.</div>';
     const box = document.createElement('div'); box.className = 'sec';
     for (const d of deals) {
       const used = DAYS.filter(day => dayItems(plan.days[day.id]).some(it => it.key === d.key)).map(day => day.name);
-      const row = document.createElement('div'); row.className = 'li';
+      const row = document.createElement('button'); row.type = 'button'; row.className = 'li li-tap';
       row.innerHTML = `<div></div><div><div class="li-name">${esc(d.p.name)}<span class="pill sale">${d.pr.onSale ? 'sale' : 'price cut'}</span></div>` +
         `<div class="li-sub">${esc(d.p.size)} · ${esc(d.pr.aisle || '')}${used.length ? ' · on the plan ' + used.join(', ') : ''}</div></div>` +
         `<div class="li-right"><div class="li-price"><span class="was">${money(d.pr.listPrice)}</span>${money(d.pr.price)}</div><div class="li-sub">save ${money(d.saved)}</div></div>`;
+      row.addEventListener('click', () => openDeal(d.key));
       box.appendChild(row);
     }
     if (deals.length) wrap.appendChild(box);
@@ -218,22 +270,21 @@
       wrap.appendChild(cbox);
     }
   }
-  function setPacks(key, n) { plan.packs = plan.packs || {}; plan.packs[key] = n; save(); }
 
   // ---------- sheet ----------
   const sheet = $('sheet'), backdrop = $('backdrop'), body = $('sheetBody');
-  function openSheet(html) { body.innerHTML = html; sheet.classList.remove('hidden'); backdrop.classList.remove('hidden'); sheet.scrollTop = 0; }
-  function closeSheet() { sheet.classList.add('hidden'); backdrop.classList.add('hidden'); }
+  let onClose = null;
+  function openSheet(html, closeHook) { body.innerHTML = html; onClose = closeHook || null; sheet.classList.remove('hidden'); backdrop.classList.remove('hidden'); sheet.scrollTop = 0; }
+  function closeSheet() { const h = onClose; onClose = null; if (h) h(); sheet.classList.add('hidden'); backdrop.classList.add('hidden'); }
   backdrop.addEventListener('click', closeSheet);
   $('sheetClose').addEventListener('click', closeSheet);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.classList.contains('hidden')) closeSheet(); });
 
   function mealOption(m, current) {
     const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
-    const pills = m.items.reduce((a, it) => { const f = flagsFor(it.key); a.sale = a.sale || f.sale; if (f.coupon && !a.coupon) { a.coupon = true; a.couponLabel = f.couponLabel; } return a; }, {});
     return `<button type="button" class="option${current ? ' current' : ''}" data-meal="${esc(m.id)}">` +
-      `<div><div class="option-name">${esc(m.name)}${pills.sale ? '<span class="pill sale">sale</span>' : ''}${pills.coupon ? `<span class="pill coupon">${pills.couponLabel}</span>` : ''}</div>` +
-      `<div class="option-sub">${esc(m.kind === 'heat-and-add' ? 'Heat and add' : m.kind === 'repeat' ? 'Easy' : 'Recipe')} · ${m.items.length} items</div></div>` +
+      `<div><div class="option-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div>` +
+      `<div class="option-sub">${esc(m.kind === 'heat-and-add' ? 'Heat and add' : m.kind === 'repeat' ? 'Easy' : 'Recipe')} · ${m.items.length} items${current ? ' · chosen, tap to edit' : ''}</div></div>` +
       `<div class="option-price">${money(cost)}</div></button>`;
   }
 
@@ -243,56 +294,88 @@
     const all = Object.values(meals);
     const themed = all.filter(m => day.buckets.includes(m.theme));
     const wild = all.filter(m => !day.buckets.includes(m.theme));
-    let html = `<h3>${day.name}: ${day.theme}</h3><p class="hint">${day.id === 'sun' ? 'Pick the dish to bring. Tap the chosen one again to edit it for this week.' : 'Tap a dinner. Tap the chosen one again to edit it for this week.'}</p>`;
+    let html = `<h3>${day.name}: ${day.theme}</h3><p class="hint">${day.id === 'sun' ? 'Pick the dish to bring.' : 'Tap a dinner.'}</p>`;
     if (day.id === 'sun') html += `<div class="bucket-title">This week's theme from church</div><div class="amount-row"><input id="potluckTheme" class="label" type="text" placeholder="Mexican, soups, breakfast for dinner..." value="${esc(plan.potluckTheme || '')}"></div>`;
-    if (currentMeal) html += `<div class="row-actions"><button type="button" class="btn" id="editMeal">Edit this week's ingredients</button></div>`;
+    if (currentMeal) html += `<div class="row-actions"><button type="button" class="btn" id="editMeal">Edit ingredients for this week</button></div>`;
     if (day.buckets.length) {
       html += `<div class="bucket-title">${day.buckets.map(b => THEME_NAMES[b]).join(' / ')}</div>`;
       html += themed.length ? themed.map(m => mealOption(m, m.id === currentMeal)).join('') : `<div class="empty-bucket">No ${day.theme.toLowerCase()} meals saved yet. Tell Claude what you cook on ${day.name} and it will add the cards.</div>`;
     }
-    html += `<div class="bucket-title">Eat out</div>`;
+    html += `<div class="bucket-title">Eat out</div><p class="hint">Saves as you type.</p>`;
     html += `<div class="amount-row"><input id="outLabel" class="label" type="text" placeholder="Where (optional)" value="${esc(d && d.type === 'out' ? d.label || '' : '')}"></div>`;
-    html += `<div class="amount-row">$ <input id="outAmount" type="number" inputmode="decimal" min="0" step="1" placeholder="0" value="${esc(d && d.type === 'out' ? d.amount || '' : '')}"><button type="button" class="btn" id="setOut">Eat out</button></div>`;
+    html += `<div class="amount-row">$ <input id="outAmount" type="number" inputmode="decimal" min="0" step="1" placeholder="0" value="${esc(d && d.type === 'out' ? d.amount || '' : '')}"><button type="button" class="btn" id="setOut">Done</button></div>`;
     if (wild.length) html += `<div class="bucket-title">Wildcard</div>` + wild.map(m => mealOption(m, m.id === currentMeal)).join('');
     html += `<div class="row-actions"><button type="button" class="btn ghost" id="clearDay">Nothing planned</button></div>`;
+    const saveOut = () => {
+      const amount = Number(body.querySelector('#outAmount').value || 0), label = body.querySelector('#outLabel').value.trim();
+      if (!amount && !label) return;
+      plan.days[dayId] = { type: 'out', label: label || 'Eat out', amount }; persist(); renderHeader(); renderWeek(); renderList();
+    };
     openSheet(html);
     const themeInput = body.querySelector('#potluckTheme');
-    if (themeInput) themeInput.addEventListener('change', e => { plan.potluckTheme = e.target.value.trim(); save(); });
+    if (themeInput) themeInput.addEventListener('input', e => { plan.potluckTheme = e.target.value.trim(); persist(); renderWeek(); });
     body.querySelectorAll('[data-meal]').forEach(b => b.addEventListener('click', () => {
       const id = b.dataset.meal;
       if (id === currentMeal) return openMealEditor(dayId);
       plan.days[dayId] = { type: 'meal', mealId: id, dropped: [], qty: {} }; save(); closeSheet();
     }));
     const edit = body.querySelector('#editMeal'); if (edit) edit.addEventListener('click', () => openMealEditor(dayId));
-    body.querySelector('#setOut').addEventListener('click', () => {
-      plan.days[dayId] = { type: 'out', label: body.querySelector('#outLabel').value.trim() || 'Eat out', amount: Number(body.querySelector('#outAmount').value || 0) }; save(); closeSheet();
-    });
+    body.querySelector('#outAmount').addEventListener('input', saveOut);
+    body.querySelector('#outLabel').addEventListener('input', saveOut);
+    body.querySelector('#setOut').addEventListener('click', () => { saveOut(); closeSheet(); });
     body.querySelector('#clearDay').addEventListener('click', () => { plan.days[dayId] = null; save(); closeSheet(); });
   }
 
   function openMealEditor(dayId) {
     const d = plan.days[dayId]; const m = meals[d.mealId];
     d.dropped = d.dropped || []; d.qty = d.qty || {};
-    let html = `<h3>${esc(m.name)}</h3><p class="hint">This week only. Uncheck what you already have, or change amounts. The saved card doesn't change.</p>`;
+    let html = `<h3>${esc(m.name)}</h3><p class="hint">This week only. Uncheck what you already have. The saved card doesn't change.</p>`;
     if (m.notes) html += `<div class="notes">${esc(m.notes)}</div>`;
     html += `<div class="group">` + m.items.map(it => {
       const p = pantry[it.key]; const dropped = d.dropped.includes(it.key); const q = d.qty[it.key] != null ? d.qty[it.key] : it.qty;
-      return `<div class="ing${dropped ? ' dropped' : ''}" data-key="${esc(it.key)}"><input class="ing-check" type="checkbox" ${dropped ? '' : 'checked'}>` +
+      return `<div class="ing${dropped ? ' dropped' : ''}" data-key="${esc(it.key)}" data-base="${it.qty}"><input class="ing-check" type="checkbox" ${dropped ? '' : 'checked'} aria-label="need it">` +
         `<div><div class="ing-name">${esc(p.name)}</div><div class="ing-sub">${esc(p.size)} · ${money(price(it.key))} each</div></div>` +
-        `<div class="ing-qty"><input type="number" inputmode="decimal" min="0" step="0.25" value="${q}" ${dropped ? 'disabled' : ''}></div></div>`;
+        `<div class="stepper small"><button type="button" aria-label="less" ${dropped ? 'disabled' : ''}>−</button><span class="n">${packText(q, it.key)}</span><button type="button" aria-label="more" ${dropped ? 'disabled' : ''}>+</button></div></div>`;
     }).join('') + `</div>`;
-    html += `<div class="row-actions"><button type="button" class="btn" id="doneEdit">Done</button><button type="button" class="btn ghost" id="resetEdit">Reset to saved card</button></div>`;
+    html += `<div class="row-actions"><button type="button" class="btn" id="doneEdit">Done</button><button type="button" class="btn ghost" id="backEdit">Back to dinners</button><button type="button" class="btn ghost" id="resetEdit">Reset to saved card</button></div>`;
     openSheet(html);
     body.querySelectorAll('.ing').forEach(row => {
-      const key = row.dataset.key;
+      const key = row.dataset.key, base = Number(row.dataset.base);
+      const [minus, plus] = row.querySelectorAll('.stepper button');
+      const step = base >= 1 ? 1 : base;   // whole packs step by 1, fractional cards step by their own size
       row.querySelector('.ing-check').addEventListener('change', e => {
         d.dropped = e.target.checked ? d.dropped.filter(k => k !== key) : [...new Set([...d.dropped, key])];
-        row.classList.toggle('dropped', !e.target.checked); row.querySelector('input[type=number]').disabled = !e.target.checked; save();
+        row.classList.toggle('dropped', !e.target.checked); minus.disabled = plus.disabled = !e.target.checked; save();
       });
-      row.querySelector('input[type=number]').addEventListener('change', e => { d.qty[key] = Number(e.target.value || 0); save(); });
+      const cur = () => d.qty[key] != null ? d.qty[key] : base;
+      minus.addEventListener('click', () => { d.qty[key] = Math.max(step, Math.round((cur() - step) * 4) / 4); row.querySelector('.n').textContent = packText(d.qty[key], key); save(); });
+      plus.addEventListener('click', () => { d.qty[key] = Math.round((cur() + step) * 4) / 4; row.querySelector('.n').textContent = packText(d.qty[key], key); save(); });
     });
     body.querySelector('#doneEdit').addEventListener('click', closeSheet);
-    body.querySelector('#resetEdit').addEventListener('click', () => { d.dropped = []; d.qty = {}; save(); closeSheet(); });
+    body.querySelector('#backEdit').addEventListener('click', () => openDay(dayId));
+    body.querySelector('#resetEdit').addEventListener('click', () => { d.dropped = []; d.qty = {}; save(); openMealEditor(dayId); });
+  }
+
+  function openDeal(key) {
+    const p = pantry[key], pr = prices[key] || {};
+    const using = Object.values(meals).filter(m => m.items.some(it => it.key === key));
+    let html = `<h3>${esc(p.name)}</h3><p class="hint">${esc(p.size)} · <span class="was">${money(pr.listPrice)}</span> ${money(pr.price)} · ${esc(pr.aisle || '')}</p>`;
+    if (using.length) {
+      html += `<div class="bucket-title">Dinners that use it</div>`;
+      for (const m of using) {
+        const days = DAYS.filter(day => day.buckets.includes(m.theme));
+        html += `<div class="option static"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">Put it on</div>` +
+          `<div class="row-actions tight">${(days.length ? days : DAYS.filter(x => x.buckets.length)).map(day => `<button type="button" class="btn ghost small" data-put="${day.id}" data-meal="${esc(m.id)}">${day.name}</button>`).join('')}</div></div></div>`;
+      }
+    } else {
+      html += `<div class="empty-bucket">No saved dinner uses this yet.</div>`;
+    }
+    html += `<div class="bucket-title">Or just stock up</div><div class="row-actions"><button type="button" class="btn" id="addExtra">Add 1 pack to the list</button></div>`;
+    openSheet(html);
+    body.querySelectorAll('[data-put]').forEach(b => b.addEventListener('click', () => {
+      plan.days[b.dataset.put] = { type: 'meal', mealId: b.dataset.meal, dropped: [], qty: {} }; save(); closeSheet(); toast(`${meals[b.dataset.meal].name} on ${DAYS.find(x => x.id === b.dataset.put).name}`);
+    }));
+    body.querySelector('#addExtra').addEventListener('click', () => { plan.extras[key] = (plan.extras[key] || 0) + 1; plan.have = plan.have.filter(k => k !== key); save(); closeSheet(); toast('Added to the list'); });
   }
 
   // Swap days: tap the button, then two days.
@@ -307,23 +390,53 @@
     if (swapMode === 'pick') { swapMode = dayId; renderWeek(); return; }
     const a = swapMode, b = dayId;
     [plan.days[a], plan.days[b]] = [plan.days[b], plan.days[a]];
-    swapMode = null; $('btnSwap').textContent = 'Swap days'; save(); toast('Swapped');
+    swapMode = null; $('btnSwap').textContent = 'Swap days'; save(); toast(a === b ? 'Same day, nothing swapped' : 'Swapped');
   }
 
-  // Budget target and week controls.
+  // Weekly section toggle
+  $('weeklyToggle').addEventListener('click', () => { ui.weeklyOpen = !ui.weeklyOpen; saveUi(); renderChecklist(); });
+
+  // Budget target
   $('btnBudget').addEventListener('click', () => {
     openSheet(`<h3>Budget target</h3><p class="hint">Groceries plus eating out, for the whole week.</p>` +
-      `<div class="amount-row">$ <input id="budgetInput" type="number" inputmode="decimal" min="0" step="5" value="${plan.budget}"><button type="button" class="btn" id="saveBudget">Save</button></div>` +
-      `<div class="bucket-title">This week</div><div class="row-actions"><button type="button" class="btn ghost" id="newWeek">Start a new week</button><button type="button" class="btn ghost" id="copyPlan">Copy plan as text</button></div>` +
-      `<p class="hint">New week clears the dinners, have-its and spent box, and keeps the budget and weekly checklist.</p>`);
+      `<div class="amount-row">$ <input id="budgetInput" type="number" inputmode="decimal" min="0" step="5" value="${plan.budget}"><button type="button" class="btn" id="saveBudget">Save</button></div>`);
     body.querySelector('#saveBudget').addEventListener('click', () => { plan.budget = Number(body.querySelector('#budgetInput').value || 0); save(); closeSheet(); });
-    body.querySelector('#newWeek').addEventListener('click', () => {
-      const next = new Date(plan.weekOf + 'T12:00:00'); next.setDate(next.getDate() + 7);
-      plan.weekOf = next.toISOString().slice(0, 10);
+  });
+
+  // New week: two taps, never one.
+  $('btnNewWeek').addEventListener('click', () => {
+    const nxt = new Date(nextSunday() + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    openSheet(`<h3>Start a new week?</h3><p class="hint">Clears the dinners, have-its and spent box. Keeps your budget and the Every week list. The new week starts Sunday ${nxt}.</p>` +
+      `<div class="row-actions"><button type="button" class="btn danger" id="confirmNew">Yes, clear the week</button><button type="button" class="btn ghost" id="cancelNew">Keep it</button></div>`);
+    body.querySelector('#cancelNew').addEventListener('click', closeSheet);
+    body.querySelector('#confirmNew').addEventListener('click', () => {
+      plan.weekOf = nextSunday();
       for (const day of DAYS) plan.days[day.id] = null;
-      plan.have = []; plan.packs = {}; plan.spent = null; plan.potluckTheme = ''; save(); closeSheet(); toast('New week');
+      plan.have = []; plan.packs = {}; plan.extras = {}; plan.spent = null; plan.potluckTheme = ''; save(); closeSheet(); toast('New week');
     });
-    body.querySelector('#copyPlan').addEventListener('click', () => copy(JSON.stringify(plan, null, 2), 'Plan copied'));
+  });
+
+  // Share: the whole plan rides in the link. Works phone to phone with no account.
+  function planText() {
+    const t = totals();
+    const lines = [`Dinner, week of ${plan.weekOf}`];
+    for (const day of DAYS) {
+      const d = plan.days[day.id];
+      lines.push(`${day.name}: ${!d ? 'nothing yet' : d.type === 'out' ? `${d.label} (${money(d.amount)})` : (meals[d.mealId] || {}).name || d.mealId}`);
+    }
+    lines.push('', `Groceries about ${money(t.groceries)}, eating out ${money(t.out)}, budget ${money(plan.budget)}`);
+    return lines.join('\n');
+  }
+  function shareUrl() {
+    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(plan)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return location.origin + location.pathname + '#p=' + b64;
+  }
+  $('btnShare').addEventListener('click', async () => {
+    const url = shareUrl(), text = planText();
+    if (navigator.share) {
+      try { await navigator.share({ title: 'Dinner this week', text, url }); return; } catch (e) { if (e.name === 'AbortError') return; }
+    }
+    copy(text + '\n\nOpen the plan: ' + url, 'Link copied. Text it to the other phone.');
   });
 
   $('spentInput').addEventListener('change', e => { plan.spent = e.target.value === '' ? null : Number(e.target.value); save(); });
@@ -367,7 +480,7 @@
     }
   }
   let toastTimer;
-  function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.remove('hidden'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.add('hidden'), 1800); }
+  function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.remove('hidden'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.add('hidden'), 2200); }
 
   render();
 })();

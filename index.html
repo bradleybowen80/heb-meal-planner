@@ -8,10 +8,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Dinner">
 <title>Dinner this week</title>
+<link rel="icon" href="icons/icon-180.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=9">
+<link rel="stylesheet" href="css/app.css?v=10">
 </head>
 <body>
 
@@ -36,10 +38,22 @@
 <main>
   <section class="view" id="viewPlan">
     <ol class="week" id="week"></ol>
+    <p class="section-hint fine">Day prices are what each dinner uses. The list rounds up to whole packages.</p>
 
-    <h2 class="section-title">Every week</h2>
-    <p class="section-hint">Set once. Tap the numbers to change how many.</p>
-    <div class="checklist" id="checklist"></div>
+    <button class="weekly-toggle" id="weeklyToggle" type="button" aria-expanded="false" aria-controls="weeklyBody">
+      <span class="chev" id="weeklyChevron">▸</span>
+      <span class="weekly-title">Every week</span>
+      <span class="weekly-summary" id="weeklySummary"></span>
+    </button>
+    <div id="weeklyBody" class="hidden">
+      <p class="section-hint">Breakfasts, lunches, snacks, drinks. Set once, tweak when needed.</p>
+      <div class="checklist" id="checklist"></div>
+    </div>
+
+    <div class="plan-actions">
+      <button class="btn" id="btnShare" type="button">Share plan</button>
+      <button class="btn ghost" id="btnNewWeek" type="button">Start a new week</button>
+    </div>
   </section>
 
   <section class="view hidden" id="viewList">
@@ -86,6 +100,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=9"></script>
+<script src="js/app.js?v=10"></script>
 </body>
 </html>
