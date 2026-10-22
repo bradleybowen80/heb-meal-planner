@@ -265,6 +265,110 @@
       ]
     },
     {
+      "key": "mandarins",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "10984012",
+          "name": "H-E-B Bella Mandarins (Cuties-style)",
+          "size": "3 lb bag"
+        }
+      ]
+    },
+    {
+      "key": "oranges",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "10986009",
+          "name": "H-E-B Fresh Navel Oranges",
+          "size": "4 lb bag"
+        }
+      ]
+    },
+    {
+      "key": "grapes-red",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1562550",
+          "name": "Fresh Red Seedless Grapes",
+          "size": "3 lb"
+        }
+      ]
+    },
+    {
+      "key": "grapes-green",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1266309",
+          "name": "Fresh White (Green) Seedless Grapes",
+          "size": "3 lb"
+        }
+      ]
+    },
+    {
+      "key": "strawberries",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "321286",
+          "name": "Fresh Strawberries",
+          "size": "1 lb"
+        }
+      ]
+    },
+    {
+      "key": "blueberries",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1146492",
+          "name": "Fresh Blueberries",
+          "size": "11 oz"
+        },
+        {
+          "hebId": "1669538",
+          "name": "Fresh Jumbo Blueberries",
+          "size": "9.8 oz"
+        }
+      ]
+    },
+    {
+      "key": "pears",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "320727",
+          "name": "Fresh Bartlett Pears",
+          "size": "3 lbs"
+        }
+      ]
+    },
+    {
+      "key": "pineapple",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "8630008",
+          "name": "H-E-B Fresh Premium Pineapple",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "watermelon-cut",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1196328",
+          "name": "H-E-B Fresh Cut Seedless Watermelon - Large",
+          "size": "Avg. 1.35 lbs"
+        }
+      ]
+    },
+    {
       "key": "bananas",
       "section": "Produce",
       "products": [
@@ -352,9 +456,21 @@
       "section": "Beverages",
       "products": [
         {
-          "hebId": "1580670",
-          "name": "Celsius Zero Sugar Sparkling Energy Drink - Orange",
-          "size": "12 oz can"
+          "hebId": "1256960",
+          "name": "Celsius Zero Sugar Sparkling Energy Drinks 4 pk - Wild Berry",
+          "size": "12 oz cans"
+        }
+      ],
+      "saleOnly": true
+    },
+    {
+      "key": "celsius-12",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "5850098",
+          "name": "Celsius Zero Sugar Variety Pack 12 pk",
+          "size": "12 oz cans"
         }
       ],
       "saleOnly": true
@@ -382,6 +498,108 @@
         }
       ],
       "saleOnly": true
+    },
+    {
+      "key": "bum-12",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "16106014",
+          "name": "BUM Energy Classic Soda Variety Pack 12 pk",
+          "size": "12 oz cans"
+        }
+      ],
+      "saleOnly": true
+    },
+    {
+      "key": "red-bull-sf",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "1059685",
+          "name": "Red Bull Sugar Free 4 pk Cans",
+          "size": "12 oz cans"
+        }
+      ],
+      "saleOnly": true
+    },
+    {
+      "key": "monster-ultra-12",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "4774005",
+          "name": "Monster Energy Zero Ultra Sugar Free 12 pk",
+          "size": "16 oz cans"
+        }
+      ],
+      "saleOnly": true
+    },
+    {
+      "key": "gatorade-zero",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "2764002",
+          "name": "Gatorade Zero Sugar Lemon Lime 8 pk Bottles",
+          "size": "20 oz bottles"
+        }
+      ]
+    },
+    {
+      "key": "sweet-tea",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "1540546",
+          "name": "H-E-B Texas-Style Brewed Sweet Iced Tea",
+          "size": "64 oz"
+        }
+      ]
+    },
+    {
+      "key": "diet-sweet-tea",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "1540553",
+          "name": "H-E-B Diet Texas-Style Brewed Sweet Iced Tea",
+          "size": "64 oz"
+        }
+      ]
+    },
+    {
+      "key": "pure-leaf-unsweet",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "1870737",
+          "name": "Pure Leaf Unsweetened Real Brewed Tea",
+          "size": "64 oz"
+        }
+      ]
+    },
+    {
+      "key": "diet-cola-cf",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "126850",
+          "name": "H-E-B Caffeine-Free Diet Original Cola 12 pk Cans",
+          "size": "12 oz cans"
+        }
+      ]
+    },
+    {
+      "key": "diet-cola",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "127787",
+          "name": "H-E-B Diet Original Cola 12 pk Cans",
+          "size": "12 oz cans"
+        }
+      ]
     },
     {
       "key": "gatorade",

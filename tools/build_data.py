@@ -38,6 +38,15 @@ RAW = [
     ("eggs",             "2177042",  "H-E-B Grade AA Cage Free Large White Eggs", "18 ct", "Dairy", "In Dairy on the Right Wall", 4.29, 4.29, "", None),
     ("whole-milk",       "314130",   "H-E-B Whole Milk", "1 gal", "Dairy", "In Dairy on the Back Wall", 2.82, 2.82, "coupon", "Buy Huggies diapers, get this free (exp 2026-11-03)"),
     ("white-bread",      "395830",   "H-E-B Round Top Large White Enriched Sliced Bread", "20 oz", "Bakery", "Aisle 6", 2.48, 2.48, "coupon", "2 for $4 when you buy 2 (exp 2026-11-03)"),
+    ("mandarins",        "10984012", "H-E-B Bella Mandarins (Cuties-style)", "3 lb bag", "Produce", "In Produce", 3.57, 2.97, "sale", None),
+    ("oranges",          "10986009", "H-E-B Fresh Navel Oranges", "4 lb bag", "Produce", "In Produce", 5.22, 5.22, "", None),
+    ("grapes-red",       "1562550",  "Fresh Red Seedless Grapes", "3 lb", "Produce", "In Produce on the Front Wall", 9.43, 9.43, "", None),
+    ("grapes-green",     "1266309",  "Fresh White (Green) Seedless Grapes", "3 lb", "Produce", "In Produce on the Front Wall", 9.43, 9.43, "", None),
+    ("strawberries",     "321286",   "Fresh Strawberries", "1 lb", "Produce", "In Produce on the Front Wall", 2.77, 2.77, "", None),
+    ("blueberries",      "1146492",  "Fresh Blueberries", "11 oz", "Produce", "In Produce on the Front Wall", 4.19, 4.19, "", None),
+    ("pears",            "320727",   "Fresh Bartlett Pears", "3 lbs", "Produce", "In Produce", 3.44, 3.44, "", None),
+    ("pineapple",        "8630008",  "H-E-B Fresh Premium Pineapple", "Each", "Produce", "In Produce", 4.70, 4.70, "", None),
+    ("watermelon-cut",   "1196328",  "H-E-B Fresh Cut Seedless Watermelon - Large", "Avg. 1.35 lbs", "Produce", "In Produce on the Front Wall", 6.02, 6.02, "", None),
     ("bananas",          "377497",   "Fresh Bunch of Bananas, 4-7 Bananas", "Avg. 2.4 lbs", "Produce", "In Produce", 1.18, 1.18, "", None),
     ("apples",           "12118021", "Rockit Fresh Miniature Apples", "3 lb", "Produce", "In Produce", 7.99, 7.99, "", None),
     ("butter",           "126467",   "H-E-B Sweet Cream Salted Butter Sticks", "4 ct", "Dairy", "In Dairy on the Right Wall", 3.98, 3.58, "pricecut", None),
@@ -45,9 +54,19 @@ RAW = [
     ("coffee",           "7421540",  "CAFE Olé by H-E-B Taste of DFW Medium Roast Ground Coffee", "12 oz", "Beverages", "Aisle 25", 8.98, 8.98, "coupon", "Buy 2, get free H-E-B Twisters cookies (exp 2026-11-03)"),
     ("protein-shakes",   "3766635",  "Slate High Protein Milk Shake - Classic Chocolate (20g)", "11 oz can", "Pantry", "Aisle 5", 3.28, 3.28, "", None),   # Brad: Slate 20g chocolate, sold single
     ("energy-drinks",    "1445080",  "Monster Energy Zero Sugar Energy Drink 4 pk Cans", "16 oz cans", "Beverages", "Aisle 27", 9.48, 9.48, "", None),
-    ("celsius",          "1580670",  "Celsius Zero Sugar Sparkling Energy Drink - Orange", "12 oz can", "Beverages", "Aisle 5", 2.57, 2.57, "", None),   # flavor: Brad to confirm
+    ("celsius",          "1256960",  "Celsius Zero Sugar Sparkling Energy Drinks 4 pk - Wild Berry", "12 oz cans", "Beverages", "Aisle 4", 7.75, 7.75, "", None),
+    ("celsius-12",       "5850098",  "Celsius Zero Sugar Variety Pack 12 pk", "12 oz cans", "Beverages", "Aisle 4", 22.54, 22.54, "", None),
     ("red-bull",         "1057226",  "Red Bull Original Energy Drink 4 pk Cans", "12 oz cans", "Beverages", "Aisle 27", 11.48, 11.48, "", None),
-    ("bum-energy",       "15819032", "BUM Energy Zero Sugar Energy Drink - Cola", "12 oz can", "Beverages", "Aisle 5", 1.94, 1.94, "", None),   # flavor: Brad to confirm
+    ("bum-energy",       "15819032", "BUM Energy Zero Sugar Energy Drink - Cola", "12 oz can", "Beverages", "Aisle 5", 1.94, 1.94, "", None),
+    ("bum-12",           "16106014", "BUM Energy Classic Soda Variety Pack 12 pk", "12 oz cans", "Beverages", "Aisle 4", 24.13, 24.13, "", None),
+    ("red-bull-sf",      "1059685",  "Red Bull Sugar Free 4 pk Cans", "12 oz cans", "Beverages", "Aisle 27", 12.05, 12.05, "", None),
+    ("monster-ultra-12", "4774005",  "Monster Energy Zero Ultra Sugar Free 12 pk", "16 oz cans", "Beverages", "Aisle 27", 25.18, 22.66, "pricecut", None),
+    ("gatorade-zero",    "2764002",  "Gatorade Zero Sugar Lemon Lime 8 pk Bottles", "20 oz bottles", "Beverages", "Aisle 24", 7.32, 7.32, "", None),
+    ("sweet-tea",        "1540546",  "H-E-B Texas-Style Brewed Sweet Iced Tea", "64 oz", "Beverages", "Aisle 24", 2.50, 2.50, "", None),
+    ("diet-sweet-tea",   "1540553",  "H-E-B Diet Texas-Style Brewed Sweet Iced Tea", "64 oz", "Beverages", "Aisle 24", 2.50, 2.50, "", None),
+    ("pure-leaf-unsweet","1870737",  "Pure Leaf Unsweetened Real Brewed Tea", "64 oz", "Beverages", "Aisle 24", 3.64, 3.64, "", None),
+    ("diet-cola-cf",     "126850",   "H-E-B Caffeine-Free Diet Original Cola 12 pk Cans", "12 oz cans", "Beverages", "Aisle 27", 5.00, 5.00, "", None),
+    ("diet-cola",        "127787",   "H-E-B Diet Original Cola 12 pk Cans", "12 oz cans", "Beverages", "Aisle 27", 5.00, 5.00, "", None),
     ("gatorade",         "149725",   "Gatorade Fruit Punch Thirst Quencher 8 pk Bottles", "20 oz bottles", "Beverages", "Aisle 24", 6.97, 6.97, "", None),   # flavor: Brad to confirm
     ("iced-tea",         "1540560",  "H-E-B Texas-Style Brewed Unsweet Iced Tea", "64 oz", "Beverages", "Aisle 24", 2.38, 2.38, "", None),
     ("goldfish",         "5808502",  "Goldfish Baked Cheddar Crackers - Family Size", "10 oz", "Snacks", "Aisle 11", 3.52, 3.52, "", None),
@@ -63,6 +82,9 @@ RAW = [
 # the first in-stock product that is on sale or price-cut; otherwise the first in-stock product.
 # Brad: "we like Rockit apples; when those are out of stock or Honeycrisp are on sale, Honeycrisp."
 ALTERNATES = {
+    "blueberries": [
+        ("1669538", "Fresh Jumbo Blueberries", "9.8 oz", "In Produce on the Front Wall", 5.62, 2.77, "sale", None),
+    ],
     "mexican-blend": [
         ("947310", "H-E-B Mexican Style Shredded Cheese Blend", "16 oz", "In Meat Market on the Back Wall", 4.97, 3.99, "sale", None),
     ],
@@ -72,7 +94,7 @@ ALTERNATES = {
 }
 
 # Staples Brad only buys at H-E-B when they're on sale (Costco in bulk otherwise).
-SALE_ONLY = {"energy-drinks", "celsius", "red-bull", "bum-energy"}
+SALE_ONLY = {"energy-drinks", "celsius", "celsius-12", "red-bull", "red-bull-sf", "bum-energy", "bum-12", "monster-ultra-12"}
 
 # Store-walk order for Main St, used by the Reminders export. Entrance is
 # Produce, then around the perimeter, then numbered aisles. Adjust once Brad

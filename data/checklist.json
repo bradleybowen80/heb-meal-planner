@@ -12,7 +12,17 @@
       "id": "fruit",
       "name": "Fruit",
       "items": [
-        "apples"
+        "apples",
+        "bananas",
+        "mandarins",
+        "oranges",
+        "grapes-red",
+        "grapes-green",
+        "strawberries",
+        "blueberries",
+        "pears",
+        "pineapple",
+        "watermelon-cut"
       ]
     },
     {
@@ -20,12 +30,22 @@
       "name": "Drinks",
       "items": [
         "energy-drinks",
+        "monster-ultra-12",
         "celsius",
+        "celsius-12",
         "red-bull",
+        "red-bull-sf",
         "bum-energy",
+        "bum-12",
         "gatorade",
+        "gatorade-zero",
         "iced-tea",
+        "sweet-tea",
+        "diet-sweet-tea",
+        "pure-leaf-unsweet",
         "heb-cola",
+        "diet-cola",
+        "diet-cola-cf",
         "coffee"
       ]
     },
@@ -51,6 +71,26 @@
     "red-bull": 0,
     "bum-energy": 0,
     "gatorade": 0,
-    "iced-tea": 0
+    "iced-tea": 0,
+    "bananas": 0,
+    "mandarins": 0,
+    "oranges": 0,
+    "grapes-red": 0,
+    "grapes-green": 0,
+    "strawberries": 0,
+    "blueberries": 0,
+    "pears": 0,
+    "pineapple": 0,
+    "watermelon-cut": 0,
+    "monster-ultra-12": 0,
+    "celsius-12": 0,
+    "red-bull-sf": 0,
+    "bum-12": 0,
+    "gatorade-zero": 0,
+    "sweet-tea": 0,
+    "diet-sweet-tea": 0,
+    "pure-leaf-unsweet": 0,
+    "diet-cola": 0,
+    "diet-cola-cf": 0
   }
 }
