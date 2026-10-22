@@ -446,7 +446,7 @@
         const keys = Object.keys(pantry).filter(k => !inCard.has(k)).sort((x, y) => pantry[x].name.localeCompare(pantry[y].name));
         openSheet(`<h3>Add to ${esc(draft.name || 'this card')}</h3><input class="search" id="cFind" type="search" placeholder="Search H-E-B items" autocomplete="off"><div id="cHits"></div>`);
         searchList(body.querySelector('#cFind'), body.querySelector('#cHits'), keys, 'ing', key => { draft.items.push({ key, qty: 1 }); paint(); }, () => keys.filter(k => flagsFor(k).sale));
-        setTimeout(() => body.querySelector('#cFind') && body.querySelector('#cFind').focus(), 50);
+        body.querySelector('#cFind').focus();
       });
       body.querySelector('#cCancel').addEventListener('click', closeSheet);
       body.querySelector('#cSave').addEventListener('click', async () => {
@@ -527,6 +527,7 @@
       const m = pool[Math.floor(Math.random() * pool.length)];
       plan.days[day.id] = { type: 'meal', mealId: m.id, dropped: [], qty: {}, added: [] }; used.add(m.id); n++;
     }
+    if (n && navigator.vibrate) navigator.vibrate([30, 50, 30]);
     save(); toast(n ? `Filled ${n} night${n > 1 ? 's' : ''}. Tap any day to swap it.` : 'Nothing to fill');
   }
 
@@ -847,7 +848,7 @@
     searchList(body.querySelector('#ingFind'), body.querySelector('#ingHits'), keys, 'ing', key => {
       d.added = [...(d.added || []), { key, qty: 1 }]; d.dropped = (d.dropped || []).filter(k => k !== key); save(); openMealEditor(dayId);
     }, () => keys.filter(k => flagsFor(k).sale));
-    setTimeout(() => body.querySelector('#ingFind') && body.querySelector('#ingFind').focus(), 50);
+    body.querySelector('#ingFind').focus();
   }
 
   function openDeal(key) {
