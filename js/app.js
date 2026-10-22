@@ -133,7 +133,7 @@
     const ha = new Set(a.have || []), hb = new Set(b.have || []);
     for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
     for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
-    for (const k of ['spent', 'budget', 'potluckTheme', 'weekOf', 'mealsVersion', 'refreshRequested']) if (!same(a[k], b[k])) out.push([k]);
+    for (const k of ['spent', 'budget', 'potluckTheme', 'weekOf', 'mealsVersion']) if (!same(a[k], b[k])) out.push([k]);
     return out;
   }
   function applyPaths(from, to, paths) {
@@ -609,17 +609,11 @@
   function renderPulled() {
     const pulled = new Date(pricesDoc.pulled + 'T12:00:00'); const days = Math.floor((Date.now() - pulled) / 864e5);
     const stale = days >= 7;
-    const req = plan.refreshRequested && Date.now() - plan.refreshRequested < 864e5 * 2;
     const when = pulled.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-    const html = `<span class="big">H-E-B prices refreshed ${when}</span>` +
-      (req ? `<span class="why">Refresh requested</span>` : `<button type="button" class="btn small" data-refresh>Refresh prices</button>`) +
-      `<span class="fine">${stale ? 'Older than this week\'s ad. ' : ''}${days === 0 ? 'Pulled today.' : days + ' day' + (days === 1 ? '' : 's') + ' old.'} Refreshing runs on the desktop computer through Claude; the button here just asks for it. Tapping it on a phone won't do anything by itself.</span>`;
-    for (const id of ['pulled', 'pulledList']) {
-      const el = $(id); if (!el) continue;
-      el.className = 'pulled' + (stale ? ' stale' : ''); el.innerHTML = html;
-      const b = el.querySelector('[data-refresh]');
-      if (b) b.addEventListener('click', () => { plan.refreshRequested = Date.now(); save(); toast('Requested. Claude pulls the ad on the desktop.'); });
-    }
+    const age = days === 0 ? 'today' : days + ' day' + (days === 1 ? '' : 's') + ' ago';
+    const html = `<span class="big">Prices from H-E-B Main St · ${when} (${age})</span>` +
+      `<span class="fine">${stale ? 'That\'s older than this week\'s ad. ' : ''}To update: Brad tells Claude "refresh prices" on the desktop. It takes about a minute, then every phone shows the new ad.</span>`;
+    for (const id of ['pulled', 'pulledList']) { const el = $(id); if (!el) continue; el.className = 'pulled' + (stale ? ' stale' : ''); el.innerHTML = html; }
   }
   function setPacks(key, n, base) { plan.packs[key] = { packs: n, base }; save(); }
 
