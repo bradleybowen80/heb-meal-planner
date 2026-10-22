@@ -328,7 +328,12 @@
   }
 
   // ---------- render ----------
-  const PROTEIN = { 'ground-beef': 'beef', 'chicken-breast': 'chicken', 'kevins-chicken': 'chicken', 'eggs': 'egg', 'frozen-pizza': 'pizza', 'string-cheese': 'cheese' };
+  const PROTEIN = {
+    'ground-beef': 'beef', 'ground-beef-85': 'beef', 'ground-beef-90': 'beef', ribeye: 'beef', 'ny-strip': 'beef', sirloin: 'beef', 'flank-steak': 'beef', 'skirt-steak': 'beef',
+    'pork-chops': 'pork', 'pork-tenderloin': 'pork', 'pork-loin': 'pork', 'pork-sausage': 'pork', bacon: 'pork',
+    'chicken-breast': 'chicken', 'kevins-chicken': 'chicken', 'thighs-boneless': 'chicken', 'thighs-bonein': 'chicken', 'ground-chicken': 'chicken',
+    'ground-turkey': 'turkey', salmon: 'fish', catfish: 'fish', shrimp: 'shrimp', eggs: 'egg', 'frozen-pizza': 'pizza',
+  };
   const cardTags = m => [...new Set((m.tags || []).concat(m.items.map(it => PROTEIN[it.key]).filter(Boolean)))];
   const mealFilter = { kind: 'all', tag: 'any', q: '' };
   function renderCatalog() {

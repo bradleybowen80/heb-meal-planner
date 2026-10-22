@@ -9,6 +9,7 @@
     "Bakery",
     "Meal Simple",
     "Meat",
+    "Seafood",
     "Dairy",
     "Pantry",
     "Snacks",
@@ -697,6 +698,1249 @@
           "hebId": "127074",
           "name": "H-E-B Extra Virgin Olive Oil",
           "size": "17 oz"
+        }
+      ]
+    },
+    {
+      "key": "ground-beef-85",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "312957",
+          "name": "H-E-B 100% Pure Ground Beef Round, 85% Lean",
+          "size": "1 lb"
+        }
+      ]
+    },
+    {
+      "key": "ground-beef-90",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "312958",
+          "name": "H-E-B 100% Pure Ground Beef Sirloin, 90% Lean",
+          "size": "1 lb"
+        }
+      ]
+    },
+    {
+      "key": "ribeye",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "371743",
+          "name": "H-E-B Boneless Beef Ribeye Steak, Thick Cut",
+          "size": "Avg. 1.0 lb"
+        }
+      ]
+    },
+    {
+      "key": "ny-strip",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "371801",
+          "name": "H-E-B Boneless Beef New York Strip Steak",
+          "size": "Avg. 0.65 lb"
+        }
+      ]
+    },
+    {
+      "key": "sirloin",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "371837",
+          "name": "H-E-B Beef Top Sirloin Steak Center Cut Value Pack",
+          "size": "Avg. 2.31 lbs"
+        }
+      ]
+    },
+    {
+      "key": "flank-steak",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "371450",
+          "name": "H-E-B Beef Flank Steak",
+          "size": "Avg. 1.21 lbs"
+        }
+      ]
+    },
+    {
+      "key": "skirt-steak",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "371434",
+          "name": "H-E-B Beef Inside Skirt Steak",
+          "size": "Avg. 0.87 lb"
+        }
+      ]
+    },
+    {
+      "key": "pork-chops",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "372693",
+          "name": "H-E-B Boneless Center Loin Pork Chops - Value Pack",
+          "size": "Avg. 1.64 lbs"
+        }
+      ]
+    },
+    {
+      "key": "pork-tenderloin",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "960257",
+          "name": "H-E-B Natural Pork Tenderloin",
+          "size": "Avg. 1.27 lbs"
+        }
+      ]
+    },
+    {
+      "key": "pork-loin",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "372757",
+          "name": "H-E-B Boneless Center Cut Pork Loin Roast",
+          "size": "Avg. 2.72 lbs"
+        }
+      ]
+    },
+    {
+      "key": "pork-sausage",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "126264",
+          "name": "H-E-B Premium Pork Breakfast Sausage - Regular",
+          "size": "32 oz"
+        }
+      ]
+    },
+    {
+      "key": "thighs-boneless",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "790544",
+          "name": "H-E-B Natural Boneless Skinless Chicken Thighs",
+          "size": "Avg. 2.0 lbs"
+        }
+      ]
+    },
+    {
+      "key": "thighs-bonein",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "684585",
+          "name": "H-E-B Natural Bone-in Skin-on Chicken Thighs",
+          "size": "Avg. 2.15 lbs"
+        }
+      ]
+    },
+    {
+      "key": "ground-chicken",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "938526",
+          "name": "H-E-B Ground Chicken Breast, 97% Lean",
+          "size": "Avg. 1.0 lb"
+        }
+      ]
+    },
+    {
+      "key": "ground-turkey",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "529848",
+          "name": "H-E-B Ground Turkey, 93% Lean",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "salmon",
+      "section": "Seafood",
+      "products": [
+        {
+          "hebId": "3608031",
+          "name": "H-E-B Responsibly Raised Fresh Atlantic Salmon Fillet",
+          "size": "per lb"
+        }
+      ]
+    },
+    {
+      "key": "catfish",
+      "section": "Seafood",
+      "products": [
+        {
+          "hebId": "373281",
+          "name": "H-E-B Fish Market Fresh Catfish Fillet",
+          "size": "per lb"
+        }
+      ]
+    },
+    {
+      "key": "shrimp",
+      "section": "Seafood",
+      "products": [
+        {
+          "hebId": "4725053",
+          "name": "H-E-B Wild Caught Frozen Peeled Large Texas Gulf Raw Shrimp",
+          "size": "1 lb"
+        }
+      ]
+    },
+    {
+      "key": "russet",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "318997",
+          "name": "H-E-B Texas Roots Fresh Russet Potatoes",
+          "size": "5 lb bag"
+        }
+      ]
+    },
+    {
+      "key": "gold-potatoes",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "591301",
+          "name": "Fresh Gold Potatoes",
+          "size": "5 lb bag"
+        }
+      ]
+    },
+    {
+      "key": "sweet-potato",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "318978",
+          "name": "Fresh Sweet Potato",
+          "size": "Avg. 0.87 lb"
+        }
+      ]
+    },
+    {
+      "key": "basmati",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2057447",
+          "name": "H-E-B Extra Long Grain Basmati Rice",
+          "size": "2 lbs"
+        }
+      ]
+    },
+    {
+      "key": "oats",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1527031",
+          "name": "H-E-B Old Fashioned Oats",
+          "size": "42 oz"
+        }
+      ]
+    },
+    {
+      "key": "sourdough",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "2112928",
+          "name": "H-E-B Bakery Scratch Round Sourdough Bread",
+          "size": "22 oz"
+        }
+      ]
+    },
+    {
+      "key": "ezekiel",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "178352",
+          "name": "Food For Life Ezekiel 4:9 Sprouted Grain Bread",
+          "size": "24 oz"
+        }
+      ]
+    },
+    {
+      "key": "siete",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "2059978",
+          "name": "Siete Almond Flour Grain Free Tortillas",
+          "size": "8 ct"
+        }
+      ]
+    },
+    {
+      "key": "corn-tortillas",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "3989007",
+          "name": "H-E-B Street Taco White Corn Tortillas",
+          "size": "24 ct"
+        }
+      ]
+    },
+    {
+      "key": "wheat-bread",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "672611",
+          "name": "H-E-B 100% Whole Wheat Sliced Bread",
+          "size": "20 oz"
+        }
+      ]
+    },
+    {
+      "key": "burger-buns",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "5635588",
+          "name": "H-E-B Bakery Brioche Hamburger Buns",
+          "size": "4 ct"
+        }
+      ]
+    },
+    {
+      "key": "penne",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1567265",
+          "name": "H-E-B Penne Rigate Pasta Noodles",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "rigatoni",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2151937",
+          "name": "H-E-B Rigatoni Pasta Noodles",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "butternut",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "318866",
+          "name": "Fresh Butternut Squash",
+          "size": "Avg. 3.2 lbs"
+        }
+      ]
+    },
+    {
+      "key": "acorn-squash",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374723",
+          "name": "Fresh Acorn Squash",
+          "size": "Avg. 1.67 lbs"
+        }
+      ]
+    },
+    {
+      "key": "spaghetti-squash",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "318864",
+          "name": "Fresh Spaghetti Squash",
+          "size": "Avg. 3.18 lbs"
+        }
+      ]
+    },
+    {
+      "key": "peas",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "125656",
+          "name": "H-E-B Frozen Green Peas",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "corn",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "126276",
+          "name": "H-E-B Frozen Super Sweet Corn",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "raspberries",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "321289",
+          "name": "Fresh Raspberries",
+          "size": "6 oz"
+        }
+      ]
+    },
+    {
+      "key": "blackberries",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "321290",
+          "name": "Fresh Blackberries",
+          "size": "6 oz"
+        }
+      ]
+    },
+    {
+      "key": "dates",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1623373",
+          "name": "Natural Delights Fresh Pitted Medjool Dates",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "peaches",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "320978",
+          "name": "H-E-B Yellow Peach",
+          "size": "Avg. 0.53 lb"
+        }
+      ]
+    },
+    {
+      "key": "honey",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1626659",
+          "name": "H-E-B Texas Wildflower Honey",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "yogurt",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "313850",
+          "name": "Dannon Whole Milk Plain Yogurt",
+          "size": "32 oz"
+        }
+      ]
+    },
+    {
+      "key": "kerrygold",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "1507870",
+          "name": "Kerrygold Grass-Fed Pure Irish Butter",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "ghee",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1928167",
+          "name": "4th & Heart Ghee Clarified Butter - Original",
+          "size": "9 oz"
+        }
+      ]
+    },
+    {
+      "key": "tallow",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "15798526",
+          "name": "Real Good Foods Co. Angus Beef Tallow Cooking Oil",
+          "size": "14 oz"
+        }
+      ]
+    },
+    {
+      "key": "avocado-oil",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "3677516",
+          "name": "H-E-B Avocado Oil",
+          "size": "51 oz"
+        }
+      ]
+    },
+    {
+      "key": "coconut-oil",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1936524",
+          "name": "H-E-B Organics Refined Coconut Oil",
+          "size": "56 oz"
+        }
+      ]
+    },
+    {
+      "key": "avocados",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "6180070",
+          "name": "H-E-B Fresh Hass Avocados",
+          "size": "5 ct"
+        }
+      ]
+    },
+    {
+      "key": "monterey-jack",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "126021",
+          "name": "H-E-B Monterey Jack Shredded Cheese",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "mozzarella",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "1638093",
+          "name": "H-E-B Low Moisture Whole Mozzarella Shredded Cheese",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "bacon",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "1475819",
+          "name": "H-E-B Original Bacon",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "heavy-cream",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "676456",
+          "name": "H-E-B Heavy Whipping Cream",
+          "size": "32 oz"
+        }
+      ]
+    },
+    {
+      "key": "half-and-half",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "583960",
+          "name": "H-E-B Half & Half",
+          "size": "32 oz"
+        }
+      ]
+    },
+    {
+      "key": "pistachios",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "15341015",
+          "name": "Wonderful Unsalted No Shells Pistachios",
+          "size": "6 oz"
+        }
+      ]
+    },
+    {
+      "key": "walnuts",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1627673",
+          "name": "H-E-B Walnut Halves & Pieces",
+          "size": "11 oz"
+        }
+      ]
+    },
+    {
+      "key": "macadamias",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "13948511",
+          "name": "H-E-B Macadamia Nuts",
+          "size": "6 oz"
+        }
+      ]
+    },
+    {
+      "key": "raos",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "540107",
+          "name": "Rao's Homemade Marinara Sauce",
+          "size": "24 oz"
+        }
+      ]
+    },
+    {
+      "key": "cauliflower",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "319058",
+          "name": "Fresh Cauliflower",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "riced-cauliflower",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "2233669",
+          "name": "H-E-B Frozen Riced Cauliflower",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "asparagus",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "319073",
+          "name": "Fresh Asparagus Bunch",
+          "size": "Avg. 1.1 lbs"
+        }
+      ]
+    },
+    {
+      "key": "brussels",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "605648",
+          "name": "Fresh Brussels Sprouts",
+          "size": "1 lb bag"
+        }
+      ]
+    },
+    {
+      "key": "green-beans",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374816",
+          "name": "Fresh Green Beans",
+          "size": "Avg. 1.5 lbs"
+        }
+      ]
+    },
+    {
+      "key": "mushrooms",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "319809",
+          "name": "Fresh Whole White Mushrooms",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "cremini",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "481068",
+          "name": "Fresh Sliced Baby Bella Mushrooms",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "white-onions",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1286065",
+          "name": "Fresh White Onions",
+          "size": "3 lb bag"
+        }
+      ]
+    },
+    {
+      "key": "red-onion",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "325170",
+          "name": "Fresh Red Onion",
+          "size": "Avg. 1.0 lb"
+        }
+      ]
+    },
+    {
+      "key": "green-onions",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374854",
+          "name": "Fresh Green Onions",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "bell-peppers",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "4915011",
+          "name": "H-E-B Fresh Sunrise Bell Peppers (red, yellow, orange)",
+          "size": "3 ct"
+        }
+      ]
+    },
+    {
+      "key": "green-bell-peppers",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1943983",
+          "name": "Fresh Green Bell Peppers",
+          "size": "3 ct"
+        }
+      ]
+    },
+    {
+      "key": "spinach",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "984624",
+          "name": "H-E-B Fresh Baby Spinach",
+          "size": "6 oz"
+        }
+      ]
+    },
+    {
+      "key": "romaine",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "319730",
+          "name": "Fresh Romaine Lettuce Hearts",
+          "size": "3 pk"
+        }
+      ]
+    },
+    {
+      "key": "arugula",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "2956624",
+          "name": "B&W Fresh Baby Arugula",
+          "size": "4 oz"
+        }
+      ]
+    },
+    {
+      "key": "kale",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1738190",
+          "name": "H-E-B Texas Roots Fresh Kale Greens",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "celery",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "325173",
+          "name": "Fresh Celery Stalk",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "baby-carrots",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "4833574",
+          "name": "H-E-B Fresh Baby Carrots",
+          "size": "1 lb"
+        }
+      ]
+    },
+    {
+      "key": "radishes",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "11439511",
+          "name": "H-E-B Fresh Red Radishes",
+          "size": "1 lb bag"
+        }
+      ]
+    },
+    {
+      "key": "green-cabbage",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374791",
+          "name": "Fresh Green Cabbage",
+          "size": "Avg. 2.75 lbs"
+        }
+      ]
+    },
+    {
+      "key": "red-cabbage",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374790",
+          "name": "Fresh Red Cabbage",
+          "size": "Avg. 2.38 lbs"
+        }
+      ]
+    },
+    {
+      "key": "palmini",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "6631520",
+          "name": "Palmini Hearts of Palm Angel Hair",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "cilantro",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "325175",
+          "name": "Fresh Cilantro",
+          "size": "1 bunch"
+        }
+      ]
+    },
+    {
+      "key": "parsley",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "319480",
+          "name": "Fresh Italian Parsley",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "basil",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1926156",
+          "name": "Fresh Aqua-dome Basil",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "dill",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "16845012",
+          "name": "Goodness Gardens Fresh Dill",
+          "size": "0.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "sparkling-water",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "909594",
+          "name": "H-E-B Unsweetened Unflavored Sparkling Water 12 pk",
+          "size": "12 oz cans"
+        }
+      ]
+    },
+    {
+      "key": "yellow-mustard",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1762752",
+          "name": "H-E-B Yellow Mustard",
+          "size": "14 oz"
+        }
+      ]
+    },
+    {
+      "key": "brown-mustard",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1762750",
+          "name": "H-E-B Spicy Brown Mustard",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "cucumber",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "319432",
+          "name": "Fresh Cucumber",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "english-cucumber",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "319426",
+          "name": "Fresh Seedless (English) Cucumber",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "mini-cucumbers",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "4915012",
+          "name": "H-E-B Fresh Mini Seedless Cucumbers",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "jalapenos",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374686",
+          "name": "Fresh Jalape\u00f1o Pepper",
+          "size": "Avg. 0.165 lb"
+        }
+      ]
+    },
+    {
+      "key": "serranos",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374707",
+          "name": "Fresh Serrano Pepper",
+          "size": "Avg. 0.03 lb"
+        }
+      ]
+    },
+    {
+      "key": "red-bell",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "325164",
+          "name": "Fresh Red Bell Pepper",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "zucchini",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374744",
+          "name": "Fresh Zucchini Squash",
+          "size": "Avg. 0.45 lb"
+        }
+      ]
+    },
+    {
+      "key": "yellow-squash",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374745",
+          "name": "Fresh Yellow Squash",
+          "size": "Avg. 0.45 lb"
+        }
+      ]
+    },
+    {
+      "key": "lemons",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "5695503",
+          "name": "H-E-B Fresh Lemons",
+          "size": "2 lb bag"
+        }
+      ]
+    },
+    {
+      "key": "limes",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "442356",
+          "name": "Fresh Lime",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "acv",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "184255",
+          "name": "Bragg Organic Apple Cider Vinegar with The Mother",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "red-wine-vinegar",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1778967",
+          "name": "H-E-B Red Wine Vinegar",
+          "size": "16.9 oz"
+        }
+      ]
+    },
+    {
+      "key": "white-vinegar",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "28184",
+          "name": "Heinz Distilled White Vinegar",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "franks",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "130312",
+          "name": "Frank's RedHot Original Cayenne Pepper Hot Sauce",
+          "size": "12 fl oz"
+        }
+      ]
+    },
+    {
+      "key": "tabasco",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "22772",
+          "name": "Tabasco Original Red Pepper Sauce",
+          "size": "5 oz"
+        }
+      ]
+    },
+    {
+      "key": "cholula",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "146593",
+          "name": "Cholula Original Hot Sauce",
+          "size": "5 oz"
+        }
+      ]
+    },
+    {
+      "key": "kosher-salt",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "88966",
+          "name": "Morton Coarse Kosher Salt",
+          "size": "3 lb"
+        }
+      ]
+    },
+    {
+      "key": "sea-salt",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1165092",
+          "name": "Morton Fine Sea Salt",
+          "size": "17.6 oz"
+        }
+      ]
+    },
+    {
+      "key": "black-pepper",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "123909",
+          "name": "H-E-B Pure Ground Black Pepper",
+          "size": "2 oz"
+        }
+      ]
+    },
+    {
+      "key": "garlic-powder",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1627075",
+          "name": "H-E-B California Garlic Powder",
+          "size": "2.35 oz"
+        }
+      ]
+    },
+    {
+      "key": "onion-powder",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "8728043",
+          "name": "H-E-B Onion Powder",
+          "size": "2.4 oz"
+        }
+      ]
+    },
+    {
+      "key": "cumin",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1627063",
+          "name": "H-E-B Ground Cumin",
+          "size": "1.8 oz"
+        }
+      ]
+    },
+    {
+      "key": "smoked-paprika",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "8709004",
+          "name": "H-E-B Smoked Paprika",
+          "size": "0.7 oz"
+        }
+      ]
+    },
+    {
+      "key": "chili-powder",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2768055",
+          "name": "McCormick Chili Powder",
+          "size": "2.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "oregano",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1627072",
+          "name": "H-E-B Oregano Leaves",
+          "size": "0.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "turmeric",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "8709002",
+          "name": "H-E-B Ground Turmeric",
+          "size": "1 oz"
+        }
+      ]
+    },
+    {
+      "key": "green-tea",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "1644005",
+          "name": "H-E-B Green Tea Bags",
+          "size": "40 ct"
         }
       ]
     }

@@ -22,7 +22,11 @@
         "blueberries",
         "pears",
         "pineapple",
-        "watermelon-cut"
+        "watermelon-cut",
+        "raspberries",
+        "blackberries",
+        "peaches",
+        "dates"
       ]
     },
     {
@@ -46,7 +50,9 @@
         "heb-cola",
         "diet-cola",
         "diet-cola-cf",
-        "coffee"
+        "coffee",
+        "sparkling-water",
+        "green-tea"
       ]
     },
     {
@@ -91,6 +97,12 @@
     "diet-sweet-tea": 0,
     "pure-leaf-unsweet": 0,
     "diet-cola": 0,
-    "diet-cola-cf": 0
+    "diet-cola-cf": 0,
+    "raspberries": 0,
+    "blackberries": 0,
+    "peaches": 0,
+    "dates": 0,
+    "sparkling-water": 0,
+    "green-tea": 0
   }
 }
