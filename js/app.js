@@ -17,6 +17,8 @@
   };
   const STORE_KEY = 'hmp.plan.v1';
   const UI_KEY = 'hmp.ui.v1';
+  const FAM_KEY = 'hmp.family';
+  const DB = 'https://heb-meal-planner-abf0c-default-rtdb.firebaseio.com';
 
   // ---------- data ----------
   const [pantryDoc, mealsDoc, pricesDoc, checklistDoc, planSeed] = await Promise.all(
@@ -27,19 +29,21 @@
   const meals = Object.fromEntries(mealsDoc.meals.map(m => [m.id, m]));
   const sectionOrder = pantryDoc.sectionOrder;
 
-  // A shared plan arrives in the URL hash (#p=...). It wins over whatever this phone had.
-  let plan = importFromHash() || loadPlan();
-  function importFromHash() {
-    const m = location.hash.match(/^#p=(.+)$/);
-    if (!m) return null;
-    try {
-      const json = decodeURIComponent(escape(atob(m[1].replace(/-/g, '+').replace(/_/g, '/'))));
-      const p = JSON.parse(json);
-      history.replaceState(null, '', location.pathname + location.search);
-      setTimeout(() => toast('Loaded the shared plan'), 300);
-      return normalize(p);
-    } catch (e) { return null; }
-  }
+  // Family key: a long random code that names this family's spot in the database.
+  // It rides in the share link (?f=...). Anyone with the link sees the same plan.
+  const family = (() => {
+    const fromUrl = new URLSearchParams(location.search).get('f');
+    let key = null;
+    try { key = localStorage.getItem(FAM_KEY); } catch (e) { /* ignore */ }
+    if (fromUrl && /^[A-Za-z0-9_-]{20,}$/.test(fromUrl) && fromUrl !== key) { key = fromUrl; setTimeout(() => toast('Joined the shared plan'), 400); }
+    if (!key) key = [...crypto.getRandomValues(new Uint8Array(18))].map(b => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[b % 62]).join('');
+    try { localStorage.setItem(FAM_KEY, key); } catch (e) { /* ignore */ }
+    if (fromUrl) history.replaceState(null, '', location.pathname);
+    return key;
+  })();
+  const remoteUrl = path => `${DB}/families/${family}/${path}.json`;
+
+  let plan = loadPlan();
   function loadPlan() {
     try {
       const saved = JSON.parse(localStorage.getItem(STORE_KEY));
@@ -54,8 +58,57 @@
     p.budget = Number(p.budget || 0); p.potluckTheme = p.potluckTheme || '';
     return p;
   }
-  function persist() { try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* private mode */ } }
+  function persist() { plan.updatedAt = Date.now(); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* private mode */ } queuePush(); }
   function save() { persist(); render(); }
+
+  // ---------- sync ----------
+  // The database holds one copy of the plan per family. Every change here is pushed within
+  // half a second; every few seconds we check for changes from the other phone. Newest wins.
+  let pushTimer = null, dirty = false, etag = null, syncState = 'idle';
+  function setSync(state) { syncState = state; const el = $('syncDot'); if (!el) return; el.className = 'sync ' + state; el.title = { ok: 'Synced', saving: 'Saving', offline: 'Offline, will retry', idle: '' }[state] || ''; }
+  function queuePush() { dirty = true; clearTimeout(pushTimer); pushTimer = setTimeout(push, 400); }
+  async function push() {
+    if (!dirty) return; dirty = false; setSync('saving');
+    try {
+      const r = await fetch(remoteUrl('plan'), { method: 'PUT', body: JSON.stringify(plan), headers: { 'X-Firebase-ETag': 'true' } });
+      if (!r.ok) throw new Error(r.status);
+      etag = r.headers.get('ETag'); setSync('ok');
+    } catch (e) { dirty = true; setSync('offline'); }
+  }
+  // Swap the plan's contents without changing the object, so open drawers keep working.
+  function adopt(remote) { for (const k of Object.keys(plan)) delete plan[k]; Object.assign(plan, normalize(remote)); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* ignore */ } }
+  async function pull(first) {
+    try {
+      const r = await fetch(remoteUrl('plan'), { cache: 'no-store', headers: etag ? { 'X-Firebase-ETag': 'true', 'If-None-Match': etag } : { 'X-Firebase-ETag': 'true' } });
+      if (r.status === 304) { if (syncState !== 'saving' && !dirty) setSync('ok'); return; }
+      if (!r.ok) throw new Error(r.status);
+      etag = r.headers.get('ETag');
+      const remote = await r.json();
+      if (remote && (remote.updatedAt || 0) > (plan.updatedAt || 0)) {
+        adopt(remote); render(); if (!first) toast('Updated from the other phone');
+      } else if (!remote || (plan.updatedAt || 0) > (remote.updatedAt || 0)) {
+        dirty = true; push();   // this phone is newer (or the database is empty): send ours up
+      }
+      if (!dirty) setSync('ok');
+    } catch (e) { setSync('offline'); }
+  }
+  setInterval(() => { if (document.visibilityState === 'visible') { if (dirty) push(); else pull(false); } }, 4000);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pull(false); });
+  window.addEventListener('online', () => { if (dirty) push(); else pull(false); });
+
+  // Past weeks live under families/<key>/weeks/<weekOf>.
+  async function archiveWeek() {
+    const t = totals();
+    const snap = { weekOf: plan.weekOf, days: plan.days, potluckTheme: plan.potluckTheme, budget: plan.budget, spent: plan.spent, groceries: Math.round(t.groceries * 100) / 100, out: t.out, savedAt: Date.now() };
+    try { localStorage.setItem('hmp.week.' + plan.weekOf, JSON.stringify(snap)); } catch (e) { /* ignore */ }
+    try { await fetch(remoteUrl('weeks/' + plan.weekOf), { method: 'PUT', body: JSON.stringify(snap) }); } catch (e) { /* offline: the local copy stays */ }
+  }
+  async function loadWeeks() {
+    let weeks = {};
+    try { const r = await fetch(remoteUrl('weeks'), { cache: 'no-store' }); if (r.ok) weeks = (await r.json()) || {}; } catch (e) { /* offline */ }
+    try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith('hmp.week.')) { const w = JSON.parse(localStorage.getItem(k)); if (!weeks[w.weekOf]) weeks[w.weekOf] = w; } } } catch (e) { /* ignore */ }
+    return Object.values(weeks).sort((a, b) => b.weekOf.localeCompare(a.weekOf));
+  }
   let ui = { weeklyOpen: false };
   try { ui = { ...ui, ...JSON.parse(localStorage.getItem(UI_KEY) || '{}') }; } catch (e) { /* ignore */ }
   const saveUi = () => { try { localStorage.setItem(UI_KEY, JSON.stringify(ui)); } catch (e) { /* ignore */ } };
@@ -409,7 +462,8 @@
     openSheet(`<h3>Start a new week?</h3><p class="hint">Clears the dinners, have-its and spent box. Keeps your budget and the Every week list. The new week starts Sunday ${nxt}.</p>` +
       `<div class="row-actions"><button type="button" class="btn danger" id="confirmNew">Yes, clear the week</button><button type="button" class="btn ghost" id="cancelNew">Keep it</button></div>`);
     body.querySelector('#cancelNew').addEventListener('click', closeSheet);
-    body.querySelector('#confirmNew').addEventListener('click', () => {
+    body.querySelector('#confirmNew').addEventListener('click', async () => {
+      await archiveWeek();
       plan.weekOf = nextSunday();
       for (const day of DAYS) plan.days[day.id] = null;
       plan.have = []; plan.packs = {}; plan.extras = {}; plan.spent = null; plan.potluckTheme = ''; save(); closeSheet(); toast('New week');
@@ -427,16 +481,34 @@
     lines.push('', `Groceries about ${money(t.groceries)}, eating out ${money(t.out)}, budget ${money(plan.budget)}`);
     return lines.join('\n');
   }
-  function shareUrl() {
-    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(plan)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    return location.origin + location.pathname + '#p=' + b64;
-  }
+  const shareUrl = () => location.origin + location.pathname + '?f=' + family;
   $('btnShare').addEventListener('click', async () => {
     const url = shareUrl(), text = planText();
     if (navigator.share) {
       try { await navigator.share({ title: 'Dinner this week', text, url }); return; } catch (e) { if (e.name === 'AbortError') return; }
     }
-    copy(text + '\n\nOpen the plan: ' + url, 'Link copied. Text it to the other phone.');
+    copy(text + '\n\nOpen the plan: ' + url, 'Link copied. Text it to the other phone; it stays in sync after that.');
+  });
+
+  // Past weeks: look back, or copy a week's dinners into this one.
+  $('btnPast').addEventListener('click', async () => {
+    openSheet(`<h3>Past weeks</h3><p class="hint">Loading…</p>`);
+    const weeks = await loadWeeks();
+    if (!weeks.length) { body.innerHTML = `<h3>Past weeks</h3><div class="empty-bucket">Nothing yet. Weeks land here when you tap Start a new week.</div>`; return; }
+    let html = `<h3>Past weeks</h3><p class="hint">Tap a week to copy its dinners into this week.</p>`;
+    for (const w of weeks) {
+      const wk = new Date(w.weekOf + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      const dinners = DAYS.map(day => { const d = w.days && w.days[day.id]; return !d ? null : d.type === 'out' ? `${day.name} ${d.label}` : `${day.name} ${(meals[d.mealId] || {}).name || d.mealId}`; }).filter(Boolean);
+      html += `<button type="button" class="option" data-week="${esc(w.weekOf)}"><div><div class="option-name">Week of ${wk}${w.potluckTheme ? ' · potluck: ' + esc(w.potluckTheme) : ''}</div>` +
+        `<div class="option-sub">${esc(dinners.join(' · ') || 'nothing planned')}</div></div>` +
+        `<div class="option-price">${money(w.groceries || 0)}${w.spent != null ? `<div class="li-sub">spent ${money(w.spent)}</div>` : ''}</div></button>`;
+    }
+    body.innerHTML = html;
+    body.querySelectorAll('[data-week]').forEach(b => b.addEventListener('click', () => {
+      const w = weeks.find(x => x.weekOf === b.dataset.week);
+      for (const day of DAYS) plan.days[day.id] = w.days && w.days[day.id] ? structuredClone(w.days[day.id]) : null;
+      plan.potluckTheme = w.potluckTheme || ''; plan.have = []; plan.packs = {}; save(); closeSheet(); toast('Copied that week\'s dinners');
+    }));
   });
 
   $('spentInput').addEventListener('change', e => { plan.spent = e.target.value === '' ? null : Number(e.target.value); save(); });
@@ -483,4 +555,5 @@
   function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.remove('hidden'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.add('hidden'), 2200); }
 
   render();
+  pull(true);
 })();

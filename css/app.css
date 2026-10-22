@@ -43,6 +43,10 @@ input { font: inherit; }
 .topbar-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .week-label { font-size: 13px; opacity: 0.8; }
 .title { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+.sync { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-left: 6px; vertical-align: middle; background: rgba(255,255,255,0.25); transition: background 0.3s; }
+.sync.ok { background: #9fd3a6; }
+.sync.saving { background: #f3c969; }
+.sync.offline { background: #ff8a80; }
 .btn-quiet {
   background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
   border-radius: 999px; padding: 7px 13px; font-size: 14px; font-weight: 700; color: #fff;

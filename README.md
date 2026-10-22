@@ -26,11 +26,16 @@ Flags:
 - **sale** and **price cut** ring up automatically, so they count in the total.
 - **coupon** (yellow) needs the HEB app or the paper slip. Flagged on the list, not subtracted.
 
+## Sync
+
+Firebase Realtime Database (project `heb-meal-planner-abf0c`, free Spark plan). One plan per family under `families/<key>/plan`, past weeks under `families/<key>/weeks/<weekOf>`. The key is a long random code generated on first run and carried in the share link (`?f=...`). Rules allow read/write only under a family key of 20+ characters; nothing else is readable. The app talks to it over plain REST (no SDK): push on every change, poll every 4 seconds while open, newest `updatedAt` wins.
+
 ## Build status
 
 1. Pantry + test meals + lookup spike: done (Oct 21, 2026)
 2. Planner UI: done, first pass (Oct 21, 2026)
 3. Shopping list + exports: done, first pass (Oct 21, 2026)
-4. On-sale view: next
+4. On-sale view: done (Oct 21, 2026)
+5. Review fixes, share link, Firebase sync, past weeks: done (Oct 21, 2026)
 
 Live at https://bradleybowen80.github.io/heb-meal-planner/

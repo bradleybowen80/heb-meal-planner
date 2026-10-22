@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=11">
+<link rel="stylesheet" href="css/app.css?v=12">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
   <div class="topbar-row">
     <div>
       <div class="week-label" id="weekLabel">Week of</div>
-      <h1 class="title">Dinner this week</h1>
+      <h1 class="title">Dinner this week <span class="sync idle" id="syncDot" aria-live="polite"></span></h1>
     </div>
     <button class="btn-quiet" id="btnSwap" type="button">Swap days</button>
   </div>
@@ -52,6 +52,7 @@
 
     <div class="plan-actions">
       <button class="btn" id="btnShare" type="button">Share plan</button>
+      <button class="btn ghost" id="btnPast" type="button">Past weeks</button>
       <button class="btn ghost" id="btnNewWeek" type="button">Start a new week</button>
     </div>
   </section>
@@ -100,6 +101,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=11"></script>
+<script src="js/app.js?v=12"></script>
 </body>
 </html>
