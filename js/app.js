@@ -80,60 +80,88 @@
     for (const k of new Set([...Object.keys(a.checklist || {}), ...Object.keys(b.checklist || {})])) if (!same((a.checklist || {})[k], (b.checklist || {})[k])) out.push(['checklist', k]);
     for (const k of new Set([...Object.keys(a.packs || {}), ...Object.keys(b.packs || {})])) if (!same((a.packs || {})[k], (b.packs || {})[k])) out.push(['packs', k]);
     for (const k of new Set([...Object.keys(a.extras || {}), ...Object.keys(b.extras || {})])) if (!same((a.extras || {})[k], (b.extras || {})[k])) out.push(['extras', k]);
-    for (const k of ['have', 'spent', 'budget', 'potluckTheme', 'weekOf']) if (!same(a[k], b[k])) out.push([k]);
+    const ha = new Set(a.have || []), hb = new Set(b.have || []);
+    for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
+    for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
+    for (const k of ['spent', 'budget', 'potluckTheme', 'weekOf']) if (!same(a[k], b[k])) out.push([k]);
     return out;
   }
   function applyPaths(from, to, paths) {
     for (const p of paths) {
+      if (p[0] === 'have+') { to.have = [...new Set([...(to.have || []), p[1]])]; continue; }
+      if (p[0] === 'have-') { to.have = (to.have || []).filter(k => k !== p[1]); continue; }
       if (p.length === 1) { to[p[0]] = JSON.parse(JSON.stringify(from[p[0]] === undefined ? null : from[p[0]])); continue; }
       to[p[0]] = to[p[0]] || {}; const v = (from[p[0]] || {})[p[1]];
-      if (v === undefined || v === null) delete to[p[0]][p[1]]; else to[p[0]][p[1]] = JSON.parse(JSON.stringify(v));
+      if (v === undefined || v === null) { if (p[0] === 'days') to[p[0]][p[1]] = null; else delete to[p[0]][p[1]]; }
+      else to[p[0]][p[1]] = JSON.parse(JSON.stringify(v));
     }
+  }
+  // etag + the last synced copy survive a reload, so an offline edit still merges after reopening the app.
+  const SYNC_KEY = 'hmp.synced.v1';
+  try { const sv = JSON.parse(localStorage.getItem(SYNC_KEY) || 'null'); if (sv && sv.family === family) { etag = sv.etag; lastSynced = sv.plan; } } catch (e) { /* ignore */ }
+  function markSynced(copy) { lastSynced = copy; try { localStorage.setItem(SYNC_KEY, JSON.stringify({ family, etag, plan: copy })); } catch (e) { /* ignore */ } }
+  // Fold the database's copy under this phone's own unsent changes. The base for the next diff is theirs, not the result.
+  function mergeIn(theirs) {
+    const mine = lastSynced ? changedPaths(lastSynced, plan) : [];
+    const merged = normalize(JSON.parse(JSON.stringify(theirs)));
+    if (!lastSynced) {
+      if (!plan.syncedOnce) { adopt(theirs); render(); return true; }          // this phone never synced: the database wins
+      if ((plan.updatedAt || 0) > (theirs.updatedAt || 0)) return false;      // nothing to compare against: keep ours
+    }
+    applyPaths(plan, merged, mine);
+    merged.updatedAt = Math.max(Date.now(), (theirs.updatedAt || 0) + 1, (plan.updatedAt || 0) + 1);
+    for (const k of Object.keys(plan)) delete plan[k]; Object.assign(plan, merged);
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* ignore */ }
+    markSynced(normalize(JSON.parse(JSON.stringify(theirs))));
+    render(); if (mine.length) toast('Merged with the other phone');
+    return true;
   }
   function setSync(state) { syncState = state; const el = $('syncDot'); if (!el) return; el.className = 'sync ' + state; el.title = { ok: 'Synced', saving: 'Saving', offline: 'Offline, will retry', idle: '' }[state] || ''; }
   function queuePush() { dirty = true; clearTimeout(pushTimer); pushTimer = setTimeout(() => { pushTimer = null; push(); }, 400); }
   async function push() {
     if (!dirty || inFlight) return;
     inFlight = true; dirty = false; setSync('saving');
-    const bodyText = JSON.stringify(plan), sentAt = plan.updatedAt;
     try {
-      const headers = { 'X-Firebase-ETag': 'true' }; if (etag) headers['If-Match'] = etag;
-      const r = await fetch(remoteUrl('plan'), { method: 'PUT', body: bodyText, headers });
+      if (!etag) {
+        // No conflict token (fresh load, or came back after being offline): look before writing.
+        const g = await fetch(remoteUrl('plan'), { cache: 'no-store', headers: { 'X-Firebase-ETag': 'true' } });
+        if (!g.ok) throw new Error(g.status);
+        etag = g.headers.get('ETag');
+        const remote = await g.json();
+        if (remote && (!lastSynced || remote.updatedAt !== lastSynced.updatedAt)) mergeIn(remote);
+      }
+      const bodyText = JSON.stringify(plan), sentAt = plan.updatedAt;
+      const r = await fetch(remoteUrl('plan'), { method: 'PUT', body: bodyText, headers: { 'X-Firebase-ETag': 'true', 'If-Match': etag } });
       if (r.status === 412) {
         // Someone else wrote first. Start from theirs, lay this phone's own changes back on top, send again.
         etag = r.headers.get('ETag');
         const theirs = await r.json().catch(() => null);
-        if (theirs) {
-          const mine = changedPaths(lastSynced, plan);
-          const merged = normalize(theirs); applyPaths(plan, merged, mine);
-          merged.updatedAt = Math.max(Date.now(), (theirs.updatedAt || 0) + 1, (plan.updatedAt || 0) + 1);
-          adopt(merged); render(); if (mine.length) toast('Merged with the other phone');
-        }
+        if (theirs) mergeIn(theirs);
         dirty = true;
       } else if (!r.ok) { throw new Error(r.status); }
-      else { etag = r.headers.get('ETag'); lastSynced = JSON.parse(bodyText); }
-      if (plan.updatedAt !== sentAt) dirty = true;   // edited again while the save was in flight
+      else { etag = r.headers.get('ETag'); markSynced(JSON.parse(bodyText)); }
+      if (plan.updatedAt !== sentAt && r.status !== 412) dirty = true;   // edited again while the save was in flight
       setSync(dirty ? 'saving' : 'ok');
     } catch (e) { dirty = true; setSync('offline'); }
     inFlight = false;
     if (dirty && !pushTimer) queuePush();
   }
   // Swap the plan's contents without changing the object, so open drawers keep working.
-  function adopt(remote) { for (const k of Object.keys(plan)) delete plan[k]; Object.assign(plan, normalize(remote)); lastSynced = snapshot(); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* ignore */ } }
+  function adopt(remote) { for (const k of Object.keys(plan)) delete plan[k]; Object.assign(plan, normalize(remote)); markSynced(snapshot()); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* ignore */ } }
   async function pull(first) {
     if (!first && (dirty || inFlight)) return;   // never read over the top of an unsent edit (boot is the exception)
     try {
       const r = await fetch(remoteUrl('plan'), { cache: 'no-store', headers: etag ? { 'X-Firebase-ETag': 'true', 'If-None-Match': etag } : { 'X-Firebase-ETag': 'true' } });
       if (r.status === 304) { if (!dirty && !inFlight) setSync('ok'); return; }
       if (!r.ok) throw new Error(r.status);
+      const remote = await r.json();
       if (!first && (dirty || inFlight)) return;   // the user tapped something while we waited
       etag = r.headers.get('ETag');
-      const remote = await r.json();
       if (remote && ((remote.updatedAt || 0) > (plan.updatedAt || 0) || (first && !plan.syncedOnce))) {
         adopt(remote); plan.syncedOnce = true; dirty = false; clearTimeout(pushTimer); pushTimer = null; render(); if (!first) toast('Updated from the other phone');
       } else if (!remote || (plan.updatedAt || 0) > (remote.updatedAt || 0)) {
         dirty = true; push();   // this phone is newer (or the database is empty): send ours up
-      } else { lastSynced = snapshot(); }
+      } else { markSynced(snapshot()); }
       if (!dirty) setSync('ok');
     } catch (e) { setSync('offline'); }
     booted = true;
