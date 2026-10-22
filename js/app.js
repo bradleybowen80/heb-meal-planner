@@ -362,7 +362,7 @@
         for (const m of group) {
           const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
           const row = document.createElement('button'); row.type = 'button'; row.className = 'li li-tap';
-          row.innerHTML = `<div></div><div><div class="li-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div><div class="li-sub">${esc(THEME_NAMES[m.theme] || m.theme || '')}${cardTags(m).length ? ' · ' + esc(cardTags(m).join(', ')) : ''} · ${m.items.length} items · serves ${m.serves || 4}</div></div><div class="li-right"><div class="li-price">${money(cost)}</div></div>`;
+          row.innerHTML = `<div></div><div><div class="li-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div><div class="li-sub">${esc(THEME_NAMES[m.theme] || m.theme || '')}${cardTags(m).length ? ' · ' + esc(cardTags(m).join(', ')) : ''} ${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} items · serves ${m.serves || 4}</div></div><div class="li-right"><div class="li-price">${money(cost)}</div></div>`;
           row.addEventListener('click', () => openCardEditor(m.id));
           box.appendChild(row);
         }
@@ -499,7 +499,7 @@
         const m = meals[d.mealId];
         const p = pillsFor(dayItems(d).map(it => it.key));
         p.edited = (d.dropped && d.dropped.length) || (d.qty && Object.keys(d.qty).length) || (d.added && d.added.length);
-        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${pillHtml(p)}</div><div class="day-sub">${esc(m ? m.notes || '' : '')}</div>`;
+        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${pillHtml(p)}</div><div class="day-sub">${m ? (m.minutes ? m.minutes + ' min · ' : '') + m.items.length + ' items' : ''}</div>`;
         priceHtml = `<div class="day-price">${money(dayCost(d))}</div>`;
       }
       const themeLabel = day.id === 'sun' && plan.potluckTheme ? `${day.theme}: ${esc(plan.potluckTheme)}` : day.theme;
@@ -536,7 +536,7 @@
         const m = meals[id], days = plan[grp][id];
         const perDay = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
         const row = document.createElement('div'); row.className = 'crow';
-        row.innerHTML = `<div><div class="crow-name">${esc(m.name)}</div><div class="crow-sub">${esc(m.notes || m.items.length + ' items')}</div></div>` +
+        row.innerHTML = `<div><div class="crow-name">${esc(m.name)}</div><div class="crow-sub">${(m.minutes ? m.minutes + ' min · ' : '') + m.items.length + ' items'}</div></div>` +
           `<div class="crow-price">${money(perDay * days)}</div>` +
           `<div class="stepper"><button type="button" aria-label="fewer days">−</button><span class="n">${days}d</span><button type="button" aria-label="more days">+</button></div>`;
         const [minus, plus] = row.querySelectorAll('button');
@@ -692,19 +692,20 @@
     const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
     return `<button type="button" class="option${current ? ' current' : ''}" data-meal="${esc(m.id)}">` +
       `<div><div class="option-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div>` +
-      `<div class="option-sub">${esc(m.kind === 'heat-and-add' ? 'Heat and add' : m.kind === 'repeat' ? 'Easy' : 'Recipe')} · ${m.items.length} items${current ? ' · chosen, tap to edit' : ''}</div></div>` +
+      `<div class="option-sub">${esc(m.kind === 'heat-and-add' ? 'Heat and add' : m.kind === 'repeat' ? 'Easy' : 'Recipe')}${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} items${current ? ' · chosen, tap to edit' : ''}</div></div>` +
       `<div class="option-price">${money(cost)}</div></button>`;
   }
 
   function openDay(dayId) {
     const day = DAYS.find(d => d.id === dayId); const d = plan.days[dayId];
     const currentMeal = d && d.type === 'meal' ? d.mealId : null;
-    const all = Object.values(meals);
+    const all = Object.values(meals).filter(m => !['breakfast', 'lunch'].includes(m.kind)).sort((a, b) => a.name.localeCompare(b.name));
     const themed = all.filter(m => day.buckets.includes(m.theme));
     const wild = all.filter(m => !day.buckets.includes(m.theme));
     let html = `<h3>${day.name}: ${day.theme}</h3><p class="hint">${day.id === 'sun' ? 'Pick the dish to bring.' : 'Tap a dinner.'}</p>`;
     if (day.id === 'sun') html += `<div class="bucket-title">This week's theme from church</div><div class="amount-row"><input id="potluckTheme" class="label" type="text" placeholder="Mexican, soups, breakfast for dinner..." value="${esc(plan.potluckTheme || '')}"></div>`;
     html += `<div class="row-actions">${currentMeal ? '<button type="button" class="btn" id="editMeal">Edit ingredients for this week</button>' : ''}<button type="button" class="btn ghost" id="newMeal">New ${day.id === 'sun' ? 'dish' : 'dinner'}</button></div>`;
+    html += `<input class="search" id="dayFind" type="search" placeholder="Search ${all.length} dinners" autocomplete="off">`;
     if (day.buckets.length) {
       html += `<div class="bucket-title">${day.buckets.map(b => THEME_NAMES[b]).join(' / ')}</div>`;
       html += themed.length ? themed.map(m => mealOption(m, m.id === currentMeal)).join('') : `<div class="empty-bucket">No ${day.theme.toLowerCase()} meals saved yet. Tell Claude what you cook on ${day.name} and it will add the cards.</div>`;
@@ -720,6 +721,11 @@
       plan.days[dayId] = { type: 'out', label: label || 'Eat out', amount }; persist(); renderHeader(); renderWeek(); renderList();
     };
     openSheet(html);
+    const find = body.querySelector('#dayFind');
+    if (find) find.addEventListener('input', () => {
+      const q = find.value.trim().toLowerCase();
+      body.querySelectorAll('[data-meal]').forEach(b => { b.style.display = !q || b.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+    });
     const themeInput = body.querySelector('#potluckTheme');
     if (themeInput) themeInput.addEventListener('input', e => { plan.potluckTheme = e.target.value.trim(); persist(); renderWeek(); });
     body.querySelectorAll('[data-meal]').forEach(b => b.addEventListener('click', () => {

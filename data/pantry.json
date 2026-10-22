@@ -7,6 +7,7 @@
   "sectionOrder": [
     "Produce",
     "Bakery",
+    "Deli",
     "Meal Simple",
     "Meat",
     "Seafood",
@@ -1941,6 +1942,820 @@
           "hebId": "1644005",
           "name": "H-E-B Green Tea Bags",
           "size": "40 ct"
+        }
+      ]
+    },
+    {
+      "key": "bbq-sauce",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1036167",
+          "name": "H-E-B Specialty Series Texas Style Barbeque Sauce",
+          "size": "14 oz"
+        }
+      ]
+    },
+    {
+      "key": "pepperoni",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "11887013",
+          "name": "H-E-B Premium Uncured Pepperoni Slices - Original",
+          "size": "6 oz"
+        }
+      ]
+    },
+    {
+      "key": "italian-sausage",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "1077766",
+          "name": "H-E-B Pork Italian Sausage Links - Mild",
+          "size": "Avg. 1.25 lbs"
+        }
+      ]
+    },
+    {
+      "key": "black-beans",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "921748",
+          "name": "H-E-B Black Beans",
+          "size": "15 oz"
+        }
+      ]
+    },
+    {
+      "key": "refried-beans",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1705903",
+          "name": "H-E-B Organics Refried Pinto Beans",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "smoked-sausage",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "5432019",
+          "name": "H-E-B Natural Smoked Beef Sausage Links - Original",
+          "size": "5 ct"
+        }
+      ]
+    },
+    {
+      "key": "mayo",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "10800562",
+          "name": "H-E-B Real Mayonnaise",
+          "size": "22 oz"
+        }
+      ]
+    },
+    {
+      "key": "dill-pickles",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "123707",
+          "name": "H-E-B Pickle Me Dilley Hamburger Dill Pickle Chips",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "sliced-american",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "15882537",
+          "name": "H-E-B American Cheese Singles",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "ketchup",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1256224",
+          "name": "H-E-B Tomato Ketchup",
+          "size": "32 oz"
+        }
+      ]
+    },
+    {
+      "key": "baked-beans",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "120104",
+          "name": "Bush's Best Original Baked Beans",
+          "size": "28 oz"
+        }
+      ]
+    },
+    {
+      "key": "frozen-fries",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "124058",
+          "name": "Hill Country Fare Frozen Crinkle Cut French Fries",
+          "size": "32 oz"
+        }
+      ]
+    },
+    {
+      "key": "rotisserie-chicken",
+      "section": "Meal Simple",
+      "products": [
+        {
+          "hebId": "15142523",
+          "name": "Meal Simple by H-E-B Rotisserie Chicken - Seasoned",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "frozen-meatballs",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "288448",
+          "name": "H-E-B Fully Cooked Frozen Beef & Pork Meatballs - Italian Style",
+          "size": "35 oz"
+        }
+      ]
+    },
+    {
+      "key": "cajun-seasoning",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "172479",
+          "name": "Tony Chachere's Original Creole Seasoning",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "italian-seasoning",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "5156568",
+          "name": "H-E-B Italian Seasoning",
+          "size": "0.75 oz"
+        }
+      ]
+    },
+    {
+      "key": "brown-sugar",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "126036",
+          "name": "H-E-B Brown Sugar",
+          "size": "2 lbs"
+        }
+      ]
+    },
+    {
+      "key": "cornbread-mix",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "174330",
+          "name": "Jiffy Corn Muffin Mix",
+          "size": "8.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "chicken-broth",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2229625",
+          "name": "H-E-B Chicken Broth",
+          "size": "32 oz"
+        }
+      ]
+    },
+    {
+      "key": "naan",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "3748506",
+          "name": "H-E-B Deli Naan Flatbread - Original",
+          "size": "3 ct"
+        }
+      ]
+    },
+    {
+      "key": "stir-fry-veg",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "586413",
+          "name": "H-E-B Frozen Broccoli Stir Fry Blend",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "diced-tomatoes",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "714571",
+          "name": "H-E-B Petite Diced Tomatoes",
+          "size": "14.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "minced-garlic",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "10041509",
+          "name": "H-E-B Fresh Chopped Garlic - Single Serve",
+          "size": "3 oz"
+        }
+      ]
+    },
+    {
+      "key": "elbow-macaroni",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "125672",
+          "name": "H-E-B Elbow Macaroni",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "egg-noodles",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "297086",
+          "name": "H-E-B Extra Wide Egg Noodles",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "sesame-oil",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2203995",
+          "name": "H-E-B Toasted Sesame Oil",
+          "size": "16.9 oz"
+        }
+      ]
+    },
+    {
+      "key": "pesto",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2269353",
+          "name": "H-E-B Basil Pesto",
+          "size": "6.7 oz"
+        }
+      ]
+    },
+    {
+      "key": "ranch-seasoning",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "163624",
+          "name": "Hidden Valley Original Ranch Seasoning Mix Packet",
+          "size": "2 ct"
+        }
+      ]
+    },
+    {
+      "key": "hawaiian-rolls",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "2173547",
+          "name": "H-E-B Bakery Sweet Aloha Rolls",
+          "size": "12 ct"
+        }
+      ]
+    },
+    {
+      "key": "deli-turkey",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "125883",
+          "name": "H-E-B Thick-Sliced Oven-Roasted Turkey Breast Lunch Meat",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "deli-ham",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "123605",
+          "name": "H-E-B Thick-Sliced Honey Ham Lunch Meat",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "sliced-cheddar",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "970984",
+          "name": "H-E-B Mild Cheddar Sliced Cheese",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "sliced-swiss",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "970978",
+          "name": "H-E-B Swiss Sliced Cheese",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "sliced-provolone",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "970979",
+          "name": "H-E-B Provolone Sliced Cheese",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "grape-jelly",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1707986",
+          "name": "H-E-B Organics Concord Grape Jelly",
+          "size": "17.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "hot-dog-buns",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "395866",
+          "name": "H-E-B Enriched Hot Dog Buns",
+          "size": "8 ct"
+        }
+      ]
+    },
+    {
+      "key": "hoagie-rolls",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "475190",
+          "name": "H-E-B Bakery White Submarine Rolls",
+          "size": "4 ct"
+        }
+      ]
+    },
+    {
+      "key": "burrito-tortillas",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "324976",
+          "name": "H-E-B Burrito Grande Flour Tortillas",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "canned-chili",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2453022",
+          "name": "H-E-B Texas Style Chili - No Beans",
+          "size": "15 oz"
+        }
+      ]
+    },
+    {
+      "key": "tomato-soup",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2145995",
+          "name": "H-E-B Tomato Condensed Soup",
+          "size": "10.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "chicken-noodle-soup",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2146056",
+          "name": "H-E-B Chicken Noodle Condensed Soup",
+          "size": "10.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "crackers",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1688156",
+          "name": "H-E-B Rich & Crisp Crackers",
+          "size": "13.7 oz"
+        }
+      ]
+    },
+    {
+      "key": "ranch",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "16735559",
+          "name": "Hidden Valley Original Ranch Dressing",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "caesar-dressing",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "586692",
+          "name": "H-E-B Creamy Garlic Caesar Dressing",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "hummus",
+      "section": "Deli",
+      "products": [
+        {
+          "hebId": "1837104",
+          "name": "H-E-B Deli Traditional Hummus",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "tuna-can",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "6412035",
+          "name": "H-E-B Chunk Light Tuna in Water",
+          "size": "5 oz"
+        }
+      ]
+    },
+    {
+      "key": "english-muffins",
+      "section": "Bakery",
+      "products": [
+        {
+          "hebId": "398531",
+          "name": "Thomas' Original English Muffins",
+          "size": "6 ct"
+        }
+      ]
+    },
+    {
+      "key": "yellow-rice",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "163537",
+          "name": "Vigo Saffron Yellow Rice",
+          "size": "1 lb"
+        }
+      ]
+    },
+    {
+      "key": "bulgogi-sauce",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1598280",
+          "name": "bibigo Korean BBQ Marinade & Sauce - Original",
+          "size": "16.9 oz"
+        }
+      ]
+    },
+    {
+      "key": "kimchi",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "13475011",
+          "name": "Cleveland Kitchen Classic Kimchi",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "cherry-tomatoes",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "470980",
+          "name": "H-E-B Fresh Grape Tomatoes",
+          "size": "10 oz"
+        }
+      ]
+    },
+    {
+      "key": "feta",
+      "section": "Deli",
+      "products": [
+        {
+          "hebId": "6058072",
+          "name": "H-E-B Deli Traditional Feta Cheese Crumbles",
+          "size": "6 oz"
+        }
+      ]
+    },
+    {
+      "key": "ground-pork",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "372990",
+          "name": "H-E-B Ground Pork, 80% Lean",
+          "size": "Avg. 1.0 lb"
+        }
+      ]
+    },
+    {
+      "key": "coleslaw-mix",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "1560068",
+          "name": "H-E-B Classic Coleslaw Base",
+          "size": "14 oz"
+        }
+      ]
+    },
+    {
+      "key": "pulled-pork",
+      "section": "Meal Simple",
+      "products": [
+        {
+          "hebId": "6273603",
+          "name": "H-E-B Fully Cooked Pulled Pork with BBQ Sauce - Smoked",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "hard-taco-shells",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "2174074",
+          "name": "H-E-B Yellow Corn Taco Shells",
+          "size": "12 ct"
+        }
+      ]
+    },
+    {
+      "key": "carnitas",
+      "section": "Meal Simple",
+      "products": [
+        {
+          "hebId": "10849568",
+          "name": "H-E-B Mi Tienda Fully Cooked Seasoned Pork Carnitas",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "blackened-seasoning",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "646989",
+          "name": "H-E-B Texas Originals Blackened Seasoning Spice Blend",
+          "size": "4.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "fettuccine",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "1567293",
+          "name": "H-E-B Fettuccine Pasta Noodles",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "pasta-shells",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "123896",
+          "name": "H-E-B Medium Pasta Shells",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "lasagna-noodles",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "126117",
+          "name": "H-E-B Lasagna Noodles",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "ricotta",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "515646",
+          "name": "H-E-B Whole Milk Ricotta Cheese",
+          "size": "15 oz"
+        }
+      ]
+    },
+    {
+      "key": "applesauce",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "124847",
+          "name": "H-E-B Unsweetened Applesauce",
+          "size": "23 oz"
+        }
+      ]
+    },
+    {
+      "key": "cornmeal",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "126169",
+          "name": "Hill Country Fare Enriched Yellow Cornmeal",
+          "size": "2 lbs"
+        }
+      ]
+    },
+    {
+      "key": "tartar-sauce",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "81424",
+          "name": "Kraft Tartar Sauce",
+          "size": "12 fl oz"
+        }
+      ]
+    },
+    {
+      "key": "sharp-cheddar",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "127808",
+          "name": "H-E-B Sharp Cheddar Cheese",
+          "size": "8 oz"
+        }
+      ]
+    },
+    {
+      "key": "corn-on-cob",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "374788",
+          "name": "Fresh Corn",
+          "size": "Each"
+        }
+      ]
+    },
+    {
+      "key": "pizza-dough",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "10389013",
+          "name": "Central Market Frozen Pizza Dough",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "soy-sauce",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "129450",
+          "name": "Kikkoman All-Purpose Soy Sauce",
+          "size": "10 oz"
+        }
+      ]
+    },
+    {
+      "key": "teriyaki-sauce",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "129452",
+          "name": "Kikkoman Teriyaki Sauce & Marinade",
+          "size": "10 oz"
+        }
+      ]
+    },
+    {
+      "key": "pineapple-chunks",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "119384",
+          "name": "Dole Pineapple Chunks in 100% Pineapple Juice",
+          "size": "20 oz"
+        }
+      ]
+    },
+    {
+      "key": "tzatziki",
+      "section": "Deli",
+      "products": [
+        {
+          "hebId": "16463012",
+          "name": "Fresh Tzatziki Dip",
+          "size": "12 oz"
+        }
+      ]
+    },
+    {
+      "key": "italian-dressing",
+      "section": "Pantry",
+      "products": [
+        {
+          "hebId": "122493",
+          "name": "Wish-Bone Italian Dressing",
+          "size": "15 oz"
+        }
+      ]
+    },
+    {
+      "key": "hot-dogs",
+      "section": "Meat",
+      "products": [
+        {
+          "hebId": "139935",
+          "name": "Oscar Mayer Bun-Length Beef Hot Dogs",
+          "size": "8 ct"
         }
       ]
     }

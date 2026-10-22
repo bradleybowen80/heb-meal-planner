@@ -1,0 +1,5710 @@
+{
+ "cards": [
+  {
+   "id": "halal-cart-beef-bowls",
+   "name": "Halal Cart Beef and Yellow Rice Bowls",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Meat and rice bowl",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1.5
+    },
+    {
+     "key": "yellow-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "romaine",
+     "qty": 0.5
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 2
+    },
+    {
+     "key": "tzatziki",
+     "qty": 1
+    },
+    {
+     "key": "cumin",
+     "qty": 0.25
+    },
+    {
+     "key": "turmeric",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Make the yellow rice. Brown the beef with cumin, garlic powder and salt. Chop romaine and tomatoes. Pile rice, beef and veg in bowls and drizzle with tzatziki (the white sauce)."
+  },
+  {
+   "id": "bulgogi-beef-bowls",
+   "name": "Korean Bulgogi Beef and Kimchi Bowls",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Meat and rice bowl",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1.5
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "bulgogi-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "kimchi",
+     "qty": 0.5
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    },
+    {
+     "key": "cucumber",
+     "qty": 1
+    }
+   ],
+   "notes": "Cook rice. Brown the beef and stir in bulgogi sauce until glossy. Slice cucumber and green onions. Serve beef over rice with kimchi on the side for the adults."
+  },
+  {
+   "id": "smash-burger-bowls",
+   "name": "Smash Burger and Pickle Rice Bowls",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Meat and rice bowl",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1.5
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.38
+    },
+    {
+     "key": "iceberg-lettuce",
+     "qty": 0.5
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 2
+    },
+    {
+     "key": "yellow-mustard",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cook rice. Smash beef in a hot skillet in thin patties, flip, top with cheddar, then chop. Serve over rice with shredded lettuce, tomato, pickles and a mustard drizzle."
+  },
+  {
+   "id": "greek-lemon-chicken-bowls",
+   "name": "Greek Lemon Chicken and Tzatziki Bowls",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Meat and rice bowl",
+   "items": [
+    {
+     "key": "thighs-boneless",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "lemons",
+     "qty": 0.25
+    },
+    {
+     "key": "cucumber",
+     "qty": 1
+    },
+    {
+     "key": "cherry-tomatoes",
+     "qty": 1
+    },
+    {
+     "key": "feta",
+     "qty": 0.5
+    },
+    {
+     "key": "tzatziki",
+     "qty": 1
+    },
+    {
+     "key": "oregano",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cook rice. Season thighs with oregano, garlic powder, lemon juice and salt, then sear 5 to 6 minutes a side and slice. Chop cucumber and tomatoes. Build bowls with feta and tzatziki on top."
+  },
+  {
+   "id": "egg-roll-bowl",
+   "name": "Egg Roll in a Bowl",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "Meat and rice bowl",
+   "items": [
+    {
+     "key": "ground-pork",
+     "qty": 1
+    },
+    {
+     "key": "coleslaw-mix",
+     "qty": 1
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "sesame-oil",
+     "qty": 0.25
+    },
+    {
+     "key": "minced-garlic",
+     "qty": 0.25
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown the pork with garlic. Add the coleslaw mix and soy sauce and cook 4 to 5 minutes until just soft. Finish with sesame oil and green onions. Serve over rice for the kids."
+  },
+  {
+   "id": "honey-garlic-pork-bowls",
+   "name": "Spicy Honey-Garlic Pork and Broccoli Bowls",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Meat and rice bowl",
+   "items": [
+    {
+     "key": "pork-tenderloin",
+     "qty": 1
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "honey",
+     "qty": 0.25
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "minced-garlic",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cook rice and steam the broccoli. Slice tenderloin into thin coins and sear in a hot pan. Add honey, soy sauce and garlic and toss until sticky. Spoon over rice with broccoli. Add chili flakes on the adult bowls."
+  },
+  {
+   "id": "thai-basil-chicken-bowls",
+   "name": "Thai Basil Chicken Bowls with Fried Eggs",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Meat and rice bowl",
+   "items": [
+    {
+     "key": "ground-chicken",
+     "qty": 1.5
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "basil",
+     "qty": 1
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "minced-garlic",
+     "qty": 0.25
+    },
+    {
+     "key": "red-bell",
+     "qty": 1
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cook rice. Brown the ground chicken with garlic and sliced bell pepper. Add soy sauce and a little sugar, then stir in a big handful of basil. Fry an egg per person and put it on top."
+  },
+  {
+   "id": "bbq-pulled-pork-bowls",
+   "name": "BBQ Pulled Pork and Rice Bowls",
+   "kind": "heat-and-add",
+   "theme": "bbq",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "Meat and rice bowl",
+   "items": [
+    {
+     "key": "pulled-pork",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "coleslaw-mix",
+     "qty": 0.5
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.38
+    },
+    {
+     "key": "corn",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Cook rice and heat the corn. Warm the pulled pork. Build bowls with rice, pork, a pile of slaw and pickles."
+  },
+  {
+   "id": "flank-steak-fajitas",
+   "name": "Skillet Flank Steak Fajitas",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Taco and Mexican",
+   "items": [
+    {
+     "key": "flank-steak",
+     "qty": 1
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "chili-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "cumin",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Rub the steak with chili powder, cumin, salt and lime. Sear 4 to 5 minutes a side, rest, slice thin against the grain. Saute sliced peppers and onion in the same pan. Serve in warm tortillas with sour cream and pico."
+  },
+  {
+   "id": "hard-shell-beef-tacos",
+   "name": "Classic Hard Shell Beef Tacos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "Taco and Mexican",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1.5
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "hard-taco-shells",
+     "qty": 1
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "iceberg-lettuce",
+     "qty": 0.5
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 2
+    },
+    {
+     "key": "salsa",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Brown the beef, drain, add taco seasoning and water and simmer 5 minutes. Warm the shells in the oven. Set out cheese, lettuce, tomato and salsa and let everyone build their own."
+  },
+  {
+   "id": "salsa-chicken-tacos",
+   "name": "Slow-Cooker Salsa Chicken Tacos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 10,
+   "framework": "Taco and Mexican",
+   "items": [
+    {
+     "key": "thighs-boneless",
+     "qty": 1
+    },
+    {
+     "key": "salsa",
+     "qty": 1
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "corn-tortillas",
+     "qty": 0.75
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 0.5
+    },
+    {
+     "key": "cilantro",
+     "qty": 1
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    }
+   ],
+   "notes": "Morning: put thighs, salsa and taco seasoning in the slow cooker on low 6 hours. Dinner: shred with two forks. Serve in warm corn tortillas with cheese, cilantro and lime."
+  },
+  {
+   "id": "steak-cheese-quesadillas",
+   "name": "Steak and Cheese Quesadillas",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Taco and Mexican",
+   "items": [
+    {
+     "key": "skirt-steak",
+     "qty": 1
+    },
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "monterey-jack",
+     "qty": 1
+    },
+    {
+     "key": "green-bell-peppers",
+     "qty": 0.5
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "salsa",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Season and sear the skirt steak 3 to 4 minutes a side, then chop small. Saute sliced peppers. Fill tortillas with cheese, steak and peppers and crisp in a dry skillet 2 minutes a side. Cut in wedges with sour cream and salsa."
+  },
+  {
+   "id": "carnitas-bowls",
+   "name": "Crispy Carnitas Bowls with Cilantro-Lime Rice",
+   "kind": "heat-and-add",
+   "theme": "tacos",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Taco and Mexican",
+   "items": [
+    {
+     "key": "carnitas",
+     "qty": 1.33
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "cilantro",
+     "qty": 1
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "black-beans",
+     "qty": 1
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "avocados",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Cook rice and stir in chopped cilantro and lime juice. Crisp the carnitas in a hot skillet. Warm the black beans. Build bowls with rice, beans, pork, pico and sliced avocado."
+  },
+  {
+   "id": "turkey-taco-salad",
+   "name": "Ground Turkey Taco Salad",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "turkey"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "Taco and Mexican",
+   "items": [
+    {
+     "key": "ground-turkey",
+     "qty": 1.5
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "romaine",
+     "qty": 1
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 2
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 0.5
+    },
+    {
+     "key": "tortilla-chips",
+     "qty": 0.25
+    },
+    {
+     "key": "black-beans",
+     "qty": 1
+    },
+    {
+     "key": "salsa",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Brown the turkey with taco seasoning and a splash of water. Chop romaine and tomatoes. Pile lettuce, turkey, beans, cheese and crushed chips; salsa is the dressing."
+  },
+  {
+   "id": "blackened-fish-tacos",
+   "name": "Baja Blackened Fish Tacos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "fish"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Taco and Mexican",
+   "items": [
+    {
+     "key": "catfish",
+     "qty": 1.5
+    },
+    {
+     "key": "blackened-seasoning",
+     "qty": 0.25
+    },
+    {
+     "key": "corn-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "coleslaw-mix",
+     "qty": 0.5
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "avocados",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Gemini's version used redfish; H-E-B Main St only has it whole, so this uses catfish (salmon works too). Coat fillets in blackened seasoning and sear in butter 3 minutes a side. Toss slaw with lime and a spoon of sour cream. Flake fish into warm tortillas with slaw and avocado."
+  },
+  {
+   "id": "bolognese-rigatoni",
+   "name": "Ground Beef Bolognese with Rigatoni",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Pasta and noodle",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1
+    },
+    {
+     "key": "rigatoni",
+     "qty": 1
+    },
+    {
+     "key": "raos",
+     "qty": 1
+    },
+    {
+     "key": "spinach",
+     "qty": 0.5
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil the rigatoni. Brown the beef with diced onion. Add the Rao's and simmer 10 minutes, then stir in spinach until wilted. Toss with the pasta and top with parmesan."
+  },
+  {
+   "id": "smoked-sausage-penne",
+   "name": "Smoked Sausage and Penne",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Pasta and noodle",
+   "items": [
+    {
+     "key": "smoked-sausage",
+     "qty": 1
+    },
+    {
+     "key": "penne",
+     "qty": 1
+    },
+    {
+     "key": "marinara",
+     "qty": 1
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil the penne. Slice sausage into coins and brown with sliced peppers. Add marinara and simmer 5 minutes. Toss with the pasta and parmesan."
+  },
+  {
+   "id": "chicken-alfredo-veg",
+   "name": "Chicken Alfredo with Zucchini and Broccoli",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Pasta and noodle",
+   "items": [
+    {
+     "key": "chicken-breast",
+     "qty": 0.25
+    },
+    {
+     "key": "fettuccine",
+     "qty": 1
+    },
+    {
+     "key": "heavy-cream",
+     "qty": 0.5
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.5
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "zucchini",
+     "qty": 2
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "minced-garlic",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil fettuccine, adding broccoli the last 3 minutes. Sear sliced chicken and zucchini. Melt butter with garlic, add cream and simmer 3 minutes, then whisk in parmesan. Toss everything together."
+  },
+  {
+   "id": "sausage-cabbage-shells",
+   "name": "Italian Sausage and Cabbage Ribbon Skillet",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Pasta and noodle",
+   "items": [
+    {
+     "key": "italian-sausage",
+     "qty": 1
+    },
+    {
+     "key": "green-cabbage",
+     "qty": 0.5
+    },
+    {
+     "key": "pasta-shells",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil the shells. Brown the sausage (out of its casing) with onion. Add thin-sliced cabbage and cook until soft and a little browned. Toss in the shells with a splash of pasta water and parmesan."
+  },
+  {
+   "id": "tuscan-garlic-chicken-pasta",
+   "name": "Tuscan Garlic Butter Chicken Pasta",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Pasta and noodle",
+   "items": [
+    {
+     "key": "chicken-breast",
+     "qty": 0.25
+    },
+    {
+     "key": "penne",
+     "qty": 1
+    },
+    {
+     "key": "cherry-tomatoes",
+     "qty": 1
+    },
+    {
+     "key": "spinach",
+     "qty": 0.5
+    },
+    {
+     "key": "heavy-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "minced-garlic",
+     "qty": 0.25
+    },
+    {
+     "key": "italian-seasoning",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil penne. Sear seasoned chicken pieces in butter. Add garlic and halved cherry tomatoes until they burst, then cream, parmesan and spinach. Toss with pasta."
+  },
+  {
+   "id": "meatball-lasagna-skillet",
+   "name": "Deconstructed Meatball Lasagna Skillet",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Pasta and noodle",
+   "items": [
+    {
+     "key": "frozen-meatballs",
+     "qty": 1
+    },
+    {
+     "key": "lasagna-noodles",
+     "qty": 0.5
+    },
+    {
+     "key": "raos",
+     "qty": 1
+    },
+    {
+     "key": "ricotta",
+     "qty": 1
+    },
+    {
+     "key": "mozzarella",
+     "qty": 1
+    },
+    {
+     "key": "mushrooms",
+     "qty": 1
+    }
+   ],
+   "notes": "Break lasagna noodles into pieces and boil. Simmer meatballs and sliced mushrooms in the Rao's. Stir in the noodles, dollop ricotta, top with mozzarella and cover until melted (or broil 2 minutes)."
+  },
+  {
+   "id": "meatballs-spaghetti-broccoli",
+   "name": "Beef Meatballs with Spaghetti and Roasted Broccoli",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Pasta and noodle",
+   "items": [
+    {
+     "key": "frozen-meatballs",
+     "qty": 1
+    },
+    {
+     "key": "spaghetti",
+     "qty": 1
+    },
+    {
+     "key": "marinara",
+     "qty": 1
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Roast broccoli at 425 for 15 minutes. Boil spaghetti. Simmer meatballs in marinara 10 minutes. Serve with parmesan and broccoli on the side."
+  },
+  {
+   "id": "ribeye-potatoes-green-beans",
+   "name": "Cast-Iron Ribeye with Baked Potatoes and Green Beans",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "Meat and three",
+   "items": [
+    {
+     "key": "ribeye",
+     "qty": 2
+    },
+    {
+     "key": "russet",
+     "qty": 0.5
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.75
+    },
+    {
+     "key": "butter",
+     "qty": 0.5
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Microwave or bake the potatoes. Sear ribeyes in a smoking cast iron with butter, salt and pepper, about 4 minutes a side, and rest. Steam green beans with butter. Slice steak and serve with loaded potatoes."
+  },
+  {
+   "id": "pork-chops-applesauce-broccoli",
+   "name": "Pan-Seared Pork Chops with Warm Applesauce and Roasted Broccoli",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Meat and three",
+   "items": [
+    {
+     "key": "pork-chops",
+     "qty": 1
+    },
+    {
+     "key": "applesauce",
+     "qty": 0.5
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 2
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Roast broccoli with oil and salt at 425 for 18 minutes. Sear chops in butter 4 to 5 minutes a side. Warm the applesauce with a pinch of cinnamon. Plate together."
+  },
+  {
+   "id": "blackened-salmon-rice-asparagus",
+   "name": "Blackened Salmon with Jasmine Rice and Asparagus",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "fish"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Meat and three",
+   "items": [
+    {
+     "key": "salmon",
+     "qty": 1.5
+    },
+    {
+     "key": "blackened-seasoning",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "asparagus",
+     "qty": 1
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "lemons",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Gemini had redfish; swapped to salmon since Main St only sells redfish whole. Cook rice with a pat of butter. Saute asparagus in butter and lemon 5 minutes. Coat salmon in blackened seasoning and sear in butter 3 to 4 minutes a side."
+  },
+  {
+   "id": "air-fryer-catfish-corn",
+   "name": "Air-Fryer Crispy Catfish with Corn and Cucumber Salad",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "fish"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Meat and three",
+   "items": [
+    {
+     "key": "catfish",
+     "qty": 1.5
+    },
+    {
+     "key": "cornmeal",
+     "qty": 0.25
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "corn",
+     "qty": 1
+    },
+    {
+     "key": "cucumber",
+     "qty": 2
+    },
+    {
+     "key": "red-onion",
+     "qty": 0.25
+    },
+    {
+     "key": "lemons",
+     "qty": 0.25
+    },
+    {
+     "key": "tartar-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Dip catfish strips in beaten egg, then seasoned cornmeal. Air-fry at 400 for 10 to 12 minutes. Microwave corn with butter. Toss thin-sliced cucumber and red onion with lemon, vinegar and salt. Serve with tartar sauce."
+  },
+  {
+   "id": "crispy-thighs-sweet-potato",
+   "name": "Crispy Chicken Thighs with Sweet Potato Mash and Asparagus",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 40,
+   "framework": "Meat and three",
+   "items": [
+    {
+     "key": "thighs-bonein",
+     "qty": 1
+    },
+    {
+     "key": "sweet-potato",
+     "qty": 4
+    },
+    {
+     "key": "asparagus",
+     "qty": 1
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Season thighs with salt, pepper and garlic powder and roast skin-up at 425 for 30 minutes. Boil peeled sweet potatoes and mash with butter and sour cream. Saute asparagus. Plate chicken over the mash."
+  },
+  {
+   "id": "texas-smash-burgers-fries",
+   "name": "Texas Smash Burgers with Air-Fryer Fries",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Meat and three",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1.5
+    },
+    {
+     "key": "russet",
+     "qty": 0.5
+    },
+    {
+     "key": "sharp-cheddar",
+     "qty": 1
+    },
+    {
+     "key": "burger-buns",
+     "qty": 1
+    },
+    {
+     "key": "iceberg-lettuce",
+     "qty": 0.5
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.38
+    },
+    {
+     "key": "red-onion",
+     "qty": 0.25
+    },
+    {
+     "key": "yellow-mustard",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cut potatoes into thin fries, toss with oil and salt, air-fry at 400 for 18 minutes. Smash beef balls flat on a smoking griddle, flip, top with cheddar. Adults go lettuce wrap, kids get buns."
+  },
+  {
+   "id": "smoked-sausage-corn-green-beans",
+   "name": "Smoked Sausage with Corn on the Cob and Green Beans",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Meat and three",
+   "items": [
+    {
+     "key": "smoked-sausage",
+     "qty": 1.5
+    },
+    {
+     "key": "corn-on-cob",
+     "qty": 4
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.75
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "cajun-seasoning",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil corn until tender and roll in butter. Sear the sausage rope whole until blistered, then slice into coins. Steam green beans and toss with butter and Cajun seasoning."
+  },
+  {
+   "id": "chicken-street-tacos",
+   "name": "Chicken Thigh Street Tacos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "thighs-boneless",
+     "qty": 1
+    },
+    {
+     "key": "corn-tortillas",
+     "qty": 0.75
+    },
+    {
+     "key": "white-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "cilantro",
+     "qty": 1
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "salsa",
+     "qty": 0.5
+    },
+    {
+     "key": "chili-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "cumin",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Toss thighs with chili powder, cumin, garlic powder and salt. Sear in a hot skillet 5 to 6 minutes per side, rest, then chop small. Serve on warm corn tortillas with diced onion, cilantro, lime and salsa."
+  },
+  {
+   "id": "steak-street-tacos",
+   "name": "Skirt Steak Street Tacos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "skirt-steak",
+     "qty": 2
+    },
+    {
+     "key": "corn-tortillas",
+     "qty": 0.75
+    },
+    {
+     "key": "white-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "cilantro",
+     "qty": 1
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "avocados",
+     "qty": 0.5
+    },
+    {
+     "key": "cumin",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Season the skirt steak with salt, cumin and garlic powder and squeeze a lime over it. Sear in a screaming-hot skillet 3 minutes per side, rest 5 minutes, slice thin against the grain and chop. Pile on warm corn tortillas with onion, cilantro, pico and avocado."
+  },
+  {
+   "id": "shrimp-tacos-slaw",
+   "name": "Shrimp Tacos with Lime Slaw",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "shrimp"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "shrimp",
+     "qty": 2
+    },
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "green-cabbage",
+     "qty": 0.25
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "cholula",
+     "qty": 0.25
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "cilantro",
+     "qty": 1
+    },
+    {
+     "key": "chili-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Thaw shrimp under cold water, pat dry, toss with chili powder and salt, and sear 2 minutes per side. Shred cabbage and toss with lime juice and a pinch of salt. Mix mayo with Cholula for a quick sauce and build the tacos."
+  },
+  {
+   "id": "taco-salad",
+   "name": "Loaded Taco Salad",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 2
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "romaine",
+     "qty": 1
+    },
+    {
+     "key": "tortilla-chips",
+     "qty": 0.25
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "black-beans",
+     "qty": 1
+    }
+   ],
+   "notes": "Brown the beef with taco seasoning. Warm and drain the black beans. Chop romaine into bowls, top with beef, beans, cheese, pico and sour cream, and crush chips over the top. Kids can have it as nachos instead."
+  },
+  {
+   "id": "chicken-fajitas",
+   "name": "Sheet-Pan Chicken Fajitas",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "chicken-breast",
+     "qty": 0.5
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "chili-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "cumin",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Slice chicken, peppers and onion into strips, toss with oil, chili powder, cumin, garlic powder and salt, and spread on a sheet pan. Roast at 425 F for 20 minutes. Squeeze lime over it and serve in warm tortillas with sour cream and pico."
+  },
+  {
+   "id": "beef-bean-burritos",
+   "name": "Beef and Bean Burritos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 2
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "refried-beans",
+     "qty": 1
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 0.5
+    },
+    {
+     "key": "salsa",
+     "qty": 0.5
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "burrito-tortillas",
+     "qty": 1
+    }
+   ],
+   "notes": "Brown the beef with taco seasoning. Warm the refried beans. Spread beans down each tortilla, add beef and cheese, roll tight, and toast seam-side down in a skillet until golden. Serve with salsa and sour cream."
+  },
+  {
+   "id": "pork-al-pastor-tacos",
+   "name": "Quick Pork al Pastor Tacos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "pork-tenderloin",
+     "qty": 1.5
+    },
+    {
+     "key": "pineapple",
+     "qty": 1
+    },
+    {
+     "key": "corn-tortillas",
+     "qty": 0.75
+    },
+    {
+     "key": "white-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "cilantro",
+     "qty": 1
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "chili-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "cumin",
+     "qty": 0.25
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Slice the tenderloin thin and toss with chili powder, cumin, smoked paprika, salt and a squeeze of lime. Sear in batches in a hot skillet, then sear some diced pineapple in the same pan. Serve on corn tortillas with pineapple, onion and cilantro."
+  },
+  {
+   "id": "sausage-peppers-penne",
+   "name": "Italian Sausage and Pepper Penne",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Pasta + protein + jarred sauce + veg",
+   "items": [
+    {
+     "key": "italian-sausage",
+     "qty": 1
+    },
+    {
+     "key": "penne",
+     "qty": 1
+    },
+    {
+     "key": "marinara",
+     "qty": 2
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Squeeze the sausage out of its casings and brown it in a big skillet. Add sliced peppers and onion and cook until soft, then pour in the marinara. Toss with cooked penne and top with parmesan."
+  },
+  {
+   "id": "baked-sausage-rigatoni",
+   "name": "Baked Sausage Rigatoni",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 40,
+   "framework": "Pasta + protein + jarred sauce + veg",
+   "items": [
+    {
+     "key": "italian-sausage",
+     "qty": 1
+    },
+    {
+     "key": "rigatoni",
+     "qty": 1
+    },
+    {
+     "key": "raos",
+     "qty": 1
+    },
+    {
+     "key": "mozzarella",
+     "qty": 1
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil rigatoni 2 minutes short of done. Brown the sausage out of its casings, add the Rao's, and stir in the pasta. Pour into a baking dish, cover with mozzarella and parmesan, and bake at 400 F for 15 minutes until bubbly."
+  },
+  {
+   "id": "shrimp-scampi-pasta",
+   "name": "Lemon Garlic Shrimp Spaghetti",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "shrimp"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Pasta + protein + jarred sauce + veg",
+   "items": [
+    {
+     "key": "shrimp",
+     "qty": 2
+    },
+    {
+     "key": "spaghetti",
+     "qty": 1
+    },
+    {
+     "key": "butter",
+     "qty": 0.5
+    },
+    {
+     "key": "lemons",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "parsley",
+     "qty": 1
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    },
+    {
+     "key": "spinach",
+     "qty": 1
+    }
+   ],
+   "notes": "Boil spaghetti and save a cup of pasta water. Melt butter, add garlic powder and the thawed shrimp, and cook 2 minutes per side. Add lemon juice, spinach and a splash of pasta water, then toss with spaghetti, parsley and parmesan."
+  },
+  {
+   "id": "turkey-spinach-penne",
+   "name": "Turkey and Spinach Penne",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "turkey"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Pasta + protein + jarred sauce + veg",
+   "items": [
+    {
+     "key": "ground-turkey",
+     "qty": 2
+    },
+    {
+     "key": "penne",
+     "qty": 1
+    },
+    {
+     "key": "marinara",
+     "qty": 2
+    },
+    {
+     "key": "spinach",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "italian-seasoning",
+     "qty": 0.25
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown the turkey with diced onion and Italian seasoning. Add the marinara and simmer 5 minutes, then stir in spinach until it wilts. Toss with cooked penne and top with parmesan."
+  },
+  {
+   "id": "pizza-pasta-bake",
+   "name": "Pepperoni Pizza Pasta Bake",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "Pasta + protein + jarred sauce + veg",
+   "items": [
+    {
+     "key": "italian-sausage",
+     "qty": 1
+    },
+    {
+     "key": "rigatoni",
+     "qty": 1
+    },
+    {
+     "key": "marinara",
+     "qty": 2
+    },
+    {
+     "key": "mozzarella",
+     "qty": 1
+    },
+    {
+     "key": "pepperoni",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Boil rigatoni until just short of done. Brown the sausage out of its casings and stir in marinara and pasta. Spread in a baking dish, top with mozzarella and pepperoni, and bake at 400 F for 15 minutes."
+  },
+  {
+   "id": "cajun-chicken-pasta",
+   "name": "Cajun Chicken Pasta",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Pasta + protein + jarred sauce + veg",
+   "items": [
+    {
+     "key": "chicken-breast",
+     "qty": 0.5
+    },
+    {
+     "key": "penne",
+     "qty": 1
+    },
+    {
+     "key": "heavy-cream",
+     "qty": 0.5
+    },
+    {
+     "key": "cajun-seasoning",
+     "qty": 0.25
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Slice chicken, season well with Cajun seasoning, and sear until cooked through. Saute sliced peppers in the same pan, add cream and a little more seasoning, and simmer until slightly thick. Stir in parmesan and toss with the penne and chicken. Go light on seasoning for the kids."
+  },
+  {
+   "id": "pork-chops-mash-green-beans",
+   "name": "Pork Chops, Mashed Potatoes and Green Beans",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "Pan-seared pork chops + side + veg",
+   "items": [
+    {
+     "key": "pork-chops",
+     "qty": 1.5
+    },
+    {
+     "key": "russet",
+     "qty": 0.5
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "whole-milk",
+     "qty": 0.25
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.75
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil peeled, cubed potatoes 15 minutes, then mash with butter, milk and salt. Season chops with salt, pepper and garlic powder and sear 4 to 5 minutes per side to 145 F. Saute green beans in the same pan with a pat of butter."
+  },
+  {
+   "id": "honey-garlic-pork-chops",
+   "name": "Honey Garlic Pork Chops with Rice",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Pan-seared pork chops + side + veg",
+   "items": [
+    {
+     "key": "pork-chops",
+     "qty": 1.5
+    },
+    {
+     "key": "honey",
+     "qty": 0.25
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    }
+   ],
+   "notes": "Start the rice. Sear seasoned chops 4 minutes per side, then add honey, soy sauce and garlic powder and let it bubble into a glaze. Steam broccoli in its bag and spoon the pan sauce over everything."
+  },
+  {
+   "id": "sheet-pan-pork-tenderloin",
+   "name": "Sheet-Pan Pork Tenderloin, Sweet Potatoes and Brussels",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 40,
+   "framework": "Sheet-pan protein + veg + seasoning",
+   "items": [
+    {
+     "key": "pork-tenderloin",
+     "qty": 1.5
+    },
+    {
+     "key": "sweet-potato",
+     "qty": 3
+    },
+    {
+     "key": "brussels",
+     "qty": 1
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    },
+    {
+     "key": "brown-sugar",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cube sweet potatoes and halve brussels, toss with oil and salt, and roast at 425 F for 10 minutes. Rub the tenderloin with brown sugar, smoked paprika, garlic powder and salt and nestle it on the pan. Roast 20 to 25 minutes more to 145 F, rest, and slice."
+  },
+  {
+   "id": "pork-chops-apples",
+   "name": "Skillet Pork Chops with Apples and Roasted Potatoes",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "Pan-seared pork chops + side + veg",
+   "items": [
+    {
+     "key": "pork-chops",
+     "qty": 1.5
+    },
+    {
+     "key": "apples",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "brown-sugar",
+     "qty": 0.25
+    },
+    {
+     "key": "gold-potatoes",
+     "qty": 0.5
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.75
+    }
+   ],
+   "notes": "Roast halved gold potatoes at 425 F for 25 minutes. Sear the chops and set aside, then cook sliced apples in butter with a spoon of brown sugar until soft. Return the chops to warm through and serve with potatoes and quick-sauteed green beans."
+  },
+  {
+   "id": "pork-fried-rice",
+   "name": "Pork Fried Rice",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Fried rice: protein + rice + egg + frozen veg",
+   "items": [
+    {
+     "key": "pork-chops",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "peas",
+     "qty": 0.5
+    },
+    {
+     "key": "baby-carrots",
+     "qty": 0.25
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Best with rice cooked the day before. Dice the pork small and sear in a hot pan, then add chopped carrots and peas. Push aside, scramble the eggs, add the rice and soy sauce, and stir-fry until hot. Finish with green onions."
+  },
+  {
+   "id": "bbq-rubbed-pork-chops",
+   "name": "BBQ-Rubbed Pork Chops with Corn and Wedges",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 40,
+   "framework": "Pan-seared pork chops + side + veg",
+   "items": [
+    {
+     "key": "pork-chops",
+     "qty": 1.5
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "brown-sugar",
+     "qty": 0.25
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    },
+    {
+     "key": "russet",
+     "qty": 0.5
+    },
+    {
+     "key": "corn",
+     "qty": 1
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cut potatoes into wedges, toss with oil and salt, and roast at 425 F for 30 minutes. Rub chops with brown sugar, smoked paprika and salt, sear 4 minutes per side, and brush with BBQ sauce at the end. Heat corn with butter."
+  },
+  {
+   "id": "pork-medallions-mushroom-gravy",
+   "name": "Pork Medallions with Mushroom Gravy",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "Pan-seared pork chops + side + veg",
+   "items": [
+    {
+     "key": "pork-tenderloin",
+     "qty": 1.5
+    },
+    {
+     "key": "cremini",
+     "qty": 1
+    },
+    {
+     "key": "heavy-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "gold-potatoes",
+     "qty": 0.5
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.75
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Roast halved gold potatoes at 425 F. Slice the tenderloin into 1-inch medallions, season, and sear 3 minutes per side. Cook mushrooms in butter in the same pan, add cream and simmer to a gravy, then return the pork. Serve with potatoes and green beans."
+  },
+  {
+   "id": "sausage-peppers-potatoes",
+   "name": "Sheet-Pan Sausage, Peppers and Potatoes",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 40,
+   "framework": "Sheet-pan protein + veg + seasoning",
+   "items": [
+    {
+     "key": "italian-sausage",
+     "qty": 1
+    },
+    {
+     "key": "gold-potatoes",
+     "qty": 0.5
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "italian-seasoning",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cut potatoes small and roast with oil, salt and Italian seasoning at 425 F for 15 minutes. Add sausage links, sliced peppers and onion to the pan. Roast 20 minutes more, flipping once, until the sausage hits 160 F."
+  },
+  {
+   "id": "lemon-pepper-thighs-rice",
+   "name": "Lemon Pepper Chicken Thighs, Rice and Broccoli",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Meat + rice + veg",
+   "items": [
+    {
+     "key": "thighs-boneless",
+     "qty": 1
+    },
+    {
+     "key": "lemons",
+     "qty": 0.25
+    },
+    {
+     "key": "black-pepper",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Start the rice. Season thighs with salt and plenty of pepper and sear 5 to 6 minutes per side. Finish with butter and lemon juice in the pan. Steam the broccoli and spoon the pan butter over everything."
+  },
+  {
+   "id": "sheet-pan-chicken-thighs-veg",
+   "name": "Sheet-Pan Chicken Thighs and Veggies with Rice",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 45,
+   "framework": "Sheet-pan protein + veg + seasoning",
+   "items": [
+    {
+     "key": "thighs-bonein",
+     "qty": 1.5
+    },
+    {
+     "key": "zucchini",
+     "qty": 2
+    },
+    {
+     "key": "red-onion",
+     "qty": 1
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "italian-seasoning",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Season thighs with salt and Italian seasoning and roast skin-up at 425 F for 20 minutes. Add chunked zucchini, peppers and onion tossed in oil and salt around them. Roast 20 minutes more until skin is crisp. Serve over rice."
+  },
+  {
+   "id": "sirloin-rice-green-beans",
+   "name": "Garlic Butter Sirloin, Rice and Green Beans",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Meat + rice + veg",
+   "items": [
+    {
+     "key": "sirloin",
+     "qty": 1
+    },
+    {
+     "key": "basmati",
+     "qty": 0.25
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.75
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Start the rice. Season sirloin with salt, pepper and garlic powder and sear 4 minutes per side for medium, then baste with butter and rest. Saute green beans in the same pan and slice the steak against the grain."
+  },
+  {
+   "id": "lemon-butter-catfish",
+   "name": "Lemon Butter Catfish with Rice, Peas and Corn",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "fish"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Meat + rice + veg",
+   "items": [
+    {
+     "key": "catfish",
+     "qty": 2
+    },
+    {
+     "key": "lemons",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "corn",
+     "qty": 0.5
+    },
+    {
+     "key": "peas",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Start the rice. Season catfish with smoked paprika and salt and pan-fry in butter 3 to 4 minutes per side. Squeeze lemon over it. Heat peas and corn together with a pat of butter."
+  },
+  {
+   "id": "teriyaki-chicken-bowls",
+   "name": "Honey Soy Chicken Rice Bowls",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Rice bowl: protein + rice + 2 toppings + sauce",
+   "items": [
+    {
+     "key": "thighs-boneless",
+     "qty": 1
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "honey",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    }
+   ],
+   "notes": "Start the rice. Cut thighs into bites and brown them in a hot skillet. Add soy sauce, honey and garlic powder and simmer until sticky. Serve over rice with steamed broccoli and green onions."
+  },
+  {
+   "id": "beef-and-broccoli",
+   "name": "Beef and Broccoli",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Meat + rice + veg",
+   "items": [
+    {
+     "key": "flank-steak",
+     "qty": 1.5
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "brown-sugar",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 2
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Start the rice. Slice the flank steak very thin against the grain and sear in batches in a hot pan. Add broccoli with a splash of water and cover 2 minutes, then stir in soy sauce, brown sugar and garlic powder until glossy. Serve over rice."
+  },
+  {
+   "id": "chicken-burrito-bowls",
+   "name": "Chicken Burrito Bowls",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Rice bowl: protein + rice + 2 toppings + sauce",
+   "items": [
+    {
+     "key": "chicken-breast",
+     "qty": 0.5
+    },
+    {
+     "key": "black-beans",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "corn",
+     "qty": 0.5
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 0.5
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "chili-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "cumin",
+     "qty": 0.25
+    },
+    {
+     "key": "limes",
+     "qty": 1
+    }
+   ],
+   "notes": "Start the rice and finish it with lime juice. Season chicken with chili powder, cumin and salt, cook through, and slice. Warm the beans and corn. Build bowls with rice, chicken, beans, corn, pico, cheese and sour cream."
+  },
+  {
+   "id": "cajun-sausage-rice",
+   "name": "Cajun Smoked Sausage and Rice Skillet",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Meat + rice + veg",
+   "items": [
+    {
+     "key": "smoked-sausage",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "green-bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "celery",
+     "qty": 1
+    },
+    {
+     "key": "cajun-seasoning",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown sliced smoked sausage in a deep skillet. Add diced pepper, onion and celery and cook 5 minutes. Stir in the rice, Cajun seasoning and water (about 2 cups per cup of rice), cover, and simmer 18 minutes until tender."
+  },
+  {
+   "id": "homemade-pepperoni-pizza",
+   "name": "Homemade Pepperoni Pizza",
+   "kind": "recipe",
+   "theme": "pizza",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "Homemade pizza / flatbread",
+   "items": [
+    {
+     "key": "pizza-dough",
+     "qty": 2
+    },
+    {
+     "key": "marinara",
+     "qty": 1
+    },
+    {
+     "key": "mozzarella",
+     "qty": 2
+    },
+    {
+     "key": "pepperoni",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Let the dough sit out 30 minutes, then stretch onto oiled sheet pans. Spread a thin layer of sauce, cover with mozzarella and pepperoni. Bake at 475 F for 12 to 15 minutes until browned."
+  },
+  {
+   "id": "sausage-pepper-pizza",
+   "name": "Sausage, Pepper and Mushroom Pizza",
+   "kind": "recipe",
+   "theme": "pizza",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 40,
+   "framework": "Homemade pizza / flatbread",
+   "items": [
+    {
+     "key": "pizza-dough",
+     "qty": 2
+    },
+    {
+     "key": "raos",
+     "qty": 0.5
+    },
+    {
+     "key": "mozzarella",
+     "qty": 2
+    },
+    {
+     "key": "italian-sausage",
+     "qty": 0.5
+    },
+    {
+     "key": "green-bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "mushrooms",
+     "qty": 1
+    }
+   ],
+   "notes": "Brown the sausage out of its casings. Stretch the dough onto oiled sheet pans and top with Rao's, mozzarella, sausage, sliced peppers and mushrooms. Bake at 475 F for 12 to 15 minutes. Leave one side plain for picky eaters."
+  },
+  {
+   "id": "bbq-chicken-pizza",
+   "name": "BBQ Chicken Pizza",
+   "kind": "recipe",
+   "theme": "pizza",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Homemade pizza / flatbread",
+   "items": [
+    {
+     "key": "pizza-dough",
+     "qty": 2
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "rotisserie-chicken",
+     "qty": 0.5
+    },
+    {
+     "key": "mozzarella",
+     "qty": 2
+    },
+    {
+     "key": "red-onion",
+     "qty": 1
+    },
+    {
+     "key": "cilantro",
+     "qty": 1
+    }
+   ],
+   "notes": "Shred about half the rotisserie chicken and toss with a little BBQ sauce. Spread BBQ sauce on the stretched dough, then add mozzarella, chicken and thin red onion. Bake at 475 F for 12 to 15 minutes and finish with cilantro."
+  },
+  {
+   "id": "tortilla-pizzas",
+   "name": "Build-Your-Own Tortilla Pizzas",
+   "kind": "recipe",
+   "theme": "pizza",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "Homemade pizza / flatbread",
+   "items": [
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "marinara",
+     "qty": 1
+    },
+    {
+     "key": "mozzarella",
+     "qty": 1
+    },
+    {
+     "key": "pepperoni",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Lay tortillas on sheet pans and bake at 425 F for 3 minutes to crisp. Let the kids add sauce, cheese and pepperoni to their own. Bake 6 to 8 minutes more until the cheese bubbles."
+  },
+  {
+   "id": "margherita-pizza",
+   "name": "Margherita Pizza",
+   "kind": "recipe",
+   "theme": "pizza",
+   "tags": [
+    "none"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "Homemade pizza / flatbread",
+   "items": [
+    {
+     "key": "pizza-dough",
+     "qty": 2
+    },
+    {
+     "key": "raos",
+     "qty": 0.5
+    },
+    {
+     "key": "mozzarella",
+     "qty": 2
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 3
+    },
+    {
+     "key": "basil",
+     "qty": 1
+    },
+    {
+     "key": "olive-oil",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Stretch the dough onto oiled sheet pans and spread with a thin layer of Rao's. Top with mozzarella and thin tomato slices. Bake at 475 F for 12 to 15 minutes, then add torn basil and a drizzle of olive oil."
+  },
+  {
+   "id": "chicken-bacon-ranch-flatbread",
+   "name": "Chicken Bacon White Pizza",
+   "kind": "recipe",
+   "theme": "pizza",
+   "tags": [
+    "chicken",
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Homemade pizza / flatbread",
+   "items": [
+    {
+     "key": "pizza-dough",
+     "qty": 2
+    },
+    {
+     "key": "rotisserie-chicken",
+     "qty": 0.5
+    },
+    {
+     "key": "bacon",
+     "qty": 1
+    },
+    {
+     "key": "mozzarella",
+     "qty": 2
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    }
+   ],
+   "notes": "Cook and crumble the bacon. Stir mayo with garlic powder and a little water for a quick white sauce and spread it on the stretched dough. Top with mozzarella, shredded chicken and bacon. Bake at 475 F for 12 to 15 minutes and finish with green onions."
+  },
+  {
+   "id": "bacon-jalapeno-burgers",
+   "name": "Bacon Jalapeno Jack Burgers",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "beef",
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "Smash burgers / BBQ plate",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 2
+    },
+    {
+     "key": "bacon",
+     "qty": 1
+    },
+    {
+     "key": "jalapenos",
+     "qty": 2
+    },
+    {
+     "key": "monterey-jack",
+     "qty": 0.5
+    },
+    {
+     "key": "burger-buns",
+     "qty": 1
+    },
+    {
+     "key": "frozen-fries",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Bake fries and cook the bacon. Grill or pan-sear 1/2 lb patties 4 minutes per side, adding Monterey Jack at the end. Top with bacon and sliced jalapenos (skip for the kids)."
+  },
+  {
+   "id": "bbq-chicken-thigh-plate",
+   "name": "BBQ Chicken Thighs, Baked Beans and Cornbread",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 50,
+   "framework": "Smash burgers / BBQ plate",
+   "items": [
+    {
+     "key": "thighs-bonein",
+     "qty": 1.5
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    },
+    {
+     "key": "baked-beans",
+     "qty": 0.5
+    },
+    {
+     "key": "cornbread-mix",
+     "qty": 2
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "whole-milk",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Rub thighs with smoked paprika and salt and grill or bake at 425 F for 35 minutes, brushing with BBQ sauce for the last 10. Mix and bake cornbread per the box alongside. Heat the beans on the stove."
+  },
+  {
+   "id": "smoked-sausage-plate",
+   "name": "Smoked Sausage Plate with Slaw and Beans",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Smash burgers / BBQ plate",
+   "items": [
+    {
+     "key": "smoked-sausage",
+     "qty": 2
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "baked-beans",
+     "qty": 0.5
+    },
+    {
+     "key": "green-cabbage",
+     "qty": 0.5
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "acv",
+     "qty": 0.25
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.38
+    }
+   ],
+   "notes": "Grill or pan-sear the sausage until charred. Shred cabbage and toss with mayo, a splash of apple cider vinegar, salt and pepper. Heat the beans and serve with BBQ sauce and pickles."
+  },
+  {
+   "id": "slow-cooker-pulled-pork",
+   "name": "Slow Cooker Pulled Pork Sandwiches",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 480,
+   "framework": "Smash burgers / BBQ plate",
+   "items": [
+    {
+     "key": "pork-loin",
+     "qty": 1
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 1
+    },
+    {
+     "key": "brown-sugar",
+     "qty": 0.25
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    },
+    {
+     "key": "burger-buns",
+     "qty": 2
+    },
+    {
+     "key": "green-cabbage",
+     "qty": 0.25
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.38
+    }
+   ],
+   "notes": "Rub the pork loin with brown sugar, smoked paprika and salt and slow cook on low 7 to 8 hours with half a cup of water (10 minutes of hands-on work). Shred, drain most of the liquid, and stir in BBQ sauce. Pile on buns with quick mayo slaw and pickles."
+  },
+  {
+   "id": "grilled-sirloin-baked-potato",
+   "name": "Grilled Sirloin, Baked Potatoes and Asparagus",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 60,
+   "framework": "Smash burgers / BBQ plate",
+   "items": [
+    {
+     "key": "sirloin",
+     "qty": 1
+    },
+    {
+     "key": "russet",
+     "qty": 0.75
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "asparagus",
+     "qty": 1
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Bake oiled, salted russets at 425 F for about 50 minutes. Season the sirloin with salt, pepper and garlic powder and grill 4 to 5 minutes per side, then rest. Grill or roast the asparagus for the last 10 minutes. Serve potatoes with butter and sour cream."
+  },
+  {
+   "id": "rotisserie-chicken-night",
+   "name": "Rotisserie Chicken, Broccoli and Garlic Bread",
+   "kind": "heat-and-add",
+   "theme": "easy",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "Heat-and-add or one-pan easy night",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 1
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "garlic-bread",
+     "qty": 1
+    }
+   ],
+   "notes": "Bake the garlic bread. Microwave the broccoli in its bag. Carve the rotisserie chicken and dinner is done."
+  },
+  {
+   "id": "breakfast-for-dinner",
+   "name": "Breakfast for Dinner",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "egg",
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Heat-and-add or one-pan easy night",
+   "items": [
+    {
+     "key": "eggs",
+     "qty": 0.5
+    },
+    {
+     "key": "bacon",
+     "qty": 1
+    },
+    {
+     "key": "sourdough",
+     "qty": 0.5
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "strawberries",
+     "qty": 1
+    }
+   ],
+   "notes": "Bake the bacon on a sheet pan at 400 F for 15 to 18 minutes. Scramble the eggs low and slow in butter. Toast the sourdough and serve with sliced strawberries."
+  },
+  {
+   "id": "sausage-egg-breakfast-tacos",
+   "name": "Sausage and Egg Breakfast Tacos",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "eggs",
+     "qty": 0.5
+    },
+    {
+     "key": "pork-sausage",
+     "qty": 0.5
+    },
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "salsa",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Brown the sausage and drain. Scramble the eggs in the same pan and fold the sausage back in. Fill warm tortillas with egg, sausage and cheese and top with salsa."
+  },
+  {
+   "id": "sausage-potato-skillet",
+   "name": "Smoked Sausage and Potato Skillet",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "Heat-and-add or one-pan easy night",
+   "items": [
+    {
+     "key": "smoked-sausage",
+     "qty": 1
+    },
+    {
+     "key": "gold-potatoes",
+     "qty": 0.5
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.5
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Dice the potatoes small and cook covered in an oiled skillet 10 minutes, then uncover and brown. Add sliced sausage, onion and green beans with smoked paprika and salt. Cook 8 to 10 minutes more until everything is browned."
+  },
+  {
+   "id": "blt-night",
+   "name": "BLT Sandwiches",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Heat-and-add or one-pan easy night",
+   "items": [
+    {
+     "key": "bacon",
+     "qty": 2
+    },
+    {
+     "key": "sourdough",
+     "qty": 0.75
+    },
+    {
+     "key": "romaine",
+     "qty": 1
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 3
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "mini-cucumbers",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Bake the bacon on a sheet pan at 400 F for 15 to 18 minutes. Toast the sourdough and spread with mayo. Stack bacon, romaine and sliced tomato, with sliced cucumbers on the side."
+  },
+  {
+   "id": "rotisserie-chicken-quesadillas",
+   "name": "Rotisserie Chicken Quesadillas",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Taco night: protein + tortilla + toppings",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 1
+    },
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 1
+    },
+    {
+     "key": "salsa",
+     "qty": 0.5
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Shred the rotisserie chicken. Fill tortillas with cheese and chicken, fold, and toast in a dry skillet 2 to 3 minutes per side until golden. Cut into wedges and serve with salsa and sour cream."
+  },
+  {
+   "id": "frozen-pizza-salad",
+   "name": "Frozen Pizza and Side Salad",
+   "kind": "repeat",
+   "theme": "easy",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "Heat-and-add or one-pan easy night",
+   "items": [
+    {
+     "key": "frozen-pizza",
+     "qty": 2
+    },
+    {
+     "key": "romaine",
+     "qty": 1
+    },
+    {
+     "key": "mini-cucumbers",
+     "qty": 0.5
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 2
+    }
+   ],
+   "notes": "Bake the pizzas per the box. Chop romaine, cucumbers and tomatoes for a quick salad with whatever dressing is on hand."
+  },
+  {
+   "id": "chicken-taco-rice-skillet",
+   "name": "One-Pan Chicken Taco Rice",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "one-pan",
+   "items": [
+    {
+     "key": "chicken-breast",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "salsa",
+     "qty": 0.5
+    },
+    {
+     "key": "black-beans",
+     "qty": 1
+    },
+    {
+     "key": "corn",
+     "qty": 0.5
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "chicken-broth",
+     "qty": 0.5
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Brown bite-size chicken in a big lidded skillet with taco seasoning. Stir in rice, broth, salsa, drained beans and corn, bring to a boil, then cover and simmer on low 18 minutes. Top with cheese, cover a minute to melt, and serve with chips or tortillas."
+  },
+  {
+   "id": "turkey-taco-lettuce-wraps",
+   "name": "Turkey Taco Lettuce Wraps",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "turkey"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "5-ingredient",
+   "items": [
+    {
+     "key": "ground-turkey",
+     "qty": 2
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "romaine",
+     "qty": 0.5
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Brown the turkey, drain, and stir in taco seasoning with a splash of water. Spoon into romaine leaves and top with pico and cheddar. Kids can have theirs in tortillas or over chips if lettuce is a hard sell."
+  },
+  {
+   "id": "sheet-pan-nachos",
+   "name": "Sheet-Pan Beef Nachos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "sheet-pan",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1.5
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "tortilla-chips",
+     "qty": 0.75
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 1
+    },
+    {
+     "key": "black-beans",
+     "qty": 1
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "jalapenos",
+     "qty": 1
+    }
+   ],
+   "notes": "Brown beef with taco seasoning. Spread chips on a foil-lined sheet pan, top with beef, drained beans and cheese, and bake at 400 for 6 to 8 minutes until melted. Finish with pico, sour cream and sliced jalapeno on the grown-up side."
+  },
+  {
+   "id": "one-pot-cheeseburger-mac",
+   "name": "One-Pot Cheeseburger Macaroni",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "one-pan",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1
+    },
+    {
+     "key": "elbow-macaroni",
+     "qty": 0.75
+    },
+    {
+     "key": "chicken-broth",
+     "qty": 1
+    },
+    {
+     "key": "whole-milk",
+     "qty": 0.25
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown beef and chopped onion in a deep pot, drain. Add dry macaroni, broth, a cup of milk and garlic powder, simmer covered about 10 minutes, stirring, until pasta is tender. Turn off heat and stir in cheddar until creamy. Homemade boxed-mix taste, one pot."
+  },
+  {
+   "id": "pesto-chicken-pasta",
+   "name": "Pesto Chicken Pasta",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "5-ingredient",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 1
+    },
+    {
+     "key": "penne",
+     "qty": 1
+    },
+    {
+     "key": "pesto",
+     "qty": 1
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 3
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil penne while you pull the meat off a Meal Simple rotisserie chicken. Drain pasta, saving a splash of water, and toss with pesto, chicken and chopped tomatoes. Loosen with pasta water and top with parmesan."
+  },
+  {
+   "id": "beef-stroganoff-skillet",
+   "name": "Skillet Beef Stroganoff",
+   "kind": "recipe",
+   "theme": "pasta",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "one-pan",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1.5
+    },
+    {
+     "key": "egg-noodles",
+     "qty": 0.75
+    },
+    {
+     "key": "cremini",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "chicken-broth",
+     "qty": 1
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.5
+    },
+    {
+     "key": "minced-garlic",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown beef with onion and mushrooms, then add garlic. Pour in broth, bring to a simmer, and stir in dry egg noodles; cover and cook about 8 minutes until tender. Turn off the heat and stir in sour cream."
+  },
+  {
+   "id": "sheet-pan-pork-tenderloin-potatoes",
+   "name": "Sheet-Pan Pork Tenderloin and Potatoes",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 35,
+   "framework": "sheet-pan",
+   "items": [
+    {
+     "key": "pork-tenderloin",
+     "qty": 2
+    },
+    {
+     "key": "gold-potatoes",
+     "qty": 0.25
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.5
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    },
+    {
+     "key": "olive-oil",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Toss halved gold potatoes with oil and salt and start them at 425 for 10 minutes. Rub tenderloins with paprika, garlic powder and salt, add to the pan with green beans, and roast 18 to 20 minutes to 145. Rest 5 minutes and slice."
+  },
+  {
+   "id": "teriyaki-pork-stir-fry",
+   "name": "Teriyaki Pork Stir-Fry",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "stir-fry",
+   "items": [
+    {
+     "key": "pork-tenderloin",
+     "qty": 1
+    },
+    {
+     "key": "stir-fry-veg",
+     "qty": 1
+    },
+    {
+     "key": "teriyaki-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    }
+   ],
+   "notes": "Start the rice. Slice tenderloin into thin coins and sear in a hot skillet in two batches. Add the frozen stir-fry veggies and cook until hot, then pour in teriyaki and toss. Serve over rice."
+  },
+  {
+   "id": "ranch-pork-chops",
+   "name": "Ranch Pork Chops and Potatoes",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "5-ingredient",
+   "items": [
+    {
+     "key": "pork-chops",
+     "qty": 1.5
+    },
+    {
+     "key": "ranch-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "gold-potatoes",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    }
+   ],
+   "notes": "Toss halved baby gold potatoes in melted butter and half the ranch packet and roast at 425 for 10 minutes. Coat chops in the rest of the ranch, add to the pan, and roast 15 minutes to 145. Steam the broccoli in its bag."
+  },
+  {
+   "id": "cuban-mojo-pork-bowls",
+   "name": "Mojo Pork Rice Bowls",
+   "kind": "recipe",
+   "theme": "pork",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "skillet",
+   "items": [
+    {
+     "key": "pork-tenderloin",
+     "qty": 1
+    },
+    {
+     "key": "oranges",
+     "qty": 0.25
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    },
+    {
+     "key": "minced-garlic",
+     "qty": 0.25
+    },
+    {
+     "key": "cumin",
+     "qty": 0.25
+    },
+    {
+     "key": "oregano",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "black-beans",
+     "qty": 1
+    },
+    {
+     "key": "avocados",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Slice tenderloin thin and toss with orange and lime juice, garlic, cumin, oregano and salt. Sear in a hot skillet until browned and the juice cooks down. Serve over rice with warmed black beans and sliced avocado."
+  },
+  {
+   "id": "cajun-shrimp-sausage-skillet",
+   "name": "Cajun Shrimp and Sausage Skillet",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "shrimp",
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "one-pan",
+   "items": [
+    {
+     "key": "shrimp",
+     "qty": 1
+    },
+    {
+     "key": "smoked-sausage",
+     "qty": 1
+    },
+    {
+     "key": "cajun-seasoning",
+     "qty": 0.25
+    },
+    {
+     "key": "zucchini",
+     "qty": 2
+    },
+    {
+     "key": "yellow-squash",
+     "qty": 2
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 0.5
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Start rice. Brown sliced sausage, then add chopped zucchini, squash and pepper with Cajun seasoning and cook 5 minutes. Add shrimp and cook 3 minutes until pink. Serve over rice; go light on Cajun for the kids."
+  },
+  {
+   "id": "sheet-pan-lemon-pepper-salmon",
+   "name": "Sheet-Pan Lemon Salmon and Asparagus",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "fish"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "sheet-pan",
+   "items": [
+    {
+     "key": "salmon",
+     "qty": 1.5
+    },
+    {
+     "key": "asparagus",
+     "qty": 1
+    },
+    {
+     "key": "lemons",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "garlic-powder",
+     "qty": 0.25
+    },
+    {
+     "key": "basmati",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Start the rice. Lay salmon and asparagus on a sheet pan, brush with melted butter, season with garlic powder, salt, pepper and lemon zest. Roast at 425 for 12 to 15 minutes and squeeze lemon over everything."
+  },
+  {
+   "id": "teriyaki-chicken-sheet-pan",
+   "name": "Sheet-Pan Teriyaki Chicken and Veggies",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "sheet-pan",
+   "items": [
+    {
+     "key": "thighs-boneless",
+     "qty": 1
+    },
+    {
+     "key": "teriyaki-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "red-bell",
+     "qty": 1
+    },
+    {
+     "key": "pineapple-chunks",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Toss chicken chunks, broccoli, sliced pepper and drained pineapple with half the teriyaki. Roast at 425 for 20 minutes, then drizzle the rest of the sauce over and return 2 minutes. Serve over rice."
+  },
+  {
+   "id": "chicken-fried-rice",
+   "name": "Chicken Fried Rice",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "stir-fry",
+   "items": [
+    {
+     "key": "chicken-breast",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "stir-fry-veg",
+     "qty": 1
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cook diced chicken in butter until browned, then scramble eggs in the same pan. Add day-old rice and frozen veggies, stir-fry on high 5 minutes, and season with soy. One pan, and the kids usually eat every bit."
+  },
+  {
+   "id": "blackened-catfish-rice",
+   "name": "Blackened Catfish with Rice and Corn",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "fish"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "skillet",
+   "items": [
+    {
+     "key": "catfish",
+     "qty": 1.5
+    },
+    {
+     "key": "cajun-seasoning",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "corn",
+     "qty": 1
+    },
+    {
+     "key": "lemons",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Start rice. Pat catfish dry, coat with Cajun seasoning, and cook in butter in a hot skillet 3 to 4 minutes a side. Warm the corn with a pat of butter. Lemon wedges on the side; use a lighter dusting for the kids."
+  },
+  {
+   "id": "breakfast-for-dinner-skillet",
+   "name": "Sausage, Egg and Potato Skillet",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "skillet",
+   "items": [
+    {
+     "key": "pork-sausage",
+     "qty": 0.5
+    },
+    {
+     "key": "eggs",
+     "qty": 0.5
+    },
+    {
+     "key": "russet",
+     "qty": 0.25
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "green-bell-peppers",
+     "qty": 1
+    }
+   ],
+   "notes": "Dice potatoes small and crisp them in a big skillet with a little oil, about 12 minutes. Add sausage and diced pepper and cook through. Make wells, crack in the eggs, cover until set, and melt cheddar over the top."
+  },
+  {
+   "id": "bbq-chicken-sliders",
+   "name": "BBQ Chicken Sliders",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "5-ingredient",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 1
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "hawaiian-rolls",
+     "qty": 1
+    },
+    {
+     "key": "monterey-jack",
+     "qty": 0.5
+    },
+    {
+     "key": "baby-carrots",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Shred the rotisserie chicken and warm it with BBQ sauce. Split the whole slab of rolls, pile on chicken and cheese, close and bake at 350 for 8 minutes. Baby carrots on the side."
+  },
+  {
+   "id": "loaded-baked-potato-bar",
+   "name": "Loaded Baked Potato Bar",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "5-ingredient",
+   "items": [
+    {
+     "key": "russet",
+     "qty": 0.5
+    },
+    {
+     "key": "bacon",
+     "qty": 1
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 1
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    }
+   ],
+   "notes": "Poke potatoes and microwave 12 to 15 minutes until soft, then crisp in a hot oven if there's time. Cook bacon on a sheet pan at 400 while they go. Set out bacon, cheese, sour cream, steamed broccoli and green onions and let everyone build their own."
+  },
+  {
+   "id": "chicken-ranch-wraps",
+   "name": "Crispy Chicken Ranch Wraps",
+   "kind": "recipe",
+   "theme": "easy",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "5-ingredient",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 0.5
+    },
+    {
+     "key": "romaine",
+     "qty": 0.5
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "bacon",
+     "qty": 0.5
+    },
+    {
+     "key": "ranch-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "burrito-tortillas",
+     "qty": 1
+    }
+   ],
+   "notes": "Stir ranch mix into sour cream with a splash of milk for a quick dressing. Fill tortillas with shredded chicken, chopped romaine, cheddar and crumbled bacon, drizzle ranch, roll up, and toast seam-side down in a dry skillet."
+  },
+  {
+   "id": "naan-pizzas",
+   "name": "Naan Pizzas",
+   "kind": "recipe",
+   "theme": "pizza",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "5-ingredient",
+   "items": [
+    {
+     "key": "naan",
+     "qty": 2.67
+    },
+    {
+     "key": "marinara",
+     "qty": 1
+    },
+    {
+     "key": "mozzarella",
+     "qty": 1
+    },
+    {
+     "key": "pepperoni",
+     "qty": 1
+    },
+    {
+     "key": "romaine",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Lay naan on a sheet pan, spread with marinara, and top with mozzarella and pepperoni. Bake at 425 for 8 to 10 minutes until the edges are crisp. Kids build their own; a simple romaine salad on the side."
+  },
+  {
+   "id": "sheet-pan-bbq-chicken",
+   "name": "Sheet-Pan BBQ Chicken Thighs and Corn",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 40,
+   "framework": "sheet-pan",
+   "items": [
+    {
+     "key": "thighs-bonein",
+     "qty": 1.5
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "corn",
+     "qty": 1
+    },
+    {
+     "key": "russet",
+     "qty": 0.25
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Season bone-in thighs with smoked paprika and salt and roast skin-up at 425 alongside potato wedges for 30 minutes. Brush thighs with BBQ sauce and roast 8 more minutes. Warm corn with butter on the stovetop."
+  },
+  {
+   "id": "smoked-sausage-bbq-skillet",
+   "name": "BBQ Smoked Sausage, Potatoes and Peppers",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "skillet",
+   "items": [
+    {
+     "key": "smoked-sausage",
+     "qty": 2
+    },
+    {
+     "key": "gold-potatoes",
+     "qty": 0.25
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Microwave cubed potatoes 5 minutes to get a head start, then crisp them in a big skillet. Add sliced sausage, peppers and onion and cook until browned. Toss with a few spoonfuls of BBQ sauce right at the end."
+  },
+  {
+   "id": "bbq-pork-tenderloin",
+   "name": "Grilled BBQ Pork Tenderloin",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 30,
+   "framework": "grill",
+   "items": [
+    {
+     "key": "pork-tenderloin",
+     "qty": 2
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 0.5
+    },
+    {
+     "key": "smoked-paprika",
+     "qty": 0.25
+    },
+    {
+     "key": "brown-sugar",
+     "qty": 0.25
+    },
+    {
+     "key": "corn",
+     "qty": 1
+    },
+    {
+     "key": "green-cabbage",
+     "qty": 0.25
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    },
+    {
+     "key": "acv",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Rub tenderloins with paprika, brown sugar and salt and grill over medium-high about 18 minutes, turning, to 145; brush with BBQ sauce the last few minutes. Rest and slice. Quick slaw: shredded cabbage with sour cream, a splash of vinegar and salt. Corn on the side."
+  },
+  {
+   "id": "bbq-chicken-sandwiches",
+   "name": "BBQ Pulled Chicken Sandwiches",
+   "kind": "recipe",
+   "theme": "bbq",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 25,
+   "framework": "one-pan",
+   "items": [
+    {
+     "key": "chicken-breast",
+     "qty": 0.5
+    },
+    {
+     "key": "bbq-sauce",
+     "qty": 1
+    },
+    {
+     "key": "chicken-broth",
+     "qty": 0.25
+    },
+    {
+     "key": "burger-buns",
+     "qty": 1
+    },
+    {
+     "key": "green-cabbage",
+     "qty": 0.25
+    },
+    {
+     "key": "acv",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Simmer chicken breasts covered in broth about 15 minutes until cooked, then shred with two forks right in the pan. Pour off most of the liquid and stir in BBQ sauce. Pile on brioche buns with a vinegar slaw on top."
+  },
+  {
+   "id": "turkey-cheddar-sandwiches",
+   "name": "Turkey and Cheddar Sandwiches (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "turkey"
+   ],
+   "serves": 4,
+   "minutes": 10,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "white-bread",
+     "qty": 0.5
+    },
+    {
+     "key": "deli-turkey",
+     "qty": 1.0
+    },
+    {
+     "key": "sliced-cheddar",
+     "qty": 0.25
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "iceberg-lettuce",
+     "qty": 1
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 1
+    }
+   ],
+   "notes": "Whole-family lunch. Spread mayo, stack turkey, cheddar, lettuce and tomato. Leave veggies off the kids' if they won't eat them."
+  },
+  {
+   "id": "ham-swiss-sandwiches",
+   "name": "Ham and Swiss on Wheat (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork"
+   ],
+   "serves": 2,
+   "minutes": 5,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "wheat-bread",
+     "qty": 0.25
+    },
+    {
+     "key": "deli-ham",
+     "qty": 0.5
+    },
+    {
+     "key": "sliced-swiss",
+     "qty": 0.25
+    },
+    {
+     "key": "brown-mustard",
+     "qty": 0.25
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.38
+    }
+   ],
+   "notes": "Adults working from home. Spicy brown mustard, ham, swiss, pickle spear on the side."
+  },
+  {
+   "id": "pbj-fruit",
+   "name": "PB&J with Fruit (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "none"
+   ],
+   "serves": 4,
+   "minutes": 5,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "white-bread",
+     "qty": 0.5
+    },
+    {
+     "key": "peanut-butter",
+     "qty": 0.25
+    },
+    {
+     "key": "grape-jelly",
+     "qty": 0.25
+    },
+    {
+     "key": "apples",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Classic PB&J for everyone, with mini apples on the side. Add a string cheese for extra protein."
+  },
+  {
+   "id": "grilled-cheese-tomato-soup",
+   "name": "Grilled Cheese and Tomato Soup (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "none"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "soup and sandwich",
+   "items": [
+    {
+     "key": "white-bread",
+     "qty": 0.5
+    },
+    {
+     "key": "sliced-american",
+     "qty": 0.5
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "tomato-soup",
+     "qty": 2
+    }
+   ],
+   "notes": "Butter the outside of the bread, two slices of American inside, griddle on medium until golden. Heat the soup with a can of water or milk while they cook."
+  },
+  {
+   "id": "blt-sourdough",
+   "name": "BLTs on Sourdough (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork"
+   ],
+   "serves": 2,
+   "minutes": 15,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "sourdough",
+     "qty": 0.25
+    },
+    {
+     "key": "bacon",
+     "qty": 1
+    },
+    {
+     "key": "romaine",
+     "qty": 0.25
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 2
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Bake or pan-fry the bacon, toast the sourdough, then mayo, romaine, thick tomato slices and plenty of bacon."
+  },
+  {
+   "id": "chicken-salad-sandwiches",
+   "name": "Rotisserie Chicken Salad Sandwiches (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 1
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "celery",
+     "qty": 1
+    },
+    {
+     "key": "grapes-red",
+     "qty": 0.25
+    },
+    {
+     "key": "wheat-bread",
+     "qty": 0.5
+    },
+    {
+     "key": "romaine",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Pull the rotisserie chicken and chop it. Mix with mayo, diced celery and halved grapes, salt and pepper. Pile on wheat bread with lettuce; extra keeps 3 days."
+  },
+  {
+   "id": "cuban-pressed-sandwiches",
+   "name": "Pressed Cuban-Style Ham Sandwiches (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork"
+   ],
+   "serves": 2,
+   "minutes": 15,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "hoagie-rolls",
+     "qty": 0.5
+    },
+    {
+     "key": "deli-ham",
+     "qty": 0.5
+    },
+    {
+     "key": "sliced-swiss",
+     "qty": 0.25
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.38
+    },
+    {
+     "key": "yellow-mustard",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Mustard on both sides of the roll, layer ham, swiss and sliced pickles. Butter the outside and press in a hot skillet under a heavy pan, 3 minutes a side."
+  },
+  {
+   "id": "turkey-swiss-melts",
+   "name": "Turkey Swiss Melts on Sourdough (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "turkey"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "melt",
+   "items": [
+    {
+     "key": "sourdough",
+     "qty": 0.5
+    },
+    {
+     "key": "deli-turkey",
+     "qty": 1.0
+    },
+    {
+     "key": "sliced-swiss",
+     "qty": 0.5
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    },
+    {
+     "key": "brown-mustard",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Whole family. Build turkey and swiss on sourdough (mustard for the adults), butter the outside and griddle until the cheese melts."
+  },
+  {
+   "id": "tuna-melts",
+   "name": "Tuna Melts (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "fish"
+   ],
+   "serves": 2,
+   "minutes": 15,
+   "framework": "melt",
+   "items": [
+    {
+     "key": "tuna-can",
+     "qty": 2
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "celery",
+     "qty": 1
+    },
+    {
+     "key": "wheat-bread",
+     "qty": 0.25
+    },
+    {
+     "key": "sliced-cheddar",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Mix drained tuna with mayo and diced celery. Spread on bread, top with cheddar and broil or griddle until melty."
+  },
+  {
+   "id": "plain-hot-dogs",
+   "name": "Hot Dogs and Fruit (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 10,
+   "framework": "hot dog",
+   "items": [
+    {
+     "key": "hot-dogs",
+     "qty": 1
+    },
+    {
+     "key": "hot-dog-buns",
+     "qty": 1
+    },
+    {
+     "key": "ketchup",
+     "qty": 0.25
+    },
+    {
+     "key": "yellow-mustard",
+     "qty": 0.25
+    },
+    {
+     "key": "mandarins",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Boil, grill or pan-sear the franks, toast the buns. Ketchup and mustard bar plus mandarins on the side. Two dogs each."
+  },
+  {
+   "id": "chili-cheese-dogs",
+   "name": "Chili Cheese Dogs (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "hot dog",
+   "items": [
+    {
+     "key": "hot-dogs",
+     "qty": 1
+    },
+    {
+     "key": "hot-dog-buns",
+     "qty": 1
+    },
+    {
+     "key": "canned-chili",
+     "qty": 2
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Heat the chili in a small pot while the franks cook. Dog in bun, ladle chili, top with cheddar and diced onion for whoever wants it."
+  },
+  {
+   "id": "turkey-ranch-wraps",
+   "name": "Turkey Ranch Wraps (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "turkey"
+   ],
+   "serves": 2,
+   "minutes": 10,
+   "framework": "wrap",
+   "items": [
+    {
+     "key": "burrito-tortillas",
+     "qty": 0.2
+    },
+    {
+     "key": "deli-turkey",
+     "qty": 0.5
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    },
+    {
+     "key": "romaine",
+     "qty": 0.25
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 1
+    },
+    {
+     "key": "ranch",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Spread ranch on a big tortilla, layer turkey, cheddar, chopped romaine and tomato, roll tight and cut in half."
+  },
+  {
+   "id": "buffalo-chicken-wraps",
+   "name": "Buffalo Chicken Wraps (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "wrap",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 1
+    },
+    {
+     "key": "franks",
+     "qty": 0.25
+    },
+    {
+     "key": "ranch",
+     "qty": 0.25
+    },
+    {
+     "key": "burrito-tortillas",
+     "qty": 0.4
+    },
+    {
+     "key": "romaine",
+     "qty": 0.25
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Toss shredded rotisserie chicken in Frank's and a little butter for adults; keep some plain with ranch for the kids. Wrap with lettuce and cheddar."
+  },
+  {
+   "id": "chicken-caesar-wraps",
+   "name": "Chicken Caesar Wraps (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 10,
+   "framework": "wrap",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 0.5
+    },
+    {
+     "key": "romaine",
+     "qty": 0.5
+    },
+    {
+     "key": "parmesan",
+     "qty": 0.25
+    },
+    {
+     "key": "caesar-dressing",
+     "qty": 0.25
+    },
+    {
+     "key": "burrito-tortillas",
+     "qty": 0.2
+    }
+   ],
+   "notes": "Adults lunch. Chop romaine, toss with Caesar and parmesan, add pulled rotisserie chicken and wrap it up."
+  },
+  {
+   "id": "cheese-quesadillas",
+   "name": "Cheese Quesadillas (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "none"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "quesadilla",
+   "items": [
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 1
+    },
+    {
+     "key": "salsa",
+     "qty": 0.25
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Cheese between two tortillas in a dry skillet, medium heat, flip once when golden. Cut in wedges, serve with salsa and sour cream."
+  },
+  {
+   "id": "chicken-quesadillas-lunch",
+   "name": "Chicken Quesadillas (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 15,
+   "framework": "quesadilla",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 0.5
+    },
+    {
+     "key": "flour-tortillas",
+     "qty": 0.25
+    },
+    {
+     "key": "monterey-jack",
+     "qty": 0.5
+    },
+    {
+     "key": "pico",
+     "qty": 0.25
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch, great with leftover rotisserie chicken. Fill tortillas with chicken and jack, toast both sides, top with pico and sour cream."
+  },
+  {
+   "id": "taco-salad-lunch",
+   "name": "Taco Salad (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "salad",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 1
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "iceberg-lettuce",
+     "qty": 1
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 2
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "tortilla-chips",
+     "qty": 0.25
+    },
+    {
+     "key": "salsa",
+     "qty": 0.25
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown the beef with taco seasoning. Chopped lettuce in bowls, beef, tomato, cheese, crushed chips, salsa and sour cream on top."
+  },
+  {
+   "id": "steak-burrito-bowls",
+   "name": "Steak Burrito Bowls (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 2,
+   "minutes": 25,
+   "framework": "bowl",
+   "items": [
+    {
+     "key": "skirt-steak",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "black-beans",
+     "qty": 0.5
+    },
+    {
+     "key": "pico",
+     "qty": 0.25
+    },
+    {
+     "key": "avocados",
+     "qty": 0.25
+    },
+    {
+     "key": "limes",
+     "qty": 1
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Salt, pepper and cumin the skirt steak, sear hot 3 minutes a side, rest and slice thin. Rice, beans, steak, cheese, pico, avocado, squeeze of lime."
+  },
+  {
+   "id": "turkey-taco-rice-bowls",
+   "name": "Turkey Taco Rice Bowls (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "turkey"
+   ],
+   "serves": 2,
+   "minutes": 20,
+   "framework": "bowl",
+   "items": [
+    {
+     "key": "ground-turkey",
+     "qty": 1
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "corn",
+     "qty": 0.25
+    },
+    {
+     "key": "salsa",
+     "qty": 0.25
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch, leftovers make a second day. Brown turkey with taco seasoning, serve over rice with warmed corn, salsa and cheddar."
+  },
+  {
+   "id": "steak-salad",
+   "name": "Steak Salad with Ranch (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 2,
+   "minutes": 20,
+   "framework": "salad",
+   "items": [
+    {
+     "key": "sirloin",
+     "qty": 0.5
+    },
+    {
+     "key": "romaine",
+     "qty": 0.5
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 1
+    },
+    {
+     "key": "red-onion",
+     "qty": 1
+    },
+    {
+     "key": "avocados",
+     "qty": 0.25
+    },
+    {
+     "key": "ranch",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Sear seasoned sirloin to medium, rest 5 minutes, slice. Pile on chopped romaine with tomato, thin red onion and avocado, ranch on top."
+  },
+  {
+   "id": "chicken-cobb-salad",
+   "name": "Chicken Cobb Salad (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken",
+    "egg",
+    "pork"
+   ],
+   "serves": 2,
+   "minutes": 20,
+   "framework": "salad",
+   "items": [
+    {
+     "key": "romaine",
+     "qty": 0.5
+    },
+    {
+     "key": "rotisserie-chicken",
+     "qty": 0.5
+    },
+    {
+     "key": "bacon",
+     "qty": 0.5
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "avocados",
+     "qty": 0.25
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 1
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    },
+    {
+     "key": "ranch",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Hard-boil 2 eggs and crisp a few slices of bacon. Rows of chicken, bacon, egg, avocado, tomato and cheddar over chopped romaine with ranch."
+  },
+  {
+   "id": "ham-fried-rice-bowls",
+   "name": "Leftover Rice Ham Fried Rice (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "bowl",
+   "items": [
+    {
+     "key": "jasmine-rice",
+     "qty": 0.5
+    },
+    {
+     "key": "deli-ham",
+     "qty": 0.5
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "peas",
+     "qty": 0.5
+    },
+    {
+     "key": "baby-carrots",
+     "qty": 0.25
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Best with day-old rice. Scramble 3 eggs and set aside. Stir-fry diced ham, chopped carrots and peas, add cold rice and soy sauce, fold the eggs back in."
+  },
+  {
+   "id": "kids-turkey-cracker-plates",
+   "name": "Kids' Turkey Cracker Stackers (2 kids)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "turkey"
+   ],
+   "serves": 2,
+   "minutes": 5,
+   "framework": "snack plate",
+   "items": [
+    {
+     "key": "crackers",
+     "qty": 0.25
+    },
+    {
+     "key": "deli-turkey",
+     "qty": 0.5
+    },
+    {
+     "key": "sliced-cheddar",
+     "qty": 0.25
+    },
+    {
+     "key": "grapes-red",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Homemade Lunchables for the two kids. Cut turkey and cheddar slices into squares to stack on crackers, grapes on the side."
+  },
+  {
+   "id": "kids-pizza-cracker-plates",
+   "name": "Kids' Pizza Cracker Plates (2 kids)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork"
+   ],
+   "serves": 2,
+   "minutes": 5,
+   "framework": "snack plate",
+   "items": [
+    {
+     "key": "crackers",
+     "qty": 0.25
+    },
+    {
+     "key": "pepperoni",
+     "qty": 0.25
+    },
+    {
+     "key": "string-cheese",
+     "qty": 0.25
+    },
+    {
+     "key": "marinara",
+     "qty": 0.25
+    },
+    {
+     "key": "strawberries",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Pizza Lunchables at home for the kids. Crackers, pepperoni, string cheese pulled into pieces, a little cup of marinara to dip, strawberries on the side."
+  },
+  {
+   "id": "kids-pb-apple-plates",
+   "name": "Kids' PB Apple Snack Plates (2 kids)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "none"
+   ],
+   "serves": 2,
+   "minutes": 5,
+   "framework": "snack plate",
+   "items": [
+    {
+     "key": "apples",
+     "qty": 0.25
+    },
+    {
+     "key": "peanut-butter",
+     "qty": 0.25
+    },
+    {
+     "key": "crackers",
+     "qty": 0.25
+    },
+    {
+     "key": "string-cheese",
+     "qty": 0.25
+    },
+    {
+     "key": "baby-carrots",
+     "qty": 0.25
+    }
+   ],
+   "notes": "For the two kids. Sliced mini apples and crackers with a peanut butter dip, a string cheese each and baby carrots."
+  },
+  {
+   "id": "hummus-snack-board",
+   "name": "Hummus Snack Board (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 10,
+   "framework": "snack plate",
+   "items": [
+    {
+     "key": "hummus",
+     "qty": 1.25
+    },
+    {
+     "key": "baby-carrots",
+     "qty": 0.5
+    },
+    {
+     "key": "mini-cucumbers",
+     "qty": 0.5
+    },
+    {
+     "key": "crackers",
+     "qty": 0.25
+    },
+    {
+     "key": "string-cheese",
+     "qty": 0.5
+    },
+    {
+     "key": "pepperoni",
+     "qty": 0.25
+    },
+    {
+     "key": "grapes-green",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Lazy family lunch on one big board. Hummus in the middle, carrots, sliced cucumbers, crackers, string cheese, pepperoni and grapes around it."
+  },
+  {
+   "id": "ham-cheese-roll-ups-kids",
+   "name": "Kids' Ham and Cheese Roll-Ups (2 kids)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork"
+   ],
+   "serves": 2,
+   "minutes": 5,
+   "framework": "snack plate",
+   "items": [
+    {
+     "key": "flour-tortillas",
+     "qty": 0.25
+    },
+    {
+     "key": "deli-ham",
+     "qty": 0.5
+    },
+    {
+     "key": "sliced-american",
+     "qty": 0.25
+    },
+    {
+     "key": "mandarins",
+     "qty": 0.25
+    },
+    {
+     "key": "goldfish",
+     "qty": 0.25
+    }
+   ],
+   "notes": "For the two kids. Layer ham and cheese on a tortilla, roll tight and slice into pinwheels. Mandarins and Goldfish on the side."
+  },
+  {
+   "id": "deli-protein-boxes",
+   "name": "Deli Protein Boxes (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "turkey",
+    "egg"
+   ],
+   "serves": 2,
+   "minutes": 15,
+   "framework": "protein box",
+   "items": [
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "deli-turkey",
+     "qty": 0.5
+    },
+    {
+     "key": "sliced-cheddar",
+     "qty": 0.25
+    },
+    {
+     "key": "pistachios",
+     "qty": 0.5
+    },
+    {
+     "key": "mini-cucumbers",
+     "qty": 0.25
+    },
+    {
+     "key": "grapes-red",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch, make two days at once. Hard-boil 4 eggs. Box rolled turkey, cheddar, 2 eggs, a handful of pistachios, cucumbers and grapes."
+  },
+  {
+   "id": "chicken-hummus-protein-boxes",
+   "name": "Chicken and Hummus Protein Boxes (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 10,
+   "framework": "protein box",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 0.5
+    },
+    {
+     "key": "hummus",
+     "qty": 0.62
+    },
+    {
+     "key": "mini-cucumbers",
+     "qty": 0.5
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 0.25
+    },
+    {
+     "key": "string-cheese",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Pull rotisserie chicken into a box with hummus, sliced cucumbers and pepper strips, plus a string cheese."
+  },
+  {
+   "id": "chicken-noodle-soup-ham-melts",
+   "name": "Chicken Noodle Soup and Ham Melts (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken",
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "soup and sandwich",
+   "items": [
+    {
+     "key": "chicken-noodle-soup",
+     "qty": 2
+    },
+    {
+     "key": "white-bread",
+     "qty": 0.5
+    },
+    {
+     "key": "deli-ham",
+     "qty": 0.5
+    },
+    {
+     "key": "sliced-american",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Heat the soup. Griddle ham and American cheese sandwiches in butter until melty. Cut into strips for dunking."
+  },
+  {
+   "id": "chili-cheese-chip-bowls",
+   "name": "Chili Cheese Chip Bowls (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 10,
+   "framework": "bowl",
+   "items": [
+    {
+     "key": "canned-chili",
+     "qty": 2
+    },
+    {
+     "key": "tortilla-chips",
+     "qty": 0.25
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "yellow-onions",
+     "qty": 0.25
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Frito-pie style. Heat chili, ladle over a handful of chips, top with cheddar, diced onion and sour cream."
+  },
+  {
+   "id": "italian-sub",
+   "name": "Italian Ham and Pepperoni Subs (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork"
+   ],
+   "serves": 2,
+   "minutes": 10,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "hoagie-rolls",
+     "qty": 0.5
+    },
+    {
+     "key": "deli-ham",
+     "qty": 0.5
+    },
+    {
+     "key": "pepperoni",
+     "qty": 0.25
+    },
+    {
+     "key": "sliced-provolone",
+     "qty": 0.25
+    },
+    {
+     "key": "iceberg-lettuce",
+     "qty": 1
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 1
+    },
+    {
+     "key": "italian-dressing",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Split rolls, layer ham, pepperoni and provolone, top with shredded lettuce and tomato, drizzle Italian dressing."
+  },
+  {
+   "id": "egg-salad-sandwiches",
+   "name": "Egg Salad Sandwiches (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "egg"
+   ],
+   "serves": 2,
+   "minutes": 20,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "eggs",
+     "qty": 0.34
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "yellow-mustard",
+     "qty": 0.25
+    },
+    {
+     "key": "wheat-bread",
+     "qty": 0.25
+    },
+    {
+     "key": "romaine",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Hard-boil 6 eggs 10 minutes, cool and chop. Mix with mayo, a squeeze of mustard, salt and pepper. Serve on wheat with lettuce."
+  },
+  {
+   "id": "pizza-quesadillas",
+   "name": "Pepperoni Pizza Quesadillas (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "quesadilla",
+   "items": [
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "mozzarella",
+     "qty": 1
+    },
+    {
+     "key": "pepperoni",
+     "qty": 0.5
+    },
+    {
+     "key": "marinara",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Mozzarella and pepperoni between tortillas, toast in a skillet until melted. Cut in wedges and dip in warm marinara."
+  },
+  {
+   "id": "bean-cheese-burritos",
+   "name": "Bean and Cheese Burritos (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "none"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "wrap",
+   "items": [
+    {
+     "key": "burrito-tortillas",
+     "qty": 0.4
+    },
+    {
+     "key": "refried-beans",
+     "qty": 1
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.5
+    },
+    {
+     "key": "salsa",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Warm the refried beans, spread in tortillas, add cheddar, roll and toast seam-side down in a skillet. Salsa for dipping."
+  },
+  {
+   "id": "turkey-avocado-club",
+   "name": "Turkey Bacon Avocado Club (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "turkey",
+    "pork"
+   ],
+   "serves": 2,
+   "minutes": 15,
+   "framework": "sandwich",
+   "items": [
+    {
+     "key": "wheat-bread",
+     "qty": 0.25
+    },
+    {
+     "key": "deli-turkey",
+     "qty": 0.5
+    },
+    {
+     "key": "bacon",
+     "qty": 0.5
+    },
+    {
+     "key": "avocados",
+     "qty": 0.25
+    },
+    {
+     "key": "romaine",
+     "qty": 0.25
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 1
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch. Toast bread, cook a few slices of bacon. Stack turkey, bacon, mashed avocado, lettuce and tomato."
+  },
+  {
+   "id": "chicken-bacon-ranch-subs",
+   "name": "Chicken Bacon Ranch Melt Subs (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken",
+    "pork"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "melt",
+   "items": [
+    {
+     "key": "rotisserie-chicken",
+     "qty": 1
+    },
+    {
+     "key": "bacon",
+     "qty": 1
+    },
+    {
+     "key": "ranch",
+     "qty": 0.25
+    },
+    {
+     "key": "sliced-provolone",
+     "qty": 0.5
+    },
+    {
+     "key": "hoagie-rolls",
+     "qty": 1.12
+    }
+   ],
+   "notes": "Cook the bacon. Toss pulled rotisserie chicken with ranch, pile in rolls with bacon and provolone, and bake at 400 F for 6 to 8 minutes until melted."
+  },
+  {
+   "id": "tuna-salad-cracker-plates",
+   "name": "Tuna Salad and Crackers (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "fish"
+   ],
+   "serves": 2,
+   "minutes": 10,
+   "framework": "snack plate",
+   "items": [
+    {
+     "key": "tuna-can",
+     "qty": 2
+    },
+    {
+     "key": "mayo",
+     "qty": 0.25
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.38
+    },
+    {
+     "key": "crackers",
+     "qty": 0.25
+    },
+    {
+     "key": "baby-carrots",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Adults lunch, no cooking. Mix tuna with mayo and chopped pickle. Scoop with crackers, carrots on the side."
+  },
+  {
+   "id": "ham-egg-cheese-melts",
+   "name": "Ham, Egg and Cheese English Muffins (family)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "melt",
+   "items": [
+    {
+     "key": "english-muffins",
+     "qty": 0.75
+    },
+    {
+     "key": "deli-ham",
+     "qty": 0.5
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "sliced-american",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Lunch-for-breakfast. Toast muffins, fry eggs hard, stack with a folded slice of ham and American cheese."
+  },
+  {
+   "id": "bacon-eggs-toast",
+   "name": "Bacon, Eggs and Toast",
+   "kind": "breakfast",
+   "theme": "breakfast",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "eggs + meat",
+   "items": [
+    {
+     "key": "eggs",
+     "qty": 0.5
+    },
+    {
+     "key": "bacon",
+     "qty": 1
+    },
+    {
+     "key": "white-bread",
+     "qty": 0.25
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Bake the bacon at 400 F on a sheet pan for 15 to 18 minutes while you scramble or fry 8 eggs. Buttered toast on the side."
+  },
+  {
+   "id": "sausage-cheddar-scramble",
+   "name": "Sausage and Cheddar Scramble",
+   "kind": "breakfast",
+   "theme": "breakfast",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "eggs + meat",
+   "items": [
+    {
+     "key": "pork-sausage",
+     "qty": 0.5
+    },
+    {
+     "key": "eggs",
+     "qty": 0.5
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown 1 lb of breakfast sausage and crumble. Pour in 9 beaten eggs, stir low and slow, fold in cheddar at the end."
+  },
+  {
+   "id": "bacon-egg-breakfast-tacos",
+   "name": "Bacon and Egg Breakfast Tacos",
+   "kind": "breakfast",
+   "theme": "breakfast",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "eggs + meat",
+   "items": [
+    {
+     "key": "flour-tortillas",
+     "qty": 0.5
+    },
+    {
+     "key": "eggs",
+     "qty": 0.5
+    },
+    {
+     "key": "bacon",
+     "qty": 1
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    },
+    {
+     "key": "salsa",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Crisp and chop the bacon, scramble the eggs soft. Warm tortillas, fill with egg, bacon and cheese, salsa on top."
+  },
+  {
+   "id": "sausage-egg-muffins",
+   "name": "Sausage, Egg and Cheese English Muffins",
+   "kind": "breakfast",
+   "theme": "breakfast",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "eggs + meat",
+   "items": [
+    {
+     "key": "english-muffins",
+     "qty": 0.75
+    },
+    {
+     "key": "pork-sausage",
+     "qty": 0.5
+    },
+    {
+     "key": "eggs",
+     "qty": 0.25
+    },
+    {
+     "key": "sliced-american",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Shape sausage into 4 thin patties and cook 4 minutes a side. Fry 4 eggs, toast muffins, stack with a slice of cheese."
+  },
+  {
+   "id": "steak-and-eggs",
+   "name": "Steak and Eggs",
+   "kind": "breakfast",
+   "theme": "breakfast",
+   "tags": [
+    "beef",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "eggs + meat",
+   "items": [
+    {
+     "key": "sirloin",
+     "qty": 0.5
+    },
+    {
+     "key": "eggs",
+     "qty": 0.5
+    },
+    {
+     "key": "butter",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Weekend breakfast. Salt and pepper the sirloin, sear in a hot pan 3 to 4 minutes a side, rest and slice. Fry eggs in the same pan with butter."
+  },
+  {
+   "id": "ham-pepper-omelets",
+   "name": "Ham and Pepper Cheese Omelets",
+   "kind": "breakfast",
+   "theme": "breakfast",
+   "tags": [
+    "pork",
+    "egg"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "eggs + meat",
+   "items": [
+    {
+     "key": "eggs",
+     "qty": 0.75
+    },
+    {
+     "key": "deli-ham",
+     "qty": 0.5
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Saute diced pepper and chopped ham for 2 minutes. Make 3-egg omelets one at a time, filling with ham, pepper and cheddar. Kids can have theirs scrambled."
+  }
+ ]
+}

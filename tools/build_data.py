@@ -190,6 +190,81 @@ RAW = [
     ("oregano"             , "1627072", "H-E-B Oregano Leaves", "0.5 oz", "Pantry", "Aisle 10", 2.29, 2.29, "", None),
     ("turmeric"            , "8709002", "H-E-B Ground Turmeric", "1 oz", "Pantry", "Aisle 10", 2.29, 2.29, "", None),
     ("green-tea"           , "1644005", "H-E-B Green Tea Bags", "40 ct", "Beverages", "Aisle 25", 4.45, 4.45, "", None),
+    # Recipe library pantry, pulled Oct 22, 2026
+    ('bbq-sauce'           , '1036167', 'H-E-B Specialty Series Texas Style Barbeque Sauce', '14 oz', 'Pantry', 'Aisle 6', 2.56, 2.56, '', None),
+    ('pepperoni'           , '11887013', 'H-E-B Premium Uncured Pepperoni Slices - Original', '6 oz', 'Meat', 'In Meat Market', 3.14, 3.14, '', None),
+    ('italian-sausage'     , '1077766', 'H-E-B Pork Italian Sausage Links - Mild', 'Avg. 1.25 lbs', 'Meat', 'In Meat Market', 5.89, 5.89, '', None),
+    ('black-beans'         , '921748', 'H-E-B Black Beans', '15 oz', 'Pantry', 'Aisle 8', 0.97, 0.97, '', None),
+    ('refried-beans'       , '1705903', 'H-E-B Organics Refried Pinto Beans', '16 oz', 'Pantry', 'Aisle 8', 1.56, 1.56, '', None),
+    ('smoked-sausage'      , '5432019', 'H-E-B Natural Smoked Beef Sausage Links - Original', '5 ct', 'Meat', 'In Meat Market', 6.81, 6.81, '', None),
+    ('mayo'                , '10800562', 'H-E-B Real Mayonnaise', '22 oz', 'Pantry', 'Aisle 6', 3.7, 3.7, '', None),
+    ('dill-pickles'        , '123707', 'H-E-B Pickle Me Dilley Hamburger Dill Pickle Chips', '16 oz', 'Pantry', 'Aisle 7', 2.08, 2.08, '', None),
+    ('sliced-american'     , '15882537', 'H-E-B American Cheese Singles', '12 oz', 'Dairy', 'In Meat Market', 3.66, 3.66, '', None),
+    ('ketchup'             , '1256224', 'H-E-B Tomato Ketchup', '32 oz', 'Pantry', 'Aisle 6', 3.44, 3.44, '', None),
+    ('baked-beans'         , '120104', "Bush's Best Original Baked Beans", '28 oz', 'Pantry', 'Aisle 8', 2.96, 2.96, '', None),
+    ('frozen-fries'        , '124058', 'Hill Country Fare Frozen Crinkle Cut French Fries', '32 oz', 'Frozen', 'Aisle 17', 3.12, 3.12, '', None),
+    ('rotisserie-chicken'  , '15142523', 'Meal Simple by H-E-B Rotisserie Chicken - Seasoned', 'Each', 'Meal Simple', 'In Deli on the Floor Display', 6.79, 6.79, '', None),
+    ('frozen-meatballs'    , '288448', 'H-E-B Fully Cooked Frozen Beef & Pork Meatballs - Italian Style', '35 oz', 'Frozen', 'In Meat Market', 9.44, 9.44, '', None),
+    ('cajun-seasoning'     , '172479', "Tony Chachere's Original Creole Seasoning", '8 oz', 'Pantry', 'Aisle 10', 2.6, 2.6, '', None),
+    ('italian-seasoning'   , '5156568', 'H-E-B Italian Seasoning', '0.75 oz', 'Pantry', 'Aisle 10', 1.13, 1.13, '', None),
+    ('brown-sugar'         , '126036', 'H-E-B Brown Sugar', '2 lbs', 'Pantry', 'Aisle 10', 2.54, 2.54, '', None),
+    ('cornbread-mix'       , '174330', 'Jiffy Corn Muffin Mix', '8.5 oz', 'Pantry', 'Aisle 10', 0.76, 0.53, 'sale', None),
+    ('chicken-broth'       , '2229625', 'H-E-B Chicken Broth', '32 oz', 'Pantry', 'Aisle 8', 2.08, 2.08, '', None),
+    ('naan'                , '3748506', 'H-E-B Deli Naan Flatbread - Original', '3 ct', 'Bakery', 'Back Edge of Deli', 3.13, 3.13, '', None),
+    ('stir-fry-veg'        , '586413', 'H-E-B Frozen Broccoli Stir Fry Blend', '16 oz', 'Frozen', 'Aisle 17', 2.08, 2.08, '', None),
+    ('diced-tomatoes'      , '714571', 'H-E-B Petite Diced Tomatoes', '14.5 oz', 'Pantry', 'Aisle 8', 1.13, 1.13, '', None),
+    ('minced-garlic'       , '10041509', 'H-E-B Fresh Chopped Garlic - Single Serve', '3 oz', 'Produce', 'In Produce on the Front Wall', 2.39, 2.39, '', None),
+    ('elbow-macaroni'      , '125672', 'H-E-B Elbow Macaroni', '16 oz', 'Pantry', 'Aisle 7', 1.18, 1.18, '', None),
+    ('egg-noodles'         , '297086', 'H-E-B Extra Wide Egg Noodles', '16 oz', 'Pantry', 'Aisle 7', 1.88, 1.88, '', None),
+    ('sesame-oil'          , '2203995', 'H-E-B Toasted Sesame Oil', '16.9 oz', 'Pantry', 'Aisle 10', 6.29, 6.29, '', None),
+    ('pesto'               , '2269353', 'H-E-B Basil Pesto', '6.7 oz', 'Pantry', 'Aisle 7', 3.02, 3.02, '', None),
+    ('ranch-seasoning'     , '163624', 'Hidden Valley Original Ranch Seasoning Mix Packet', '2 ct', 'Pantry', 'Aisle 6', 3.4, 3.4, '', None),
+    ('hawaiian-rolls'      , '2173547', 'H-E-B Bakery Sweet Aloha Rolls', '12 ct', 'Bakery', 'On the Right Edge of Bakery', 4.18, 3.93, 'pricecut', None),
+    ('deli-turkey'         , '125883', 'H-E-B Thick-Sliced Oven-Roasted Turkey Breast Lunch Meat', '8 oz', 'Meat', 'In Meat Market', 3.66, 3.66, '', None),
+    ('deli-ham'            , '123605', 'H-E-B Thick-Sliced Honey Ham Lunch Meat', '8 oz', 'Meat', 'In Meat Market', 3.66, 3.66, '', None),
+    ('sliced-cheddar'      , '970984', 'H-E-B Mild Cheddar Sliced Cheese', '10 ct', 'Dairy', 'In Meat Market', 3.13, 3.13, '', None),
+    ('sliced-swiss'        , '970978', 'H-E-B Swiss Sliced Cheese', '10 ct', 'Dairy', 'In Meat Market', 3.13, 3.13, '', None),
+    ('sliced-provolone'    , '970979', 'H-E-B Provolone Sliced Cheese', '10 ct', 'Dairy', 'In Meat Market', 3.13, 3.13, '', None),
+    ('grape-jelly'         , '1707986', 'H-E-B Organics Concord Grape Jelly', '17.5 oz', 'Pantry', 'Aisle 6', 4.39, 4.39, '', None),
+    ('hot-dog-buns'        , '395866', 'H-E-B Enriched Hot Dog Buns', '8 ct', 'Bakery', 'Aisle 6', 2.39, 2.39, '', None),
+    ('hoagie-rolls'        , '475190', 'H-E-B Bakery White Submarine Rolls', '4 ct', 'Bakery', 'On the Right Edge of Bakery', 2.39, 2.39, '', None),
+    ('burrito-tortillas'   , '324976', 'H-E-B Burrito Grande Flour Tortillas', '10 ct', 'Bakery', 'Aisle 6', 2.6, 2.6, '', None),
+    ('canned-chili'        , '2453022', 'H-E-B Texas Style Chili - No Beans', '15 oz', 'Pantry', 'Aisle 8', 2.5, 2.5, '', None),
+    ('tomato-soup'         , '2145995', 'H-E-B Tomato Condensed Soup', '10.5 oz', 'Pantry', 'Aisle 8', 1.24, 1.24, '', None),
+    ('chicken-noodle-soup' , '2146056', 'H-E-B Chicken Noodle Condensed Soup', '10.5 oz', 'Pantry', 'Aisle 8', 1.24, 1.24, '', None),
+    ('crackers'            , '1688156', 'H-E-B Rich & Crisp Crackers', '13.7 oz', 'Snacks', 'Aisle 11', 3.22, 3.22, '', None),
+    ('ranch'               , '16735559', 'Hidden Valley Original Ranch Dressing', '16 oz', 'Pantry', 'Aisle 6', 4.17, 4.17, '', None),
+    ('caesar-dressing'     , '586692', 'H-E-B Creamy Garlic Caesar Dressing', '16 oz', 'Pantry', 'Aisle 6', 3.13, 3.13, '', None),
+    ('hummus'              , '1837104', 'H-E-B Deli Traditional Hummus', '8 oz', 'Deli', 'Back Edge of Deli', 3.11, 3.11, '', None),
+    ('tuna-can'            , '6412035', 'H-E-B Chunk Light Tuna in Water', '5 oz', 'Pantry', 'Aisle 8', 1.05, 1.05, '', None),
+    ('english-muffins'     , '398531', "Thomas' Original English Muffins", '6 ct', 'Bakery', 'Aisle 6', 3.96, 3.96, '', None),
+    ('yellow-rice'         , '163537', 'Vigo Saffron Yellow Rice', '1 lb', 'Pantry', 'Aisle 7', 2.39, 2.39, '', None),
+    ('bulgogi-sauce'       , '1598280', 'bibigo Korean BBQ Marinade & Sauce - Original', '16.9 oz', 'Pantry', 'Aisle 7', 4.34, 4.34, '', None),
+    ('kimchi'              , '13475011', 'Cleveland Kitchen Classic Kimchi', '16 oz', 'Produce', 'In Produce on the Front Wall', 6.28, 6.28, '', None),
+    ('cherry-tomatoes'     , '470980', 'H-E-B Fresh Grape Tomatoes', '10 oz', 'Produce', 'In Produce', 2.38, 2.38, '', None),
+    ('feta'                , '6058072', 'H-E-B Deli Traditional Feta Cheese Crumbles', '6 oz', 'Deli', 'Back Edge of Deli', 4.18, 4.18, '', None),
+    ('ground-pork'         , '372990', 'H-E-B Ground Pork, 80% Lean', 'Avg. 1.0 lb', 'Meat', 'In Meat Market', 3.14, 3.14, '', None),
+    ('coleslaw-mix'        , '1560068', 'H-E-B Classic Coleslaw Base', '14 oz', 'Produce', 'In Produce on the Left Wall', 1.82, 1.82, '', None),
+    ('pulled-pork'         , '6273603', 'H-E-B Fully Cooked Pulled Pork with BBQ Sauce - Smoked', '16 oz', 'Meal Simple', 'On the Right Edge of Meal Simple', 8.39, 8.39, '', None),
+    ('hard-taco-shells'    , '2174074', 'H-E-B Yellow Corn Taco Shells', '12 ct', 'Pantry', 'Aisle 6', 1.62, 1.62, '', None),
+    ('carnitas'            , '10849568', 'H-E-B Mi Tienda Fully Cooked Seasoned Pork Carnitas', '12 oz', 'Meal Simple', 'On the Right Edge of Meal Simple', 7.34, 7.34, '', None),
+    ('blackened-seasoning' , '646989', 'H-E-B Texas Originals Blackened Seasoning Spice Blend', '4.5 oz', 'Pantry', 'Aisle 10', 3.13, 3.13, '', None),
+    ('fettuccine'          , '1567293', 'H-E-B Fettuccine Pasta Noodles', '16 oz', 'Pantry', 'Aisle 7', 1.18, 1.18, '', None),
+    ('pasta-shells'        , '123896', 'H-E-B Medium Pasta Shells', '16 oz', 'Pantry', 'Aisle 7', 1.18, 1.18, '', None),
+    ('lasagna-noodles'     , '126117', 'H-E-B Lasagna Noodles', '16 oz', 'Pantry', 'Aisle 7', 2.08, 2.08, '', None),
+    ('ricotta'             , '515646', 'H-E-B Whole Milk Ricotta Cheese', '15 oz', 'Dairy', 'In Meat Market', 3.03, 3.03, '', None),
+    ('applesauce'          , '124847', 'H-E-B Unsweetened Applesauce', '23 oz', 'Pantry', 'Aisle 9', 2.96, 2.96, '', None),
+    ('cornmeal'            , '126169', 'Hill Country Fare Enriched Yellow Cornmeal', '2 lbs', 'Pantry', 'Aisle 10', 1.96, 1.96, '', None),
+    ('tartar-sauce'        , '81424', 'Kraft Tartar Sauce', '12 fl oz', 'Pantry', 'Aisle 6', 2.6, 2.37, 'pricecut', None),
+    ('sharp-cheddar'       , '127808', 'H-E-B Sharp Cheddar Cheese', '8 oz', 'Dairy', 'In Meat Market', 3.13, 3.13, '', None),
+    ('corn-on-cob'         , '374788', 'Fresh Corn', 'Each', 'Produce', 'In Produce on the Left Wall', 0.53, 0.53, '', None),
+    ('pizza-dough'         , '10389013', 'Central Market Frozen Pizza Dough', '16 oz', 'Frozen', 'Aisle 15', 2.6, 2.6, '', None),
+    ('soy-sauce'           , '129450', 'Kikkoman All-Purpose Soy Sauce', '10 oz', 'Pantry', 'Aisle 7', 3.09, 3.09, '', None),
+    ('teriyaki-sauce'      , '129452', 'Kikkoman Teriyaki Sauce & Marinade', '10 oz', 'Pantry', 'Aisle 7', 3.13, 3.13, '', None),
+    ('pineapple-chunks'    , '119384', 'Dole Pineapple Chunks in 100% Pineapple Juice', '20 oz', 'Pantry', 'Aisle 9', 2.33, 2.33, '', None),
+    ('tzatziki'            , '16463012', 'Fresh Tzatziki Dip', '12 oz', 'Deli', 'Back Edge of Deli', 4.25, 4.25, '', None),
+    ('italian-dressing'    , '122493', 'Wish-Bone Italian Dressing', '15 oz', 'Pantry', 'Aisle 6', 2.92, 2.92, '', None),
+    ('hot-dogs'            , '139935', 'Oscar Mayer Bun-Length Beef Hot Dogs', '8 ct', 'Meat', 'In Meat Market', 5.95, 5.95, '', None),
 ]
 
 # Fallback products, in order of preference after the main one in RAW. The app picks, each week:
@@ -213,7 +288,7 @@ SALE_ONLY = {"energy-drinks", "celsius", "celsius-12", "red-bull", "red-bull-sf"
 # Store-walk order for Main St, used by the Reminders export. Entrance is
 # Produce, then around the perimeter, then numbered aisles. Adjust once Brad
 # confirms his usual path.
-SECTION_ORDER = ["Produce", "Bakery", "Meal Simple", "Meat", "Seafood", "Dairy", "Pantry", "Snacks", "Beverages", "Frozen", "Health"]
+SECTION_ORDER = ["Produce", "Bakery", "Deli", "Meal Simple", "Meat", "Seafood", "Dairy", "Pantry", "Snacks", "Beverages", "Frozen", "Health"]
 
 pantry = []
 prices = {}   # keyed by H-E-B product id, so every candidate product has its own price record
@@ -310,6 +385,20 @@ meals = [
         "notes": "Two pizzas feeds four. Coupon is $1 off each in the HEB app.",
     },
 ]
+
+# The recipe library (tools/recipes.json): framework cards, quick dinners, lunches.
+# Any card item whose key isn't in the pantry is dropped with a warning.
+_keys = {p["key"] for p in pantry}
+_ids = {m["id"] for m in meals}
+for card in json.loads((Path(__file__).resolve().parent / "recipes.json").read_text())["cards"]:
+    if card["id"] in _ids:
+        continue
+    missing = [i["key"] for i in card["items"] if i["key"] not in _keys]
+    if missing:
+        print(f"  {card['id']}: dropped items not in pantry: {', '.join(missing)}")
+        card["items"] = [i for i in card["items"] if i["key"] in _keys]
+    if card["items"]:
+        meals.append(card); _ids.add(card["id"])
 
 out = Path(__file__).resolve().parent.parent / "data"
 out.mkdir(exist_ok=True)
