@@ -89,7 +89,7 @@
     const wk = new Date(plan.weekOf + 'T12:00:00');
     $('weekLabel').textContent = 'Week of ' + wk.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
     $('budgetTotal').textContent = money(t.combined);
-    $('budgetSplit').textContent = `${money(t.groceries)} groceries + ${money(t.out)} eating out`;
+    $('budgetSplit').textContent = `${money(t.groceries)} groceries · ${money(t.out)} out`;
     $('btnBudget').textContent = 'of ' + money(plan.budget);
     const pct = plan.budget ? Math.min(100, (t.combined / plan.budget) * 100) : 0;
     const fill = $('budgetFill');
