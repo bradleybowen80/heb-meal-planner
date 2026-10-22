@@ -3,13 +3,13 @@
   'use strict';
 
   const DAYS = [
-    { id: 'sun', name: 'Sun', theme: 'Church potluck', buckets: ['potluck', 'pizza', 'bbq'] },
-    { id: 'mon', name: 'Mon', theme: 'Easy or out', buckets: ['easy'] },
-    { id: 'tue', name: 'Tue', theme: 'Tacos', buckets: ['tacos'] },
-    { id: 'wed', name: 'Wed', theme: 'Pasta or pork', buckets: ['pasta', 'pork'] },
-    { id: 'thu', name: 'Thu', theme: 'Meat and three', buckets: ['meat-and-three'] },
-    { id: 'fri', name: 'Fri', theme: 'Out', buckets: [] },
-    { id: 'sat', name: 'Sat', theme: 'Pizza or BBQ', buckets: ['pizza', 'bbq'] },
+    { id: 'sun', name: 'Sun', emoji: '🥘', theme: 'Church potluck', buckets: ['potluck', 'pizza', 'bbq'] },
+    { id: 'mon', name: 'Mon', emoji: '🥡', theme: 'Easy or out', buckets: ['easy'] },
+    { id: 'tue', name: 'Tue', emoji: '🌮', theme: 'Tacos', buckets: ['tacos'] },
+    { id: 'wed', name: 'Wed', emoji: '🍝', theme: 'Pasta or pork', buckets: ['pasta', 'pork'] },
+    { id: 'thu', name: 'Thu', emoji: '🍖', theme: 'Meat and three', buckets: ['meat-and-three'] },
+    { id: 'fri', name: 'Fri', emoji: '🍔', theme: 'Out', buckets: [] },
+    { id: 'sat', name: 'Sat', emoji: '🍕', theme: 'Pizza or BBQ', buckets: ['pizza', 'bbq'] },
   ];
   const THEME_NAMES = {
     potluck: 'Dish to bring', easy: 'Easy', tacos: 'Tacos', pasta: 'Pasta', pork: 'Pork',
@@ -362,7 +362,7 @@
         for (const m of group) {
           const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
           const row = document.createElement('button'); row.type = 'button'; row.className = 'li li-tap';
-          row.innerHTML = `<div></div><div><div class="li-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div><div class="li-sub">${esc(THEME_NAMES[m.theme] || m.theme || '')}${cardTags(m).length ? ' · ' + esc(cardTags(m).join(', ')) : ''} ${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} items · serves ${m.serves || 4}</div></div><div class="li-right"><div class="li-price">${money(cost)}</div></div>`;
+          row.innerHTML = `<div></div><div><div class="li-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div><div class="li-sub">${esc(THEME_NAMES[m.theme] || m.theme || '')}${cardTags(m).length ? ' · ' + esc(cardTags(m).join(', ')) : ''} ${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} item${m.items.length === 1 ? "" : "s"} · serves ${m.serves || 4}</div></div><div class="li-right"><div class="li-price">${money(cost)}</div></div>`;
           row.addEventListener('click', () => openCardEditor(m.id));
           box.appendChild(row);
         }
@@ -442,12 +442,11 @@
         plus.addEventListener('click', () => { it.qty = Math.round((it.qty + step) * 4) / 4; row.querySelector('.n').textContent = packText(it.qty, key); });
       });
       body.querySelector('#cAdd').addEventListener('click', () => {
-        const inCard = new Set(draft.items.map(x => x.key)); const bySec = {};
-        for (const key of Object.keys(pantry)) if (!inCard.has(key)) (bySec[pantry[key].section] = bySec[pantry[key].section] || []).push(key);
-        let h = `<h3>Add to ${esc(draft.name)}</h3>`;
-        for (const sec of [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))]) h += `<div class="bucket-title">${esc(sec)}</div>` + bySec[sec].map(key => `<button type="button" class="option" data-ing="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
-        openSheet(h);
-        body.querySelectorAll('[data-ing]').forEach(b => b.addEventListener('click', () => { draft.items.push({ key: b.dataset.ing, qty: 1 }); paint(); }));
+        const inCard = new Set(draft.items.map(x => x.key));
+        const keys = Object.keys(pantry).filter(k => !inCard.has(k)).sort((x, y) => pantry[x].name.localeCompare(pantry[y].name));
+        openSheet(`<h3>Add to ${esc(draft.name || 'this card')}</h3><input class="search" id="cFind" type="search" placeholder="Search H-E-B items" autocomplete="off"><div id="cHits"></div>`);
+        searchList(body.querySelector('#cFind'), body.querySelector('#cHits'), keys, 'ing', key => { draft.items.push({ key, qty: 1 }); paint(); }, () => keys.filter(k => flagsFor(k).sale));
+        setTimeout(() => body.querySelector('#cFind') && body.querySelector('#cFind').focus(), 50);
       });
       body.querySelector('#cCancel').addEventListener('click', closeSheet);
       body.querySelector('#cSave').addEventListener('click', async () => {
@@ -491,7 +490,7 @@
       btn.dataset.day = day.id;
       let mealHtml, priceHtml;
       if (!d) {
-        mealHtml = `<div class="day-meal empty">Pick dinner</div>`;
+        mealHtml = `<div class="day-meal empty">Tap to pick dinner</div>`;
         priceHtml = `<div class="day-price">&nbsp;</div>`;
       } else if (d.type === 'out') {
         mealHtml = `<div class="day-meal">${esc(d.label || 'Eat out')}</div><div class="day-sub">Eating out</div>`;
@@ -500,18 +499,38 @@
         const m = meals[d.mealId];
         const p = pillsFor(dayItems(d).map(it => it.key));
         p.edited = (d.dropped && d.dropped.length) || (d.qty && Object.keys(d.qty).length) || (d.added && d.added.length);
-        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${pillHtml(p)}</div><div class="day-sub">${m ? (m.minutes ? m.minutes + ' min · ' : '') + m.items.length + ' items' : ''}</div>`;
+        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${pillHtml(p)}</div><div class="day-sub">${m ? (m.minutes ? m.minutes + ' min · ' : '') + m.items.length + (m.items.length === 1 ? ' item' : ' items') : ''}</div>`;
         priceHtml = `<div class="day-price">${money(dayCost(d))}</div>`;
       }
       const themeLabel = day.id === 'sun' && plan.potluckTheme ? `${day.theme}: ${esc(plan.potluckTheme)}` : day.theme;
-      btn.innerHTML = `<div><div class="day-name">${day.name}</div><div class="day-theme">${themeLabel}</div></div><div>${mealHtml}</div>${priceHtml}<span class="grip" aria-label="drag to move">⠿</span>`;
-      btn.addEventListener('click', () => swapMode ? pickSwap(day.id) : openDay(day.id));
-      if (swapMode === day.id) btn.classList.add('selecting');
+      btn.innerHTML = `<div class="day-emoji" aria-hidden="true">${d && d.type === 'out' ? '🚗' : day.emoji}</div><div class="day-main"><div class="day-head"><span class="day-name">${day.name}</span><span class="day-theme">${themeLabel}</span></div>${mealHtml}</div>${priceHtml}<span class="grip" aria-label="drag to move">⠿</span>`;
+      if (!d) btn.classList.add('is-empty');
+      btn.addEventListener('click', () => openDay(day.id));
       li.appendChild(btn); ol.appendChild(li);
     }
+    const empties = DAYS.filter(day => !plan.days[day.id] && day.buckets.length);
+    const bar = $('weekTools');
+    if (bar) {
+      bar.innerHTML = empties.length ? `<button type="button" class="btn fun" id="btnFill">🪄 Fill ${empties.length === 7 ? 'the week' : empties.length + ' empty night' + (empties.length > 1 ? 's' : '')}</button>` + (empties.length >= 5 ? `<button type="button" class="btn ghost" id="btnCopyPast">↺ Reuse a past week</button>` : '') : '';
+      const f = $('btnFill'); if (f) f.addEventListener('click', fillEmpty);
+      const c = $('btnCopyPast'); if (c) c.addEventListener('click', () => $('btnPast').click());
+    }
+  }
+  // Pick a dinner for every empty night from that night's theme, skipping anything already on the plan.
+  function fillEmpty() {
+    const used = new Set(DAYS.map(d => plan.days[d.id] && plan.days[d.id].mealId).filter(Boolean));
+    let n = 0;
+    for (const day of DAYS) {
+      if (plan.days[day.id] || !day.buckets.length) continue;
+      const pool = Object.values(meals).filter(m => day.buckets.includes(m.theme) && !['breakfast', 'lunch'].includes(m.kind) && !used.has(m.id));
+      if (!pool.length) continue;
+      const m = pool[Math.floor(Math.random() * pool.length)];
+      plan.days[day.id] = { type: 'meal', mealId: m.id, dropped: [], qty: {}, added: [] }; used.add(m.id); n++;
+    }
+    save(); toast(n ? `Filled ${n} night${n > 1 ? 's' : ''}. Tap any day to swap it.` : 'Nothing to fill');
   }
 
-  const isOpen = id => ui.open[id] !== false;
+  const isOpen = id => id === 'dinners' ? ui.open[id] !== false : ui.open[id] === true;
   function foldButton(id, title, sum) {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'fold'; b.setAttribute('aria-expanded', isOpen(id));
     b.innerHTML = `<span class="chev">▾</span><span class="fold-title">${esc(title)}</span><span class="fold-sum">${esc(sum)}</span>`;
@@ -537,7 +556,7 @@
         const m = meals[id], days = plan[grp][id];
         const perDay = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
         const row = document.createElement('div'); row.className = 'crow';
-        row.innerHTML = `<div><div class="crow-name">${esc(m.name)}</div><div class="crow-sub">${(m.minutes ? m.minutes + ' min · ' : '') + m.items.length + ' items'}</div></div>` +
+        row.innerHTML = `<div><div class="crow-name">${esc(m.name)}</div><div class="crow-sub">${(m.minutes ? m.minutes + ' min · ' : '') + m.items.length + (m.items.length === 1 ? ' item' : ' items')}</div></div>` +
           `<div class="crow-price">${money(perDay * days)}</div>` +
           `<div class="stepper"><button type="button" aria-label="fewer days">−</button><span class="n">${days}d</span><button type="button" aria-label="more days">+</button></div>`;
         const [minus, plus] = row.querySelectorAll('button');
@@ -583,12 +602,27 @@
       box.appendChild(add); wrap.appendChild(box);
     }
   }
+  // Search-as-you-type over pantry items. Renders at most 40 rows, so a 300-item pantry never bogs a phone down.
+  const itemOption = (key, attr) => `<button type="button" class="option" data-${attr}="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}${pillHtml(flagsFor(key))}</div><div class="option-sub">${esc(pantry[key].size)}${pantry[key].saleOnly ? ' · only when on sale' : ''}</div></div><div class="option-price">${money(price(key))}</div></button>`;
+  function searchList(input, out, keys, attr, onPick, empty) {
+    const draw = () => {
+      const q = input.value.trim().toLowerCase();
+      const words = q.split(/\s+/).filter(Boolean);
+      const hits = q ? keys.filter(k => { const t = (pantry[k].name + ' ' + k + ' ' + pantry[k].section).toLowerCase(); return words.every(w => t.includes(w)); }) : (empty ? empty() : []);
+      out.innerHTML = hits.slice(0, 40).map(k => itemOption(k, attr)).join('') +
+        (q && !hits.length ? `<div class="empty-bucket">Nothing matches "${esc(q)}". Tell Claude the product and it gets added.</div>` : '') +
+        (hits.length > 40 ? `<p class="hint">${hits.length - 40} more. Keep typing to narrow it down.</p>` : '');
+      out.querySelectorAll(`[data-${attr}]`).forEach(b => b.addEventListener('click', () => onPick(b.dataset[attr])));
+      return q;
+    };
+    input.addEventListener('input', draw); draw(); return draw;
+  }
   function openAddCard(grp, kind) {
     const pool = Object.values(meals).filter(m => m.kind === kind && !(plan[grp][m.id] > 0)).sort((a, b) => a.name.localeCompare(b.name));
     let html = `<h3>Add a ${kind}</h3><p class="hint">Picks it for one day. Change the days with + and − after.</p>`;
     html += `<div class="row-actions"><button type="button" class="btn ghost" id="newCard">New ${kind} card</button></div>`;
     if (pool.length > 6) html += `<input class="search" id="cardFind" type="search" placeholder="Search ${pool.length} ${kind === "lunch" ? "lunches" : kind + "s"}" autocomplete="off">`;
-    html += pool.length ? pool.map(m => `<button type="button" class="option" data-card="${esc(m.id)}"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">${m.minutes ? m.minutes + ' min · ' : ''}${m.items.length} items</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved ${kind} is already picked.</div>`;
+    html += pool.length ? pool.map(m => `<button type="button" class="option" data-card="${esc(m.id)}"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">${m.minutes ? m.minutes + ' min · ' : ''}${m.items.length} item${m.items.length === 1 ? "" : "s"}</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved ${kind} is already picked.</div>`;
     openSheet(html);
     body.querySelector('#newCard').addEventListener('click', () => openCardEditor(null, { kind, theme: kind, group: grp }));
     const find = body.querySelector('#cardFind');
@@ -597,31 +631,22 @@
   }
   function openAddWeekly(onlyGroup) {
     const homeGroup = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other' }).name;
-    const option = key => `<button type="button" class="option" data-add="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}${pantry[key].saleOnly ? ' · only when on sale' : ''}</div></div><div class="option-price">${money(price(key))}</div></button>`;
     const open = Object.keys(pantry).filter(key => !(plan.checklist[key] > 0)).sort((a, b) => pantry[a].name.localeCompare(pantry[b].name));
     const mine = onlyGroup ? open.filter(k => homeGroup(k) === onlyGroup) : [];
-    const rest = open.filter(k => !mine.includes(k));
-    let html = `<h3>Add ${onlyGroup ? esc(onlyGroup.toLowerCase()) : 'to every week'}</h3><p class="hint">Tap to add one pack a week. Change the number after.</p>`;
-    html += `<input class="search" id="addFind" type="search" placeholder="Search everything at H-E-B (${open.length} items)" autocomplete="off">`;
-    if (onlyGroup) html += `<div class="bucket-title" data-head>${esc(onlyGroup)}</div>` + (mine.length ? mine.map(option).join('') : `<div class="empty-bucket" data-head>Everything in ${esc(onlyGroup.toLowerCase())} is already on the list. Pick from below or search.</div>`);
-    const bySec = {};
-    for (const k of rest) (bySec[pantry[k].section] = bySec[pantry[k].section] || []).push(k);
-    const secs = [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))];
-    html += `<div class="bucket-title" data-head>${onlyGroup ? 'Anything else at H-E-B' : 'Everything'}</div>`;
-    for (const sec of secs) html += `<div class="guide-group" data-head>${esc(sec)}</div>` + bySec[sec].map(option).join('');
-    html += `<p class="hint">Don't see what you buy? Tell Claude the product and it gets pinned to the real H-E-B item.</p>`;
+    let html = `<h3>Add ${onlyGroup ? esc(onlyGroup.toLowerCase()) : 'to every week'}</h3>`;
+    html += `<input class="search" id="addFind" type="search" placeholder="Search all ${open.length} H-E-B items" autocomplete="off">`;
+    html += `<div id="addMine">` + (mine.length ? mine.map(k => itemOption(k, 'add')).join('') : `<div class="empty-bucket">All of these are already on the list. Search above for anything else.</div>`) + `</div><div id="addHits"></div>`;
     openSheet(html);
-    const find = body.querySelector('#addFind');
-    find.addEventListener('input', () => {
-      const q = find.value.trim().toLowerCase();
-      body.querySelectorAll('[data-add]').forEach(b => { b.style.display = !q || b.textContent.toLowerCase().includes(q) ? '' : 'none'; });
-      body.querySelectorAll('[data-head]').forEach(h => { h.style.display = q ? 'none' : ''; });
-    });
-    body.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => {
-      const key = b.dataset.add; plan.checklist[key] = 1;
+    const pick = key => {
+      plan.checklist[key] = 1;
       if (onlyGroup && homeGroup(key) !== onlyGroup) plan.itemGroups[key] = onlyGroup; else delete plan.itemGroups[key];
-      save(); closeSheet(); toast('Added');
-    }));
+      save(); closeSheet(); toast('Added ' + pantry[key].name);
+    };
+    body.querySelectorAll('#addMine [data-add]').forEach(b => b.addEventListener('click', () => pick(b.dataset.add)));
+    const mineBox = body.querySelector('#addMine');
+    const input = body.querySelector('#addFind');
+    searchList(input, body.querySelector('#addHits'), open, 'add', pick);
+    input.addEventListener('input', () => { mineBox.style.display = input.value.trim() ? 'none' : ''; });
   }
   function renderList() {
     const t = totals();
@@ -660,19 +685,19 @@
       wrap.appendChild(box);
     }
     if (!t.lines.length) wrap.innerHTML = '<div class="empty-bucket">Nothing on the list yet. Pick some dinners on the Plan tab.</div>';
-    $('listMeta').textContent = `${t.lines.length} items · prices pulled ${pricesDoc.pulled} at ${pricesDoc.store.name}` + (coupons ? ` · ${coupons} coupon item${coupons > 1 ? 's' : ''} (HEB app or paper slip, not in the total)` : '');
+    $('listMeta').textContent = `${t.lines.length} item${t.lines.length === 1 ? '' : 's'}` + (coupons ? ` · ${coupons} coupon item${coupons > 1 ? 's' : ''} need the HEB app (not counted in the total)` : '');
     const spent = $('spentInput');
     if (document.activeElement !== spent) spent.value = plan.spent == null ? '' : plan.spent;
     $('spentDiff').textContent = plan.spent == null ? 'Enter the receipt total after the trip to see how close the estimate was.' :
       `Estimate ${money(t.groceries)} · actual ${money(plan.spent)} · ${plan.spent > t.groceries ? 'over by ' + money(plan.spent - t.groceries) : 'under by ' + money(t.groceries - plan.spent)}`;
   }
   function renderPulled() {
-    const pulled = new Date(pricesDoc.pulled + 'T12:00:00'); const days = Math.floor((Date.now() - pulled) / 864e5);
+    const pulled = new Date(pricesDoc.pulled + 'T12:00:00'); const today = new Date(); today.setHours(12, 0, 0, 0); const days = Math.round((today - pulled) / 864e5);
     const stale = days >= 7;
     const when = pulled.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
     const age = days === 0 ? 'today' : days + ' day' + (days === 1 ? '' : 's') + ' ago';
-    const html = `<span class="big">Prices from H-E-B Main St · ${when} (${age})</span>` +
-      `<span class="fine">${stale ? 'That\'s older than this week\'s ad. ' : ''}To update: Brad tells Claude "refresh prices" on the desktop. It takes about a minute, then every phone shows the new ad.</span>`;
+    const html = `<span class="big">${stale ? '⏳' : '✓'} H-E-B Main St prices · ${when} (${age})</span>` +
+      `<span class="fine">${stale ? 'Older than this week\'s ad. ' : ''}Brad refreshes these from the desktop.</span>`;
     for (const id of ['pulled', 'pulledList']) { const el = $(id); if (!el) continue; el.className = 'pulled' + (stale ? ' stale' : ''); el.innerHTML = html; }
   }
   function setPacks(key, n, base) { plan.packs[key] = { packs: n, base }; save(); }
@@ -684,7 +709,7 @@
       .map(d => ({ ...d, saved: (d.pr.listPrice || d.pr.price) - d.pr.price }))
       .sort((a, b) => b.saved - a.saved);
     const combos = Object.keys(pantry).filter(key => prices[key] && prices[key].coupon);
-    $('dealsMeta').textContent = `From your pantry, pulled ${pricesDoc.pulled} at ${pricesDoc.store.name}. Sale and price cut ring up automatically. Tap one to use it.`;
+    $('dealsMeta').textContent = `Tap a deal to put it on a night.`;
     if (!deals.length) wrap.innerHTML = '<div class="empty-bucket">Nothing from the pantry is on sale this week.</div>';
     const box = document.createElement('div'); box.className = 'sec';
     for (const d of deals) {
@@ -723,7 +748,7 @@
     const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
     return `<button type="button" class="option${current ? ' current' : ''}" data-meal="${esc(m.id)}">` +
       `<div><div class="option-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div>` +
-      `<div class="option-sub">${esc(m.kind === 'heat-and-add' ? 'Heat and add' : m.kind === 'repeat' ? 'Easy' : 'Recipe')}${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} items${current ? ' · chosen, tap to edit' : ''}</div></div>` +
+      `<div class="option-sub">${esc(m.kind === 'heat-and-add' ? 'Heat and add' : m.kind === 'repeat' ? 'Easy' : 'Recipe')}${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} item${m.items.length === 1 ? "" : "s"}${current ? ' · chosen, tap to edit' : ''}</div></div>` +
       `<div class="option-price">${money(cost)}</div></button>`;
   }
 
@@ -743,7 +768,7 @@
     }
     html += `<div class="bucket-title">Eat out</div><p class="hint">Saves as you type.</p>`;
     html += `<div class="amount-row"><input id="outLabel" class="label" type="text" placeholder="Where (optional)" value="${esc(d && d.type === 'out' ? d.label || '' : '')}"></div>`;
-    html += `<div class="amount-row">$ <input id="outAmount" type="number" inputmode="decimal" min="0" step="1" placeholder="0" value="${esc(d && d.type === 'out' ? d.amount || '' : '')}"><button type="button" class="btn" id="setOut">Done</button></div>`;
+    html += `<div class="amount-row">$ <input id="outAmount" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" value="${esc(d && d.type === 'out' ? d.amount || '' : '')}"><button type="button" class="btn" id="setOut">Done</button></div>`;
     if (wild.length) html += `<div class="bucket-title">Everything else</div>` + wild.map(m => mealOption(m, m.id === currentMeal)).join('');
     html += `<div class="row-actions"><button type="button" class="btn ghost" id="clearDay">Nothing planned</button></div>`;
     const saveOut = () => {
@@ -817,17 +842,12 @@
   function openAddIngredient(dayId) {
     const d = plan.days[dayId]; const m = meals[d.mealId];
     const inCard = new Set([...m.items, ...(d.added || [])].map(it => it.key));
-    const bySec = {};
-    for (const key of Object.keys(pantry)) if (!inCard.has(key)) (bySec[pantry[key].section] = bySec[pantry[key].section] || []).push(key);
-    let html = `<h3>Add to ${esc(m.name)}</h3><p class="hint">Tap one. It goes in at one pack; adjust after.</p>`;
-    for (const sec of [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))]) {
-      html += `<div class="bucket-title">${esc(sec)}</div>` + bySec[sec].map(key => `<button type="button" class="option" data-ing="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
-    }
-    html += `<p class="hint">Not in the pantry yet? Tell Claude the product and it gets pinned to the real H-E-B item with a price.</p>`;
-    openSheet(html);
-    body.querySelectorAll('[data-ing]').forEach(b => b.addEventListener('click', () => {
-      d.added = [...(d.added || []), { key: b.dataset.ing, qty: 1 }]; d.dropped = (d.dropped || []).filter(k => k !== b.dataset.ing); save(); openMealEditor(dayId);
-    }));
+    const keys = Object.keys(pantry).filter(k => !inCard.has(k)).sort((a, b) => pantry[a].name.localeCompare(pantry[b].name));
+    openSheet(`<h3>Add to ${esc(m.name)}</h3><input class="search" id="ingFind" type="search" placeholder="Search H-E-B items" autocomplete="off"><div id="ingHits"></div>`);
+    searchList(body.querySelector('#ingFind'), body.querySelector('#ingHits'), keys, 'ing', key => {
+      d.added = [...(d.added || []), { key, qty: 1 }]; d.dropped = (d.dropped || []).filter(k => k !== key); save(); openMealEditor(dayId);
+    }, () => keys.filter(k => flagsFor(k).sale));
+    setTimeout(() => body.querySelector('#ingFind') && body.querySelector('#ingFind').focus(), 50);
   }
 
   function openDeal(key) {
@@ -897,8 +917,6 @@
     list.addEventListener('click', e => { if (justDragged) { e.stopPropagation(); e.preventDefault(); } }, true);
   })();
 
-  let swapMode = null;   // drag to swap; no button mode anymore
-  function pickSwap() {}
 
   // Budget target
   $('btnBudget').addEventListener('click', () => {
@@ -996,17 +1014,11 @@
       .join('\n');
   }
   $('btnAddExtra').addEventListener('click', () => {
-    const bySec = {};
-    for (const key of Object.keys(pantry)) (bySec[pantry[key].section] = bySec[pantry[key].section] || []).push(key);
-    let html = `<h3>Add to this week's list</h3><p class="hint">One-off, just this trip. Tap to add a pack.</p><input class="search" id="extraFind" type="search" placeholder="Search everything at H-E-B" autocomplete="off">`;
-    for (const sec of [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))]) {
-      html += `<div class="bucket-title">${esc(sec)}</div>` + bySec[sec].map(key => `<button type="button" class="option" data-extra="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}${pillHtml(flagsFor(key))}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
-    }
-    html += `<p class="hint">Not in the pantry yet? Tell Claude the product and it gets pinned to the real H-E-B item.</p>`;
-    openSheet(html);
-    const xf = body.querySelector('#extraFind');
-    xf.addEventListener('input', () => { const q = xf.value.trim().toLowerCase(); body.querySelectorAll('[data-extra]').forEach(b => { b.style.display = !q || b.textContent.toLowerCase().includes(q) ? '' : 'none'; }); body.querySelectorAll('.bucket-title').forEach(h => { h.style.display = q ? 'none' : ''; }); });
-    body.querySelectorAll('[data-extra]').forEach(b => b.addEventListener('click', () => { const k = b.dataset.extra; plan.extras[k] = (plan.extras[k] || 0) + 1; plan.have = plan.have.filter(x => x !== k); save(); closeSheet(); toast('Added'); }));
+    openSheet(`<h3>Add to this trip</h3><input class="search" id="extraFind" type="search" placeholder="Search all H-E-B items" autocomplete="off"><div class="bucket-title" id="extraHead">On sale this week</div><div id="extraHits"></div>`);
+    const keys = Object.keys(pantry).sort((a, b) => pantry[a].name.localeCompare(pantry[b].name));
+    const input = body.querySelector('#extraFind');
+    searchList(input, body.querySelector('#extraHits'), keys, 'extra', k => { plan.extras[k] = (plan.extras[k] || 0) + 1; plan.have = plan.have.filter(x => x !== k); save(); closeSheet(); toast('Added ' + pantry[k].name); }, () => keys.filter(k => flagsFor(k).sale));
+    input.addEventListener('input', () => { body.querySelector('#extraHead').style.display = input.value.trim() ? 'none' : ''; });
   });
   $('btnNotes').addEventListener('click', () => copy(notesText(), 'Copied. Paste into Notes.'));
   $('btnReminders').addEventListener('click', () => copy(remindersText(), 'Copied. Paste into a Reminders list.'));

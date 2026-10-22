@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1f3a5f">
+<meta name="theme-color" content="#FBF6EE">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Dinner">
 <title>Dinner this week</title>
 <link rel="icon" href="icons/icon-180.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=43">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css?v=44">
 </head>
 <body>
 
@@ -40,14 +40,14 @@
     <button class="fold" id="foldDinners" type="button" data-fold="dinners"><span class="chev">▾</span><span class="fold-title">Dinners</span><span class="fold-sum" id="sumDinners"></span></button>
     <div id="bodyDinners">
       <ol class="week" id="week"></ol>
-      <p class="section-hint fine">Day prices are what each dinner uses. The list rounds up to whole packages.</p>
+      <div class="week-tools" id="weekTools"></div>
     </div>
     <div class="checklist" id="checklist"></div>
 
     <div class="plan-actions">
-      <button class="btn" id="btnShare" type="button">Share plan</button>
-      <button class="btn ghost" id="btnPast" type="button">Past weeks</button>
-      <button class="btn ghost" id="btnNewWeek" type="button">Start a new week</button>
+      <button class="btn" id="btnShare" type="button">💬 Share plan</button>
+      <button class="btn ghost" id="btnPast" type="button">📚 Past weeks</button>
+      <button class="btn ghost" id="btnNewWeek" type="button">✨ Start a new week</button>
     </div>
   </section>
 
@@ -55,9 +55,9 @@
     <div class="list-head">
       <h2 class="section-title">Shopping list</h2>
       <div class="list-actions">
-        <button class="btn" id="btnNotes" type="button">Copy for Notes</button>
-        <button class="btn" id="btnReminders" type="button">Copy for Reminders</button>
-        <button class="btn ghost" id="btnAddExtra" type="button">Add an item</button>
+        <button class="btn" id="btnNotes" type="button">📝 Copy for Notes</button>
+        <button class="btn" id="btnReminders" type="button">✅ Copy for Reminders</button>
+        <button class="btn ghost" id="btnAddExtra" type="button">＋ Add an item</button>
       </div>
       <p class="section-hint" id="listMeta"></p>
       <div class="pulled" id="pulledList"></div>
@@ -81,7 +81,6 @@
 
   <section class="view hidden" id="viewMeals">
     <h2 class="section-title">Meals and items</h2>
-    <p class="section-hint">Every card and every pantry item. Tap one to see or change it.</p>
     <input class="search" id="catSearch" type="search" placeholder="Search cards and items" autocomplete="off">
     <div class="filters">
       <label class="select"><span>Show</span><select id="selKind"></select></label>
@@ -92,7 +91,7 @@
 
   <section class="view hidden" id="viewGuide">
     <h2 class="section-title">Nutrition guide</h2>
-    <p class="section-hint">How we eat. Meat and eggs are the base; carbs and fats are add-on slots, about 100 calories each.</p>
+    <p class="section-hint">Meat and eggs are the base. Carbs and fats are add-on slots, about 100 calories each.</p>
 
     <div class="sec guide">
       <div class="sec-name"><span>Daily targets</span></div>
@@ -148,11 +147,11 @@
 </main>
 
 <nav class="tabs">
-  <button class="tab active" data-view="viewPlan" type="button">Plan</button>
-  <button class="tab" data-view="viewList" type="button">List</button>
-  <button class="tab" data-view="viewMeals" type="button">Meals</button>
-  <button class="tab" data-view="viewDeals" type="button">Deals</button>
-  <button class="tab" data-view="viewGuide" type="button">Guide</button>
+  <button class="tab active" data-view="viewPlan" type="button"><span class="tab-ico">🗓️</span>Plan</button>
+  <button class="tab" data-view="viewList" type="button"><span class="tab-ico">🛒</span>List</button>
+  <button class="tab" data-view="viewMeals" type="button"><span class="tab-ico">📖</span>Meals</button>
+  <button class="tab" data-view="viewDeals" type="button"><span class="tab-ico">🏷️</span>Deals</button>
+  <button class="tab" data-view="viewGuide" type="button"><span class="tab-ico">🥗</span>Guide</button>
 </nav>
 
 <div class="sheet-backdrop hidden" id="backdrop"></div>
@@ -166,6 +165,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=43"></script>
+<script src="js/app.js?v=44"></script>
 </body>
 </html>
