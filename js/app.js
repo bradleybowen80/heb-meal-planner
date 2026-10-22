@@ -328,9 +328,108 @@
   }
 
   // ---------- render ----------
+  const PROTEIN = { 'ground-beef': 'beef', 'chicken-breast': 'chicken', 'kevins-chicken': 'chicken', 'eggs': 'egg', 'frozen-pizza': 'pizza', 'string-cheese': 'cheese' };
+  const cardTags = m => [...new Set((m.tags || []).concat(m.items.map(it => PROTEIN[it.key]).filter(Boolean)))];
+  const mealFilter = { kind: 'all' };
+  function renderCatalog() {
+    const chipsEl = $('mealChips'), wrap = $('catalog'); if (!chipsEl) return;
+    const kinds = [['all', 'All'], ['breakfast', 'Breakfast'], ['lunch', 'Lunch'], ['dinner', 'Dinner'], ['items', 'Snacks, drinks, staples']];
+    const proteins = [...new Set(Object.values(meals).flatMap(cardTags))].sort();
+    chipsEl.innerHTML = kinds.map(([k, l]) => `<button type="button" class="chip${mealFilter.kind === k ? ' on' : ''}" data-kind="${k}">${l}</button>`).join('') +
+      proteins.map(t => `<button type="button" class="chip${mealFilter.kind === 'tag:' + t ? ' on' : ''}" data-kind="tag:${t}">${esc(t)}</button>`).join('');
+    chipsEl.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { mealFilter.kind = c.dataset.kind; renderCatalog(); }));
+    wrap.innerHTML = '';
+    const f = mealFilter.kind;
+    const isDinner = m => !['breakfast', 'lunch'].includes(m.kind);
+    const cards = Object.values(meals).filter(m => f === 'all' || (f === 'dinner' && isDinner(m)) || f === m.kind || (f.startsWith('tag:') && cardTags(m).includes(f.slice(4))));
+    if (f !== 'items' && cards.length) {
+      for (const [label, test] of [['Breakfast', m => m.kind === 'breakfast'], ['Lunch', m => m.kind === 'lunch'], ['Dinner', isDinner]]) {
+        const group = cards.filter(test); if (!group.length) continue;
+        const box = document.createElement('div'); box.className = 'sec';
+        box.innerHTML = `<div class="sec-name"><span>${label}</span><span>${group.length}</span></div>`;
+        for (const m of group) {
+          const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
+          const row = document.createElement('button'); row.type = 'button'; row.className = 'li li-tap';
+          row.innerHTML = `<div></div><div><div class="li-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div><div class="li-sub">${esc(THEME_NAMES[m.theme] || m.theme || '')}${cardTags(m).length ? ' · ' + esc(cardTags(m).join(', ')) : ''} · ${m.items.length} items · serves ${m.serves || 4}</div></div><div class="li-right"><div class="li-price">${money(cost)}</div></div>`;
+          row.addEventListener('click', () => openCardEditor(m.id));
+          box.appendChild(row);
+        }
+        wrap.appendChild(box);
+      }
+    }
+    if (f === 'all' || f === 'items') {
+      const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Ingredients' }).name;
+      const groups = {};
+      for (const key of Object.keys(pantry)) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
+      const order = [...checklistDoc.groups.map(g => g.name), 'Ingredients'];
+      for (const name of order) {
+        if (!groups[name] || (f === 'items' && name === 'Ingredients')) continue;
+        const box = document.createElement('div'); box.className = 'sec';
+        box.innerHTML = `<div class="sec-name"><span>${esc(name)}</span><span>${groups[name].length}</span></div>`;
+        for (const key of groups[name]) {
+          const p = pantry[key], pr = prices[key] || {};
+          const row = document.createElement('button'); row.type = 'button'; row.className = 'li li-tap';
+          row.innerHTML = `<div></div><div><div class="li-name">${esc(p.name)}${pillHtml(flagsFor(key))}</div><div class="li-sub">${esc(p.size)} · ${esc(pr.aisle || '')}${p.products.length > 1 ? ' · ' + p.products.length + ' options' : ''}${p.saleOnly ? ' · only when on sale' : ''}${p.why ? '<br><span class="why">' + esc(p.why) + '</span>' : ''}</div></div><div class="li-right"><div class="li-price">${money(price(key))}</div></div>`;
+          row.addEventListener('click', () => openItem(key));
+          box.appendChild(row);
+        }
+        wrap.appendChild(box);
+      }
+    }
+    if (!wrap.children.length) wrap.innerHTML = '<div class="empty-bucket">Nothing here yet. Tell Claude what you make and it builds the cards.</div>';
+  }
+  function openItem(key) {
+    const p = pantry[key];
+    let html = `<h3>${esc(p.name)}</h3><p class="hint">${esc(p.size)} · ${money(price(key))}${p.saleOnly ? ' · bought at H-E-B only when on sale, Costco otherwise' : ''}</p>`;
+    html += `<div class="bucket-title">Products, in order of preference</div>`;
+    for (const prod of p.products) {
+      const r = rawPrices[prod.hebId] || {}; const chosen = prod.hebId === p.hebId;
+      html += `<div class="option static${chosen ? ' current' : ''}"><div><div class="option-name">${esc(prod.name)}${r.onSale || r.priceCut ? '<span class="pill sale">' + (r.onSale ? 'sale' : 'price cut') + '</span>' : ''}${r.available === false ? '<span class="pill coupon">out of stock</span>' : ''}</div><div class="option-sub">${esc(prod.size)}${chosen ? ' · this week\'s pick' : ''}</div></div><div class="option-price">${r.price != null ? money(r.price) : '?'}</div></div>`;
+    }
+    html += `<p class="hint">The first in-stock product that's on sale wins; otherwise the first in-stock one. To change the order or add a product, tell Claude.</p>`;
+    const used = Object.values(meals).filter(m => m.items.some(it => it.key === key));
+    if (used.length) html += `<div class="bucket-title">Used in</div><p class="hint">${esc(used.map(m => m.name).join(', '))}</p>`;
+    html += `<div class="row-actions"><button type="button" class="btn" id="itemAddWeek">Add to this week's list</button></div>`;
+    openSheet(html);
+    body.querySelector('#itemAddWeek').addEventListener('click', () => { plan.extras[key] = (plan.extras[key] || 0) + 1; plan.have = plan.have.filter(x => x !== key); save(); closeSheet(); toast('Added'); });
+  }
+  // Edit any card from the catalog, no day needed. Works on a draft; Save to card makes it stick.
+  function openCardEditor(mealId) {
+    const m = meals[mealId]; const draft = JSON.parse(JSON.stringify(m));
+    const paint = () => {
+      let html = `<h3>${esc(draft.name)}</h3><p class="hint">${esc(THEME_NAMES[draft.theme] || draft.theme || '')} · serves ${draft.serves || 4}. Changes stick when you tap Save to card.</p>`;
+      if (draft.notes) html += `<div class="notes">${esc(draft.notes)}</div>`;
+      html += `<div class="group">` + draft.items.map(it => { const p = pantry[it.key]; if (!p) return ''; return `<div class="ing" data-key="${esc(it.key)}"><button type="button" class="ing-x" aria-label="remove">×</button><div><div class="ing-name">${esc(p.name)}</div><div class="ing-sub">${esc(p.size)} · ${money(price(it.key))} each</div></div><div class="stepper small"><button type="button" aria-label="less">−</button><span class="n">${packText(it.qty, it.key)}</span><button type="button" aria-label="more">+</button></div></div>`; }).join('') + `</div>`;
+      html += `<div class="row-actions"><button type="button" class="btn ghost" id="cAdd">Add an ingredient</button></div>`;
+      html += `<div class="row-actions"><button type="button" class="btn" id="cSave">Save to card</button><button type="button" class="btn ghost" id="cCancel">Cancel</button></div>`;
+      openSheet(html);
+      body.querySelectorAll('.ing').forEach(row => {
+        const key = row.dataset.key, it = draft.items.find(x => x.key === key); const step = it.qty >= 1 ? 1 : it.qty;
+        row.querySelector('.ing-x').addEventListener('click', () => { draft.items = draft.items.filter(x => x.key !== key); paint(); });
+        const [minus, plus] = row.querySelectorAll('.stepper button');
+        minus.addEventListener('click', () => { it.qty = Math.max(step, Math.round((it.qty - step) * 4) / 4); row.querySelector('.n').textContent = packText(it.qty, key); });
+        plus.addEventListener('click', () => { it.qty = Math.round((it.qty + step) * 4) / 4; row.querySelector('.n').textContent = packText(it.qty, key); });
+      });
+      body.querySelector('#cAdd').addEventListener('click', () => {
+        const inCard = new Set(draft.items.map(x => x.key)); const bySec = {};
+        for (const key of Object.keys(pantry)) if (!inCard.has(key)) (bySec[pantry[key].section] = bySec[pantry[key].section] || []).push(key);
+        let h = `<h3>Add to ${esc(draft.name)}</h3>`;
+        for (const sec of [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))]) h += `<div class="bucket-title">${esc(sec)}</div>` + bySec[sec].map(key => `<button type="button" class="option" data-ing="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
+        openSheet(h);
+        body.querySelectorAll('[data-ing]').forEach(b => b.addEventListener('click', () => { draft.items.push({ key: b.dataset.ing, qty: 1 }); paint(); }));
+      });
+      body.querySelector('#cCancel').addEventListener('click', closeSheet);
+      body.querySelector('#cSave').addEventListener('click', async () => {
+        if (!draft.items.length) { toast('A card needs at least one ingredient'); return; }
+        const ok = await saveMealCard(draft); save(); closeSheet(); toast(ok ? 'Card saved' : 'Card saved here; will sync when online');
+      });
+    };
+    paint();
+  }
+
   function render() {
     if ((plan.mealsVersion || 0) > mealsSeen) { mealsSeen = plan.mealsVersion; loadRemoteMeals(); }
-    renderHeader(); renderWeek(); renderChecklist(); renderList(); renderDeals();
+    renderHeader(); renderWeek(); renderChecklist(); renderList(); renderDeals(); renderCatalog();
   }
 
   function renderHeader() {

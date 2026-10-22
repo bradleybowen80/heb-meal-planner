@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=28">
+<link rel="stylesheet" href="css/app.css?v=29">
 </head>
 <body>
 
@@ -46,7 +46,6 @@
       <span class="weekly-summary" id="weeklySummary"></span>
     </button>
     <div id="weeklyBody" class="hidden">
-      <p class="section-hint">Breakfasts and lunches are cards with a day count. Staples are packs per week. All of it changes whenever you want.</p>
       <div class="checklist" id="checklist"></div>
       <div class="row-actions"><button class="btn ghost" id="btnAddWeekly" type="button">Add a staple</button></div>
     </div>
@@ -83,6 +82,13 @@
     <h2 class="section-title">On sale this week</h2>
     <p class="section-hint" id="dealsMeta"></p>
     <div id="deals"></div>
+  </section>
+
+  <section class="view hidden" id="viewMeals">
+    <h2 class="section-title">Meals and items</h2>
+    <p class="section-hint">Every card and every pantry item. Tap one to see or change it.</p>
+    <div class="chips" id="mealChips"></div>
+    <div id="catalog"></div>
   </section>
 
   <section class="view hidden" id="viewGuide">
@@ -145,6 +151,7 @@
 <nav class="tabs">
   <button class="tab active" data-view="viewPlan" type="button">Plan</button>
   <button class="tab" data-view="viewList" type="button">List</button>
+  <button class="tab" data-view="viewMeals" type="button">Meals</button>
   <button class="tab" data-view="viewDeals" type="button">Deals</button>
   <button class="tab" data-view="viewGuide" type="button">Guide</button>
 </nav>
@@ -160,6 +167,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=28"></script>
+<script src="js/app.js?v=29"></script>
 </body>
 </html>
