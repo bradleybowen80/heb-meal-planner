@@ -35,7 +35,11 @@
     const fromUrl = new URLSearchParams(location.search).get('f');
     let key = null;
     try { key = localStorage.getItem(FAM_KEY); } catch (e) { /* ignore */ }
-    if (fromUrl && /^[A-Za-z0-9_-]{20,}$/.test(fromUrl) && fromUrl !== key) { key = fromUrl; setTimeout(() => toast('Joined the shared plan'), 400); }
+    if (fromUrl && /^[A-Za-z0-9_-]{20,}$/.test(fromUrl) && fromUrl !== key) {
+      key = fromUrl;
+      try { localStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ }   // the shared plan wins; this phone's old copy goes
+      setTimeout(() => toast('Joined the shared plan'), 400);
+    }
     if (!key || key.length < 20) key = [...crypto.getRandomValues(new Uint8Array(24))].map(b => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[b % 62]).join('');
     try { localStorage.setItem(FAM_KEY, key); } catch (e) { /* ignore */ }
     if (fromUrl) history.replaceState(null, '', location.pathname);
@@ -47,7 +51,7 @@
   function loadPlan() {
     try {
       const saved = JSON.parse(localStorage.getItem(STORE_KEY));
-      if (saved && saved.weekOf >= planSeed.weekOf) return normalize(saved);
+      if (saved && (saved.updatedAt || saved.weekOf >= planSeed.weekOf)) return normalize(saved);
     } catch (e) { /* fall through */ }
     return normalize(structuredClone(planSeed));
   }
@@ -56,58 +60,98 @@
     if (!p.checklist || !Object.keys(p.checklist).length) p.checklist = { ...checklistDoc.defaults };
     p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {};
     p.budget = Number(p.budget || 0); p.potluckTheme = p.potluckTheme || '';
+    if (p.updatedAt) p.syncedOnce = true;
     return p;
   }
-  function persist() { plan.updatedAt = Date.now(); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* private mode */ } queuePush(); }
+  function persist() { plan.updatedAt = Math.max(Date.now(), (plan.updatedAt || 0) + 1); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* private mode */ } queuePush(); }
   function save() { persist(); render(); }
 
   // ---------- sync ----------
   // The database holds one copy of the plan per family. Every change here is pushed within
   // half a second; every few seconds we check for changes from the other phone. Newest wins.
-  let pushTimer = null, dirty = false, etag = null, syncState = 'idle';
+  let pushTimer = null, dirty = false, inFlight = false, etag = null, syncState = 'idle', booted = false;
   function setSync(state) { syncState = state; const el = $('syncDot'); if (!el) return; el.className = 'sync ' + state; el.title = { ok: 'Synced', saving: 'Saving', offline: 'Offline, will retry', idle: '' }[state] || ''; }
-  function queuePush() { dirty = true; clearTimeout(pushTimer); pushTimer = setTimeout(push, 400); }
+  function queuePush() { dirty = true; clearTimeout(pushTimer); pushTimer = setTimeout(() => { pushTimer = null; push(); }, 400); }
   async function push() {
-    if (!dirty) return; dirty = false; setSync('saving');
+    if (!dirty || inFlight) return;
+    inFlight = true; dirty = false; setSync('saving');
+    const bodyText = JSON.stringify(plan), sentAt = plan.updatedAt;
     try {
-      const r = await fetch(remoteUrl('plan'), { method: 'PUT', body: JSON.stringify(plan), headers: { 'X-Firebase-ETag': 'true' } });
-      if (!r.ok) throw new Error(r.status);
-      etag = r.headers.get('ETag'); setSync('ok');
+      const headers = { 'X-Firebase-ETag': 'true' }; if (etag) headers['If-Match'] = etag;
+      const r = await fetch(remoteUrl('plan'), { method: 'PUT', body: bodyText, headers });
+      if (r.status === 412) {
+        // Someone else wrote first. Take theirs if it's newer, then send ours again on top.
+        etag = r.headers.get('ETag');
+        const theirs = await r.json().catch(() => null);
+        if (theirs && (theirs.updatedAt || 0) > sentAt) { adopt(theirs); render(); toast('Updated from the other phone'); }
+        else dirty = true;
+      } else if (!r.ok) { throw new Error(r.status); }
+      else { etag = r.headers.get('ETag'); }
+      if (plan.updatedAt !== sentAt) dirty = true;   // edited again while the save was in flight
+      setSync(dirty ? 'saving' : 'ok');
     } catch (e) { dirty = true; setSync('offline'); }
+    inFlight = false;
+    if (dirty && !pushTimer) queuePush();
   }
   // Swap the plan's contents without changing the object, so open drawers keep working.
   function adopt(remote) { for (const k of Object.keys(plan)) delete plan[k]; Object.assign(plan, normalize(remote)); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* ignore */ } }
   async function pull(first) {
+    if (!first && (dirty || inFlight)) return;   // never read over the top of an unsent edit (boot is the exception)
     try {
       const r = await fetch(remoteUrl('plan'), { cache: 'no-store', headers: etag ? { 'X-Firebase-ETag': 'true', 'If-None-Match': etag } : { 'X-Firebase-ETag': 'true' } });
-      if (r.status === 304) { if (syncState !== 'saving' && !dirty) setSync('ok'); return; }
+      if (r.status === 304) { if (!dirty && !inFlight) setSync('ok'); return; }
       if (!r.ok) throw new Error(r.status);
+      if (!first && (dirty || inFlight)) return;   // the user tapped something while we waited
       etag = r.headers.get('ETag');
       const remote = await r.json();
-      if (remote && (remote.updatedAt || 0) > (plan.updatedAt || 0)) {
-        adopt(remote); render(); if (!first) toast('Updated from the other phone');
+      if (remote && ((remote.updatedAt || 0) > (plan.updatedAt || 0) || (first && !plan.syncedOnce))) {
+        adopt(remote); plan.syncedOnce = true; dirty = false; clearTimeout(pushTimer); pushTimer = null; render(); if (!first) toast('Updated from the other phone');
       } else if (!remote || (plan.updatedAt || 0) > (remote.updatedAt || 0)) {
         dirty = true; push();   // this phone is newer (or the database is empty): send ours up
       }
       if (!dirty) setSync('ok');
     } catch (e) { setSync('offline'); }
+    booted = true;
   }
-  setInterval(() => { if (document.visibilityState === 'visible') { if (dirty) push(); else pull(false); } }, 4000);
+  setInterval(() => {
+    if (document.visibilityState !== 'visible') return;
+    if (dirty) { if (!pushTimer && !inFlight) push(); }   // a failed save retrying, never a mid-typing debounce
+    else pull(false);
+    flushWeekQueue();
+  }, 4000);
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pull(false); });
-  window.addEventListener('online', () => { if (dirty) push(); else pull(false); });
+  window.addEventListener('online', () => { if (dirty) push(); else pull(false); flushWeekQueue(); });
 
-  // Past weeks live under families/<key>/weeks/<weekOf>.
-  async function archiveWeek() {
+  // Past weeks live under families/<key>/weeks/<weekOf>. Saved on the phone first, sent up in the background.
+  function archiveWeek() {
     const t = totals();
-    const snap = { weekOf: plan.weekOf, days: plan.days, potluckTheme: plan.potluckTheme, budget: plan.budget, spent: plan.spent, groceries: Math.round(t.groceries * 100) / 100, out: t.out, savedAt: Date.now() };
-    try { localStorage.setItem('hmp.week.' + plan.weekOf, JSON.stringify(snap)); } catch (e) { /* ignore */ }
-    try { await fetch(remoteUrl('weeks/' + plan.weekOf), { method: 'PUT', body: JSON.stringify(snap) }); } catch (e) { /* offline: the local copy stays */ }
+    const snap = { weekOf: plan.weekOf, days: structuredClone(plan.days), potluckTheme: plan.potluckTheme, budget: plan.budget, spent: plan.spent, groceries: Math.round(t.groceries * 100) / 100, out: t.out, savedAt: Date.now() };
+    try { localStorage.setItem('hmp.week.' + plan.weekOf, JSON.stringify(snap)); localStorage.setItem('hmp.weekq.' + plan.weekOf, '1'); } catch (e) { /* ignore */ }
+    flushWeekQueue();
+  }
+  let flushing = false;
+  async function flushWeekQueue() {
+    if (flushing) return; flushing = true;
+    try {
+      const keys = []; for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith('hmp.weekq.')) keys.push(k.slice(10)); }
+      for (const weekOf of keys) {
+        const snap = JSON.parse(localStorage.getItem('hmp.week.' + weekOf) || 'null'); if (!snap) { localStorage.removeItem('hmp.weekq.' + weekOf); continue; }
+        // Don't overwrite a fuller archive of the same week saved from the other phone.
+        const r0 = await fetch(remoteUrl('weeks/' + weekOf), { cache: 'no-store' });
+        const existing = r0.ok ? await r0.json() : null;
+        const count = w => w && w.days ? Object.values(w.days).filter(Boolean).length : 0;
+        if (existing && count(existing) > count(snap)) { localStorage.removeItem('hmp.weekq.' + weekOf); continue; }
+        const r = await fetch(remoteUrl('weeks/' + weekOf), { method: 'PUT', body: JSON.stringify(snap) });
+        if (r.ok) localStorage.removeItem('hmp.weekq.' + weekOf);
+      }
+    } catch (e) { /* offline: try again on the next tick */ }
+    flushing = false;
   }
   async function loadWeeks() {
     let weeks = {};
     try { const r = await fetch(remoteUrl('weeks'), { cache: 'no-store' }); if (r.ok) weeks = (await r.json()) || {}; } catch (e) { /* offline */ }
     try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith('hmp.week.')) { const w = JSON.parse(localStorage.getItem(k)); if (!weeks[w.weekOf]) weeks[w.weekOf] = w; } } } catch (e) { /* ignore */ }
-    return Object.values(weeks).sort((a, b) => b.weekOf.localeCompare(a.weekOf));
+    return Object.values(weeks).filter(w => w && w.weekOf).sort((a, b) => b.weekOf.localeCompare(a.weekOf));
   }
   let ui = { weeklyOpen: false };
   try { ui = { ...ui, ...JSON.parse(localStorage.getItem(UI_KEY) || '{}') }; } catch (e) { /* ignore */ }
@@ -464,8 +508,8 @@
     openSheet(`<h3>Start a new week?</h3><p class="hint">Clears the dinners, have-its and spent box. Keeps your budget and the Every week list. The new week starts Sunday ${nxt}.</p>` +
       `<div class="row-actions"><button type="button" class="btn danger" id="confirmNew">Yes, clear the week</button><button type="button" class="btn ghost" id="cancelNew">Keep it</button></div>`);
     body.querySelector('#cancelNew').addEventListener('click', closeSheet);
-    body.querySelector('#confirmNew').addEventListener('click', async () => {
-      await archiveWeek();
+    body.querySelector('#confirmNew').addEventListener('click', () => {
+      archiveWeek();
       plan.weekOf = nextSunday();
       for (const day of DAYS) plan.days[day.id] = null;
       plan.have = []; plan.packs = {}; plan.extras = {}; plan.spent = null; plan.potluckTheme = ''; save(); closeSheet(); toast('New week');
@@ -508,8 +552,12 @@
     body.innerHTML = html;
     body.querySelectorAll('[data-week]').forEach(b => b.addEventListener('click', () => {
       const w = weeks.find(x => x.weekOf === b.dataset.week);
-      for (const day of DAYS) plan.days[day.id] = w.days && w.days[day.id] ? structuredClone(w.days[day.id]) : null;
-      plan.potluckTheme = w.potluckTheme || ''; plan.have = []; plan.packs = {}; save(); closeSheet(); toast('Copied that week\'s dinners');
+      const planned = DAYS.filter(day => plan.days[day.id]).length;
+      const doCopy = () => { for (const day of DAYS) plan.days[day.id] = w.days && w.days[day.id] ? structuredClone(w.days[day.id]) : null; plan.potluckTheme = w.potluckTheme || ''; save(); closeSheet(); toast('Copied that week\'s dinners'); };
+      if (!planned) return doCopy();
+      body.innerHTML = `<h3>Replace this week's dinners?</h3><p class="hint">You already have ${planned} night${planned > 1 ? 's' : ''} planned. Copying replaces them with the week of ${esc(w.weekOf)}. Your have-its and list tweaks stay.</p><div class="row-actions"><button type="button" class="btn danger" id="copyYes">Replace</button><button type="button" class="btn ghost" id="copyNo">Keep mine</button></div>`;
+      body.querySelector('#copyYes').addEventListener('click', doCopy);
+      body.querySelector('#copyNo').addEventListener('click', closeSheet);
     }));
   });
 
