@@ -99,6 +99,20 @@
       "notes": "Chicken heats in a pan in 5 minutes. Broccoli steams in its bag. Rice in the cooker."
     },
     {
+      "id": "slate-shake",
+      "name": "Slate chocolate shake",
+      "kind": "breakfast",
+      "theme": "breakfast",
+      "serves": 1,
+      "items": [
+        {
+          "key": "protein-shakes",
+          "qty": 1
+        }
+      ],
+      "notes": "One can. 20g protein."
+    },
+    {
       "id": "frozen-pizza-night",
       "name": "Frozen Pizza Night",
       "kind": "repeat",

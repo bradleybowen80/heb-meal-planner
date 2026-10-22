@@ -35,7 +35,7 @@
     const pick = inStock.find(x => x.r.onSale || x.r.priceCut) || inStock[0] || recs[0];
     let why = '';
     if (pick !== recs[0]) why = recs[0].r.available === false ? `${recs[0].p.name} is out of stock` : `on sale, instead of ${recs[0].p.name}`;
-    pantry[it.key] = { key: it.key, section: it.section, name: pick.p.name, size: pick.p.size, hebId: pick.p.hebId, products: prods, why };
+    pantry[it.key] = { key: it.key, section: it.section, name: pick.p.name, size: pick.p.size, hebId: pick.p.hebId, products: prods, why, saleOnly: !!it.saleOnly };
     prices[it.key] = pick.r;
   }
   const meals = Object.fromEntries(mealsDoc.meals.map(m => [m.id, m]));
@@ -288,7 +288,7 @@
     const need = {};
     const add = (key, qty, src) => { if (!pantry[key]) return; if (!need[key]) need[key] = { key, qty: 0, from: new Set() }; need[key].qty += qty; need[key].from.add(src); };
     for (const day of DAYS) for (const it of dayItems(plan.days[day.id])) add(it.key, it.qty, day.name);
-    for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0) add(key, qty, 'weekly');
+    for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && !(pantry[key] && pantry[key].saleOnly && !flagsFor(key).sale)) add(key, qty, 'weekly');
     for (const grp of ['breakfasts', 'lunches']) for (const [mealId, days] of Object.entries(plan[grp])) { const m = meals[mealId]; if (m && days > 0) for (const it of m.items) add(it.key, it.qty * days, grp); }
     for (const [key, qty] of Object.entries(plan.extras)) if (qty > 0) add(key, qty, 'extra');
     return Object.values(need).map(n => {
@@ -304,7 +304,7 @@
     const groceries = lines.reduce((s, l) => s + l.total, 0);
     const out = DAYS.reduce((s, d) => s + (plan.days[d.id] && plan.days[d.id].type === 'out' ? Number(plan.days[d.id].amount || 0) : 0), 0);
     const lunchCost = m => m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
-    const weekly = Object.entries(plan.checklist).reduce((s, [k, q]) => s + q * price(k), 0)
+    const weekly = Object.entries(plan.checklist).reduce((s, [k, q]) => s + (pantry[k] && pantry[k].saleOnly && !flagsFor(k).sale ? 0 : q * price(k)), 0)
       + ['breakfasts', 'lunches'].reduce((s, grp) => s + Object.entries(plan[grp]).reduce((t, [id, d]) => t + (meals[id] ? d * lunchCost(meals[id]) : 0), 0), 0);
     return { groceries, out, combined: groceries + out, lines, weekly };
   }
@@ -397,9 +397,10 @@
       box.innerHTML = `<div class="group-name">${esc(name)}</div>`;
       for (const key of groups[name]) {
         const p = pantry[key], qty = plan.checklist[key];
-        const row = document.createElement('div'); row.className = 'crow';
-        row.innerHTML = `<div><div class="crow-name">${esc(p.name)}</div><div class="crow-sub">${esc(p.size)}${p.why ? ' · ' + esc(p.why) : ''}</div></div>` +
-          `<div class="crow-price">${money(price(key) * qty)}</div>` +
+        const skipped = p.saleOnly && !flagsFor(key).sale;
+        const row = document.createElement('div'); row.className = 'crow' + (skipped ? ' zero' : '');
+        row.innerHTML = `<div><div class="crow-name">${esc(p.name)}</div><div class="crow-sub">${esc(p.size)}${p.why ? ' · ' + esc(p.why) : ''}${p.saleOnly ? (skipped ? ' · <span class="why">only when on sale: not this week, Costco it</span>' : ' · <span class="why">on sale, grab it here</span>') : ''}</div></div>` +
+          `<div class="crow-price">${skipped ? '' : money(price(key) * qty)}</div>` +
           `<div class="stepper"><button type="button" aria-label="less">−</button><span class="n">${qty}</span><button type="button" aria-label="more">+</button></div>`;
         const [minus, plus] = row.querySelectorAll('button');
         minus.addEventListener('click', () => { plan.checklist[key] = Math.max(0, qty - 1); save(); });   // at 0 the row goes away
@@ -426,7 +427,7 @@
     const order = [...checklistDoc.groups.map(g => g.name), ...Object.keys(bySec).filter(n => !checklistDoc.groups.some(g => g.name === n))];
     for (const name of order) {
       if (!bySec[name]) continue;
-      html += `<div class="bucket-title">${esc(name)}</div>` + bySec[name].map(key => `<button type="button" class="option" data-add="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
+      html += `<div class="bucket-title">${esc(name)}</div>` + bySec[name].map(key => `<button type="button" class="option" data-add="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}${pantry[key].saleOnly ? ' · only when on sale' : ''}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
     }
     html += `<p class="hint">Don't see what you buy? Tell Claude the product and it gets pinned to the real H-E-B item.</p>`;
     openSheet(html);

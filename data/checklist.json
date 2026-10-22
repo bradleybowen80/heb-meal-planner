@@ -20,7 +20,11 @@
       "name": "Drinks",
       "items": [
         "energy-drinks",
-        "protein-shakes",
+        "celsius",
+        "red-bull",
+        "bum-energy",
+        "gatorade",
+        "iced-tea",
         "heb-cola",
         "coffee"
       ]
@@ -39,10 +43,14 @@
     "tortilla-chips": 0,
     "apples": 0,
     "energy-drinks": 0,
-    "protein-shakes": 0,
     "heb-cola": 0,
     "coffee": 0,
     "butter": 0,
-    "olive-oil": 0
+    "olive-oil": 0,
+    "celsius": 0,
+    "red-bull": 0,
+    "bum-energy": 0,
+    "gatorade": 0,
+    "iced-tea": 0
   }
 }

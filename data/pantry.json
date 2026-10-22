@@ -344,6 +344,65 @@
           "name": "Monster Energy Zero Sugar Energy Drink 4 pk Cans",
           "size": "16 oz cans"
         }
+      ],
+      "saleOnly": true
+    },
+    {
+      "key": "celsius",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "1580670",
+          "name": "Celsius Zero Sugar Sparkling Energy Drink - Orange",
+          "size": "12 oz can"
+        }
+      ],
+      "saleOnly": true
+    },
+    {
+      "key": "red-bull",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "1057226",
+          "name": "Red Bull Original Energy Drink 4 pk Cans",
+          "size": "12 oz cans"
+        }
+      ],
+      "saleOnly": true
+    },
+    {
+      "key": "bum-energy",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "15819032",
+          "name": "BUM Energy Zero Sugar Energy Drink - Cola",
+          "size": "12 oz can"
+        }
+      ],
+      "saleOnly": true
+    },
+    {
+      "key": "gatorade",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "149725",
+          "name": "Gatorade Fruit Punch Thirst Quencher 8 pk Bottles",
+          "size": "20 oz bottles"
+        }
+      ]
+    },
+    {
+      "key": "iced-tea",
+      "section": "Beverages",
+      "products": [
+        {
+          "hebId": "1540560",
+          "name": "H-E-B Texas-Style Brewed Unsweet Iced Tea",
+          "size": "64 oz"
+        }
       ]
     },
     {

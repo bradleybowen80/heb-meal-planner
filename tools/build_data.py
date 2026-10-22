@@ -45,6 +45,11 @@ RAW = [
     ("coffee",           "7421540",  "CAFE Olé by H-E-B Taste of DFW Medium Roast Ground Coffee", "12 oz", "Beverages", "Aisle 25", 8.98, 8.98, "coupon", "Buy 2, get free H-E-B Twisters cookies (exp 2026-11-03)"),
     ("protein-shakes",   "3766635",  "Slate High Protein Milk Shake - Classic Chocolate (20g)", "11 oz can", "Pantry", "Aisle 5", 3.28, 3.28, "", None),   # Brad: Slate 20g chocolate, sold single
     ("energy-drinks",    "1445080",  "Monster Energy Zero Sugar Energy Drink 4 pk Cans", "16 oz cans", "Beverages", "Aisle 27", 9.48, 9.48, "", None),
+    ("celsius",          "1580670",  "Celsius Zero Sugar Sparkling Energy Drink - Orange", "12 oz can", "Beverages", "Aisle 5", 2.57, 2.57, "", None),   # flavor: Brad to confirm
+    ("red-bull",         "1057226",  "Red Bull Original Energy Drink 4 pk Cans", "12 oz cans", "Beverages", "Aisle 27", 11.48, 11.48, "", None),
+    ("bum-energy",       "15819032", "BUM Energy Zero Sugar Energy Drink - Cola", "12 oz can", "Beverages", "Aisle 5", 1.94, 1.94, "", None),   # flavor: Brad to confirm
+    ("gatorade",         "149725",   "Gatorade Fruit Punch Thirst Quencher 8 pk Bottles", "20 oz bottles", "Beverages", "Aisle 24", 6.97, 6.97, "", None),   # flavor: Brad to confirm
+    ("iced-tea",         "1540560",  "H-E-B Texas-Style Brewed Unsweet Iced Tea", "64 oz", "Beverages", "Aisle 24", 2.38, 2.38, "", None),
     ("goldfish",         "5808502",  "Goldfish Baked Cheddar Crackers - Family Size", "10 oz", "Snacks", "Aisle 11", 3.52, 3.52, "", None),
     ("string-cheese",    "1894949",  "H-E-B Low Moisture Part-Skim Mozzarella String Cheese, 12 ct", "10 oz", "Dairy", "In Meat Market on the Back Wall", 3.89, 3.89, "", None),
     ("peanut-butter",    "1581938",  "H-E-B Made in Texas Creamy Peanut Butter", "18 oz", "Pantry", "Aisle 6", 2.62, 2.62, "", None),
@@ -65,6 +70,9 @@ ALTERNATES = {
         ("15810062", "H-E-B Fresh Honeycrisp Apples", "3 lb bag", "In Produce", 7.57, 3.28, "pricecut", None),
     ],
 }
+
+# Staples Brad only buys at H-E-B when they're on sale (Costco in bulk otherwise).
+SALE_ONLY = {"energy-drinks", "celsius", "red-bull", "bum-energy"}
 
 # Store-walk order for Main St, used by the Reminders export. Entrance is
 # Produce, then around the perimeter, then numbered aisles. Adjust once Brad
@@ -91,7 +99,9 @@ for key, pid, name, size, section, aisle, list_price, price, flag, coupon in RAW
     for apid, aname, asize, aaisle, alist, aprice, aflag, acoupon in ALTERNATES.get(key, []):
         products.append({"hebId": apid, "name": aname, "size": asize})
         prices[apid] = price_rec(aaisle, alist, aprice, aflag, acoupon)
-    pantry.append({"key": key, "section": section, "products": products})
+    item = {"key": key, "section": section, "products": products}
+    if key in SALE_ONLY: item["saleOnly"] = True
+    pantry.append(item)
 
 meals = [
     {
@@ -140,6 +150,17 @@ meals = [
             {"key": "jasmine-rice", "qty": 0.25},
         ],
         "notes": "Chicken heats in a pan in 5 minutes. Broccoli steams in its bag. Rice in the cooker.",
+    },
+    {
+        "id": "slate-shake",
+        "name": "Slate chocolate shake",
+        "kind": "breakfast",
+        "theme": "breakfast",
+        "serves": 1,
+        "items": [
+            {"key": "protein-shakes", "qty": 1},
+        ],
+        "notes": "One can. 20g protein.",
     },
     {
         "id": "frozen-pizza-night",
