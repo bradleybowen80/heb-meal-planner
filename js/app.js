@@ -120,7 +120,8 @@
           `<div class="day-sub">${esc(m ? m.notes || '' : '')}</div>`;
         priceHtml = `<div class="day-price">${money(dayCost(d))}</div>`;
       }
-      btn.innerHTML = `<div><div class="day-name">${day.name}</div><div class="day-theme">${day.theme}</div></div><div>${mealHtml}</div>${priceHtml}`;
+      const themeLabel = day.id === 'sun' && plan.potluckTheme ? `${day.theme}: ${esc(plan.potluckTheme)}` : day.theme;
+      btn.innerHTML = `<div><div class="day-name">${day.name}</div><div class="day-theme">${themeLabel}</div></div><div>${mealHtml}</div>${priceHtml}`;
       btn.addEventListener('click', () => swapMode ? pickSwap(day.id) : openDay(day.id));
       if (swapMode === day.id) btn.classList.add('selecting');
       li.appendChild(btn); ol.appendChild(li);
@@ -240,7 +241,8 @@
     const all = Object.values(meals);
     const themed = all.filter(m => day.buckets.includes(m.theme));
     const wild = all.filter(m => !day.buckets.includes(m.theme));
-    let html = `<h3>${day.name}: ${day.theme}</h3><p class="hint">Tap a dinner. Tap the chosen one again to edit it for this week.</p>`;
+    let html = `<h3>${day.name}: ${day.theme}</h3><p class="hint">${day.id === 'sun' ? 'Pick the dish to bring. Tap the chosen one again to edit it for this week.' : 'Tap a dinner. Tap the chosen one again to edit it for this week.'}</p>`;
+    if (day.id === 'sun') html += `<div class="bucket-title">This week's theme from church</div><div class="amount-row"><input id="potluckTheme" class="label" type="text" placeholder="Mexican, soups, breakfast for dinner..." value="${esc(plan.potluckTheme || '')}"></div>`;
     if (currentMeal) html += `<div class="row-actions"><button type="button" class="btn" id="editMeal">Edit this week's ingredients</button></div>`;
     if (day.buckets.length) {
       html += `<div class="bucket-title">${day.buckets.map(b => THEME_NAMES[b]).join(' / ')}</div>`;
@@ -252,6 +254,8 @@
     if (wild.length) html += `<div class="bucket-title">Wildcard</div>` + wild.map(m => mealOption(m, m.id === currentMeal)).join('');
     html += `<div class="row-actions"><button type="button" class="btn ghost" id="clearDay">Nothing planned</button></div>`;
     openSheet(html);
+    const themeInput = body.querySelector('#potluckTheme');
+    if (themeInput) themeInput.addEventListener('change', e => { plan.potluckTheme = e.target.value.trim(); save(); });
     body.querySelectorAll('[data-meal]').forEach(b => b.addEventListener('click', () => {
       const id = b.dataset.meal;
       if (id === currentMeal) return openMealEditor(dayId);
@@ -315,7 +319,7 @@
       const next = new Date(plan.weekOf + 'T12:00:00'); next.setDate(next.getDate() + 7);
       plan.weekOf = next.toISOString().slice(0, 10);
       for (const day of DAYS) plan.days[day.id] = null;
-      plan.have = []; plan.packs = {}; plan.spent = null; save(); closeSheet(); toast('New week');
+      plan.have = []; plan.packs = {}; plan.spent = null; plan.potluckTheme = ''; save(); closeSheet(); toast('New week');
     });
     body.querySelector('#copyPlan').addEventListener('click', () => copy(JSON.stringify(plan, null, 2), 'Plan copied'));
   });
