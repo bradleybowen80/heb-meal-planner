@@ -13,7 +13,7 @@
   ];
   const THEME_NAMES = {
     potluck: 'Dish to bring', easy: 'Easy', tacos: 'Tacos', pasta: 'Pasta', pork: 'Pork',
-    'meat-and-three': 'Meat and three', pizza: 'Pizza', bbq: 'BBQ', wildcard: 'Wildcard',
+    'meat-and-three': 'Meat and three', pizza: 'Pizza', bbq: 'BBQ', wildcard: 'Any night', breakfast: 'Breakfast', lunch: 'Lunch',
   };
   const STORE_KEY = 'hmp.plan.v1';
   const UI_KEY = 'hmp.ui.v1';
@@ -344,6 +344,8 @@
     const hit = name => !mealFilter.q || name.toLowerCase().includes(mealFilter.q);
     selTag.onchange = () => { mealFilter.tag = selTag.value; renderCatalog(); };
     wrap.innerHTML = '';
+    const nb = document.createElement('div'); nb.className = 'row-actions'; nb.innerHTML = '<button type="button" class="btn" id="btnNewCard">New card</button>'; wrap.appendChild(nb);
+    nb.querySelector('#btnNewCard').addEventListener('click', () => openCardEditor(null, {}));
     const f = mealFilter.kind, tag = mealFilter.tag;
     const isDinner = m => !['breakfast', 'lunch'].includes(m.kind);
     const cards = Object.values(meals).filter(m => (f === 'all' || (f === 'dinner' && isDinner(m)) || f === m.kind) && (tag === 'any' || cardTags(m).includes(tag)) && (hit(m.name) || m.items.some(it => pantry[it.key] && hit(pantry[it.key].name))));
@@ -382,7 +384,7 @@
         wrap.appendChild(box);
       }
     }
-    if (!wrap.children.length) wrap.innerHTML = '<div class="empty-bucket">Nothing here yet. Tell Claude what you make and it builds the cards.</div>';
+    if (wrap.children.length === 1) wrap.insertAdjacentHTML('beforeend', '<div class="empty-bucket">Nothing here yet. Tap New card, or tell Claude what you make and it builds the cards.</div>');
   }
   function openItem(key) {
     const p = pantry[key];
@@ -400,15 +402,32 @@
     body.querySelector('#itemAddWeek').addEventListener('click', () => { plan.extras[key] = (plan.extras[key] || 0) + 1; plan.have = plan.have.filter(x => x !== key); save(); closeSheet(); toast('Added'); });
   }
   // Edit any card from the catalog, no day needed. Works on a draft; Save to card makes it stick.
-  function openCardEditor(mealId) {
-    const m = meals[mealId]; const draft = JSON.parse(JSON.stringify(m));
+  const slug = str => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50) || 'card';
+  function openCardEditor(mealId, opts) {
+    opts = opts || {};
+    const isNew = !mealId;
+    const draft = isNew ? { id: '', name: '', kind: opts.kind || 'dinner', theme: opts.theme || 'wildcard', serves: 4, items: [], notes: '' } : JSON.parse(JSON.stringify(meals[mealId]));
+    const KINDS = [['breakfast', 'Breakfast'], ['lunch', 'Lunch'], ['dinner', 'Dinner'], ['potluck', 'Potluck dish']];
+    const THEMES = Object.entries(THEME_NAMES);
     const paint = () => {
-      let html = `<h3>${esc(draft.name)}</h3><p class="hint">${esc(THEME_NAMES[draft.theme] || draft.theme || '')} · serves ${draft.serves || 4}. Changes stick when you tap Save to card.</p>`;
+      let html = isNew
+        ? `<h3>New card</h3><div class="amount-row"><input id="cName" class="label" type="text" placeholder="What is it? (Chicken thighs and rice)" value="${esc(draft.name)}"></div>` +
+          `<div class="filters"><label class="select"><span>Meal</span><select id="cKind">${KINDS.map(([k, l]) => `<option value="${k}"${draft.kind === k || (k === 'dinner' && !['breakfast', 'lunch', 'potluck'].includes(draft.kind)) ? ' selected' : ''}>${l}</option>`).join('')}</select></label>` +
+          `<label class="select"><span>Night</span><select id="cTheme">${THEMES.map(([k, l]) => `<option value="${k}"${draft.theme === k ? ' selected' : ''}>${l}</option>`).join('')}</select></label></div>` +
+          `<div class="filters"><label class="select"><span>Serves</span><select id="cServes"><option value="2"${draft.serves === 2 ? ' selected' : ''}>2</option><option value="4"${draft.serves !== 2 ? ' selected' : ''}>4</option></select></label></div>` +
+          `<div class="amount-row"><input id="cNotes" class="label" type="text" placeholder="How to make it (optional)" value="${esc(draft.notes || '')}"></div>`
+        : `<h3>${esc(draft.name)}</h3><p class="hint">${esc(THEME_NAMES[draft.theme] || draft.theme || '')} · serves ${draft.serves || 4}. Changes stick when you tap Save to card.</p>`;
       if (draft.notes) html += `<div class="notes">${esc(draft.notes)}</div>`;
       html += `<div class="group">` + draft.items.map(it => { const p = pantry[it.key]; if (!p) return ''; return `<div class="ing" data-key="${esc(it.key)}"><button type="button" class="ing-x" aria-label="remove">×</button><div><div class="ing-name">${esc(p.name)}</div><div class="ing-sub">${esc(p.size)} · ${money(price(it.key))} each</div></div><div class="stepper small"><button type="button" aria-label="less">−</button><span class="n">${packText(it.qty, it.key)}</span><button type="button" aria-label="more">+</button></div></div>`; }).join('') + `</div>`;
       html += `<div class="row-actions"><button type="button" class="btn ghost" id="cAdd">Add an ingredient</button></div>`;
-      html += `<div class="row-actions"><button type="button" class="btn" id="cSave">Save to card</button><button type="button" class="btn ghost" id="cCancel">Cancel</button></div>`;
+      if (!draft.items.length) html += `<div class="empty-bucket">No ingredients yet. Tap Add an ingredient. If something isn't in the pantry, tell Claude the product and it gets pinned to the real H-E-B item.</div>`;
+      html += `<div class="row-actions"><button type="button" class="btn" id="cSave">${isNew ? 'Save card' : 'Save to card'}</button><button type="button" class="btn ghost" id="cCancel">Cancel</button></div>`;
       openSheet(html);
+      const bind = (id, fn) => { const el = body.querySelector(id); if (el) el.addEventListener('input', fn); };
+      bind('#cName', e => { draft.name = e.target.value; }); bind('#cNotes', e => { draft.notes = e.target.value; });
+      const sk = body.querySelector('#cKind'); if (sk) sk.onchange = () => { draft.kind = sk.value; };
+      const st = body.querySelector('#cTheme'); if (st) st.onchange = () => { draft.theme = st.value; };
+      const ss = body.querySelector('#cServes'); if (ss) ss.onchange = () => { draft.serves = Number(ss.value); };
       body.querySelectorAll('.ing').forEach(row => {
         const key = row.dataset.key, it = draft.items.find(x => x.key === key); const step = it.qty >= 1 ? 1 : it.qty;
         row.querySelector('.ing-x').addEventListener('click', () => { draft.items = draft.items.filter(x => x.key !== key); paint(); });
@@ -426,8 +445,13 @@
       });
       body.querySelector('#cCancel').addEventListener('click', closeSheet);
       body.querySelector('#cSave').addEventListener('click', async () => {
+        if (isNew && !draft.name.trim()) { toast('Give it a name'); body.querySelector('#cName').focus(); return; }
         if (!draft.items.length) { toast('A card needs at least one ingredient'); return; }
-        const ok = await saveMealCard(draft); save(); closeSheet(); toast(ok ? 'Card saved' : 'Card saved here; will sync when online');
+        if (isNew) { let id = slug(draft.name); while (meals[id]) id += '-2'; draft.id = id; draft.name = draft.name.trim(); if (draft.kind === 'potluck') { draft.kind = 'recipe'; draft.theme = 'potluck'; } }
+        const ok = await saveMealCard(draft);
+        if (isNew && opts.putOn) plan.days[opts.putOn] = { type: 'meal', mealId: draft.id, dropped: [], qty: {}, added: [] };
+        if (isNew && opts.group) plan[opts.group][draft.id] = 1;
+        save(); closeSheet(); toast(ok ? 'Card saved' : 'Card saved here; will sync when online');
       });
     };
     paint();
@@ -517,7 +541,7 @@
       }
       const pool = Object.values(meals).filter(m => m.kind === kind);
       const arow = document.createElement('div'); arow.className = 'crow';
-      arow.innerHTML = ids.length || pool.length ? `<div class="crow-sub">${ids.length ? '' : 'None picked for this week.'}</div><div></div><button type="button" class="btn ghost small" data-addcard="${grp}">Add a ${kind}</button>` : `<div class="crow-sub">No ${kind} cards saved yet. Tell Claude what ${kind}s you make and it builds the cards.</div>`;
+      arow.innerHTML = `<div class="crow-sub">${ids.length ? '' : 'None picked for this week.'}</div><div></div><button type="button" class="btn ghost small" data-addcard="${grp}">Add a ${kind}</button>`;
       box.appendChild(arow); wrap.appendChild(box);
       const addBtn = arow.querySelector('[data-addcard]'); if (addBtn) addBtn.addEventListener('click', () => openAddCard(grp, kind));
     }
@@ -675,7 +699,7 @@
     const wild = all.filter(m => !day.buckets.includes(m.theme));
     let html = `<h3>${day.name}: ${day.theme}</h3><p class="hint">${day.id === 'sun' ? 'Pick the dish to bring.' : 'Tap a dinner.'}</p>`;
     if (day.id === 'sun') html += `<div class="bucket-title">This week's theme from church</div><div class="amount-row"><input id="potluckTheme" class="label" type="text" placeholder="Mexican, soups, breakfast for dinner..." value="${esc(plan.potluckTheme || '')}"></div>`;
-    if (currentMeal) html += `<div class="row-actions"><button type="button" class="btn" id="editMeal">Edit ingredients for this week</button></div>`;
+    html += `<div class="row-actions">${currentMeal ? '<button type="button" class="btn" id="editMeal">Edit ingredients for this week</button>' : ''}<button type="button" class="btn ghost" id="newMeal">New ${day.id === 'sun' ? 'dish' : 'dinner'}</button></div>`;
     if (day.buckets.length) {
       html += `<div class="bucket-title">${day.buckets.map(b => THEME_NAMES[b]).join(' / ')}</div>`;
       html += themed.length ? themed.map(m => mealOption(m, m.id === currentMeal)).join('') : `<div class="empty-bucket">No ${day.theme.toLowerCase()} meals saved yet. Tell Claude what you cook on ${day.name} and it will add the cards.</div>`;
@@ -683,7 +707,7 @@
     html += `<div class="bucket-title">Eat out</div><p class="hint">Saves as you type.</p>`;
     html += `<div class="amount-row"><input id="outLabel" class="label" type="text" placeholder="Where (optional)" value="${esc(d && d.type === 'out' ? d.label || '' : '')}"></div>`;
     html += `<div class="amount-row">$ <input id="outAmount" type="number" inputmode="decimal" min="0" step="1" placeholder="0" value="${esc(d && d.type === 'out' ? d.amount || '' : '')}"><button type="button" class="btn" id="setOut">Done</button></div>`;
-    if (wild.length) html += `<div class="bucket-title">Wildcard</div>` + wild.map(m => mealOption(m, m.id === currentMeal)).join('');
+    if (wild.length) html += `<div class="bucket-title">Everything else</div>` + wild.map(m => mealOption(m, m.id === currentMeal)).join('');
     html += `<div class="row-actions"><button type="button" class="btn ghost" id="clearDay">Nothing planned</button></div>`;
     const saveOut = () => {
       const amount = Number(body.querySelector('#outAmount').value || 0), label = body.querySelector('#outLabel').value.trim();
@@ -699,6 +723,7 @@
       plan.days[dayId] = { type: 'meal', mealId: id, dropped: [], qty: {} }; save(); closeSheet();
     }));
     const edit = body.querySelector('#editMeal'); if (edit) edit.addEventListener('click', () => openMealEditor(dayId));
+    body.querySelector('#newMeal').addEventListener('click', () => openCardEditor(null, { kind: day.id === 'sun' ? 'potluck' : 'dinner', theme: day.buckets[0] || 'wildcard', putOn: dayId }));
     body.querySelector('#outAmount').addEventListener('input', saveOut);
     body.querySelector('#outLabel').addEventListener('input', saveOut);
     body.querySelector('#setOut').addEventListener('click', () => { saveOut(); closeSheet(); });
