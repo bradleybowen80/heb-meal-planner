@@ -355,6 +355,37 @@ ALTERNATES = {
 # Staples Brad only buys at H-E-B when they're on sale (Costco in bulk otherwise).
 SALE_ONLY = {"energy-drinks", "celsius", "celsius-12", "red-bull", "red-bull-sf", "bum-energy", "bum-12", "monster-ultra-12"}
 
+# Basics Brad always has: never put on the list from a recipe.
+# Spices and sauces: shown under "Make sure you have" (not counted) until he taps "need it".
+NEVER = {"kosher-salt", "sea-salt", "black-pepper", "olive-oil", "avocado-oil", "coconut-oil"}
+CHECK = {"garlic-powder", "onion-powder", "cumin", "smoked-paprika", "chili-powder", "oregano", "turmeric",
+         "italian-seasoning", "cajun-seasoning", "blackened-seasoning", "soy-sauce", "sesame-oil", "teriyaki-sauce",
+         "bbq-sauce", "bulgogi-sauce", "franks", "tabasco", "cholula", "yellow-mustard", "brown-mustard", "ketchup",
+         "mayo", "ranch", "ranch-seasoning", "caesar-dressing", "italian-dressing", "honey", "acv", "red-wine-vinegar",
+         "white-vinegar", "brown-sugar", "minced-garlic", "dill-pickles", "grape-jelly", "tartar-sauce", "cornmeal",
+         "ghee", "tallow"}
+STOCK = {**{k: "never" for k in NEVER}, **{k: "check" for k in CHECK}}
+
+# Weekday lunch themes (Mon Kevin's/heat-and-eat, Tue bowls, Wed sandwiches, Thu quesadillas/Tex-Mex, Fri easy).
+LUNCH_THEME = {
+    "heat": ["kevins-", "dal-"],
+    "bowl": ["beef-taco-rice-bowl-lunch", "korean-beef-bowl-lunch", "burger-bowl-lunch", "beef-broccoli-bowl-lunch", "greek-beef-bowl-lunch",
+             "steak-burrito-bowls", "turkey-taco-rice-bowls", "ham-fried-rice-bowls", "steak-salad", "chicken-cobb-salad"],
+    "sandwich": ["turkey-cheddar-sandwiches", "ham-swiss-sandwiches", "pbj-fruit", "grilled-cheese-tomato-soup", "blt-sourdough",
+                 "chicken-salad-sandwiches", "cuban-pressed-sandwiches", "turkey-swiss-melts", "tuna-melts", "turkey-ranch-wraps",
+                 "buffalo-chicken-wraps", "chicken-caesar-wraps", "italian-sub", "egg-salad-sandwiches", "turkey-avocado-club",
+                 "chicken-bacon-ranch-subs", "ham-egg-cheese-melts", "chicken-noodle-soup-ham-melts"],
+    "mex": ["cheese-quesadillas", "chicken-quesadillas-lunch", "taco-salad-lunch", "pizza-quesadillas", "bean-cheese-burritos", "chili-cheese-chip-bowls"],
+    "easy": ["plain-hot-dogs", "chili-cheese-dogs", "kids-turkey-cracker-plates", "kids-pizza-cracker-plates", "kids-pb-apple-plates",
+             "hummus-snack-board", "ham-cheese-roll-ups-kids", "deli-protein-boxes", "chicken-hummus-protein-boxes", "tuna-salad-cracker-plates"],
+}
+def lunch_theme(card_id):
+    for theme, ids in LUNCH_THEME.items():
+        for x in ids:
+            if card_id == x or (x.endswith("-") and card_id.startswith(x)):
+                return theme
+    return None
+
 # Store-walk order for Main St, used by the Reminders export. Entrance is
 # Produce, then around the perimeter, then numbered aisles. Adjust once Brad
 # confirms his usual path.
@@ -382,6 +413,7 @@ for key, pid, name, size, section, aisle, list_price, price, flag, coupon in RAW
         prices[apid] = price_rec(aaisle, alist, aprice, aflag, acoupon)
     item = {"key": key, "section": section, "products": products}
     if key in SALE_ONLY: item["saleOnly"] = True
+    if key in STOCK: item["stock"] = STOCK[key]
     pantry.append(item)
 
 meals = [
@@ -467,6 +499,10 @@ for card in json.loads((Path(__file__).resolve().parent / "recipes.json").read_t
     if missing:
         print(f"  {card['id']}: dropped items not in pantry: {', '.join(missing)}")
         card["items"] = [i for i in card["items"] if i["key"] in _keys]
+    if card.get("kind") == "lunch":
+        t = lunch_theme(card["id"])
+        if t: card["lunchTheme"] = t
+        else: print(f"  lunch without a theme: {card['id']}")
     if card["items"]:
         meals.append(card); _ids.add(card["id"])
 

@@ -15,6 +15,19 @@
     potluck: 'Dish to bring', easy: 'Easy', tacos: 'Tacos', pasta: 'Pasta', pork: 'Pork',
     'meat-and-three': 'Meat and three', pizza: 'Pizza', bbq: 'BBQ', wildcard: 'Any night', breakfast: 'Breakfast', lunch: 'Lunch',
   };
+  // Weekday lunches have a theme, like dinners. Fill picks from the day's theme.
+  const LUNCH_DAYS = [
+    { id: 'mon', name: 'Mon', emoji: '🥡', theme: "Kevin's day", bucket: 'heat' },
+    { id: 'tue', name: 'Tue', emoji: '🍚', theme: 'Bowl day', bucket: 'bowl' },
+    { id: 'wed', name: 'Wed', emoji: '🥪', theme: 'Sandwich day', bucket: 'sandwich' },
+    { id: 'thu', name: 'Thu', emoji: '🌯', theme: 'Quesadilla day', bucket: 'mex' },
+    { id: 'fri', name: 'Fri', emoji: '🌭', theme: 'Easy Friday', bucket: 'easy' },
+    { id: 'sat', name: 'Sat', emoji: '🧺', theme: 'Weekend', bucket: null, serves: 4 },
+    { id: 'sun', name: 'Sun', emoji: '🧺', theme: 'Weekend', bucket: null, serves: 4 },
+  ];
+  // Breakfast: a slot every day, no theme. Fill leaves these alone.
+  const BREAKFAST_DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].map(id => ({ id, name: id[0].toUpperCase() + id.slice(1), emoji: ['sat', 'sun'].includes(id) ? '🥞' : '☕', theme: '', bucket: null }));
+  const SLOTS = { lunch: { store: 'lunchDays', days: LUNCH_DAYS, label: 'lunch' }, breakfast: { store: 'breakfastDays', days: BREAKFAST_DAYS, label: 'breakfast' } };
   const STORE_KEY = 'hmp.plan.v1';
   const UI_KEY = 'hmp.ui.v1';
   const FAM_KEY = 'hmp.family';
@@ -35,7 +48,7 @@
     const pick = inStock.find(x => x.r.onSale || x.r.priceCut) || inStock[0] || recs[0];
     let why = '';
     if (pick !== recs[0]) why = recs[0].r.available === false ? `${recs[0].p.name} is out of stock` : `on sale, instead of ${recs[0].p.name}`;
-    pantry[it.key] = { key: it.key, section: it.section, name: pick.p.name, size: pick.p.size, hebId: pick.p.hebId, products: prods, why, saleOnly: !!it.saleOnly };
+    pantry[it.key] = { key: it.key, section: it.section, name: pick.p.name, size: pick.p.size, hebId: pick.p.hebId, products: prods, why, saleOnly: !!it.saleOnly, stock: it.stock || null };
     prices[it.key] = pick.r;
   }
   const meals = Object.fromEntries(mealsDoc.meals.map(m => [m.id, m]));
@@ -107,7 +120,7 @@
   function normalize(p) {
     p.days = p.days || {}; for (const d of DAYS) if (p.days[d.id] === undefined) p.days[d.id] = null;
     if (!p.checklist || !Object.keys(p.checklist).length) p.checklist = { ...checklistDoc.defaults };
-    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {}; p.breakfasts = p.breakfasts || {}; p.itemGroups = p.itemGroups || {}; p.favorites = p.favorites || {};
+    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {}; p.breakfasts = p.breakfasts || {}; p.itemGroups = p.itemGroups || {}; p.favorites = p.favorites || {}; p.lunchDays = p.lunchDays || {}; p.breakfastDays = p.breakfastDays || {}; p.need = p.need || {};
     p.budget = Number(p.budget || 0); p.potluckTheme = p.potluckTheme || '';
     if (p.updatedAt) p.syncedOnce = true;
     return p;
@@ -129,7 +142,7 @@
     for (const k of new Set([...Object.keys(a.checklist || {}), ...Object.keys(b.checklist || {})])) if (!same((a.checklist || {})[k], (b.checklist || {})[k])) out.push(['checklist', k]);
     for (const k of new Set([...Object.keys(a.packs || {}), ...Object.keys(b.packs || {})])) if (!same((a.packs || {})[k], (b.packs || {})[k])) out.push(['packs', k]);
     for (const k of new Set([...Object.keys(a.extras || {}), ...Object.keys(b.extras || {})])) if (!same((a.extras || {})[k], (b.extras || {})[k])) out.push(['extras', k]);
-    for (const grp of ['lunches', 'breakfasts', 'itemGroups', 'favorites']) for (const k of new Set([...Object.keys(a[grp] || {}), ...Object.keys(b[grp] || {})])) if (!same((a[grp] || {})[k], (b[grp] || {})[k])) out.push([grp, k]);
+    for (const grp of ['lunches', 'breakfasts', 'itemGroups', 'favorites', 'lunchDays', 'breakfastDays', 'need']) for (const k of new Set([...Object.keys(a[grp] || {}), ...Object.keys(b[grp] || {})])) if (!same((a[grp] || {})[k], (b[grp] || {})[k])) out.push([grp, k]);
     const ha = new Set(a.have || []), hb = new Set(b.have || []);
     for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
     for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
@@ -230,7 +243,7 @@
   // Past weeks live under families/<key>/weeks/<weekOf>. Saved on the phone first, sent up in the background.
   function archiveWeek() {
     const t = totals();
-    const snap = { weekOf: plan.weekOf, days: structuredClone(plan.days), potluckTheme: plan.potluckTheme, budget: plan.budget, spent: plan.spent, groceries: Math.round(t.groceries * 100) / 100, out: t.out, savedAt: Date.now() };
+    const snap = { weekOf: plan.weekOf, days: structuredClone(plan.days), lunchDays: structuredClone(plan.lunchDays || {}), breakfastDays: structuredClone(plan.breakfastDays || {}), potluckTheme: plan.potluckTheme, budget: plan.budget, spent: plan.spent, groceries: Math.round(t.groceries * 100) / 100, out: t.out, cats: spendBySection(t), savedAt: Date.now() };
     try { localStorage.setItem('hmp.week.' + plan.weekOf, JSON.stringify(snap)); localStorage.setItem('hmp.weekq.' + plan.weekOf, '1'); } catch (e) { /* ignore */ }
     flushWeekQueue();
   }
@@ -306,24 +319,38 @@
   }
 
   // Items a day's dinner actually needs this week (after this-week-only edits).
+  // A card is written for its own serving count; a day can cook it for 2 or 4 and everything scales.
+  const scaleOf = (d, m) => (d && d.serves && m && m.serves ? d.serves / m.serves : 1);
   function dayItems(d) {
     if (!d || d.type !== 'meal') return [];
     const m = meals[d.mealId]; if (!m) return [];
-    return [...m.items, ...(d.added || [])]
+    const k = scaleOf(d, m);
+    return [...m.items.map(it => ({ key: it.key, qty: it.qty * k })), ...(d.added || [])]
       .filter(it => !(d.dropped || []).includes(it.key))
       .map(it => ({ key: it.key, qty: d.qty && d.qty[it.key] != null ? d.qty[it.key] : it.qty }));
   }
+  const lunchItems = l => dayItems(l && l.mealId ? { type: 'meal', ...l } : null);
   const dayCost = d => d && d.type === 'out' ? Number(d.amount || 0) : dayItems(d).reduce((s, it) => s + it.qty * price(it.key), 0);
 
   // Shopping lines: combine across dinners, checklist and extras, round up to packages.
   // A manual package override only holds while the computed need it was based on stays the same.
   function shoppingLines() {
-    const need = {};
+    const need = {}; const checks = {};
     const add = (key, qty, src) => { if (!pantry[key]) return; if (!need[key]) need[key] = { key, qty: 0, from: new Set() }; need[key].qty += qty; need[key].from.add(src); };
-    for (const day of DAYS) for (const it of dayItems(plan.days[day.id])) add(it.key, it.qty, day.name);
+    // Recipe ingredients: basics you always have never land on the list; spices and sauces go to "make sure you have".
+    const addRecipe = (key, qty, src) => {
+      const st = pantry[key] && pantry[key].stock;
+      if (st === 'never') return;
+      if (st === 'check' && !plan.need[key]) { (checks[key] = checks[key] || new Set()).add(src); return; }
+      add(key, qty, src);
+    };
+    for (const day of DAYS) for (const it of dayItems(plan.days[day.id])) addRecipe(it.key, it.qty, day.name);
+    for (const [kind, cfg] of Object.entries(SLOTS)) for (const ld of cfg.days) for (const it of lunchItems(plan[cfg.store][ld.id])) addRecipe(it.key, it.qty, ld.name + ' ' + kind);
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && !(pantry[key] && pantry[key].saleOnly && !flagsFor(key).sale)) add(key, qty, 'weekly');
-    for (const grp of ['breakfasts', 'lunches']) for (const [mealId, days] of Object.entries(plan[grp])) { const m = meals[mealId]; if (m && days > 0) for (const it of m.items) add(it.key, it.qty * days, grp); }
+    for (const grp of ['breakfasts', 'lunches']) for (const [mealId, days] of Object.entries(plan[grp])) { const m = meals[mealId]; if (m && days > 0) for (const it of m.items) addRecipe(it.key, it.qty * days, grp); }
     for (const [key, qty] of Object.entries(plan.extras)) if (qty > 0) add(key, qty, 'extra');
+    for (const k of Object.keys(checks)) if (need[k]) delete checks[k];   // already on the list some other way
+    shoppingLines.checks = Object.entries(checks).map(([key, from]) => ({ key, from: [...from] }));
     return Object.values(need).map(n => {
       const base = Math.max(1, Math.ceil(n.qty - 1e-9));
       const ov = plan.packs[n.key];
@@ -332,6 +359,12 @@
       return { ...n, base, packs, have, each: price(n.key), total: have ? 0 : packs * price(n.key), from: [...n.from] };
     });
   }
+  const SECTION_LABEL = { Beverages: '🥤 Drinks', Snacks: '🍿 Snacks', Meat: '🥩 Meat', Seafood: '🐟 Seafood', Produce: '🥦 Produce', Dairy: '🧀 Dairy', Bakery: '🍞 Bakery', Deli: '🥪 Deli', 'Meal Simple': '🍱 Meal Simple', Pantry: '🥫 Pantry', Frozen: '🧊 Frozen', Health: '💊 Health' };
+  function spendBySection(t) {
+    const out = {};
+    for (const l of t.lines) if (l.total) { const s = pantry[l.key].section; out[s] = Math.round(((out[s] || 0) + l.total) * 100) / 100; }
+    return out;
+  }
   function totals() {
     const lines = shoppingLines();
     const groceries = lines.reduce((s, l) => s + l.total, 0);
@@ -339,7 +372,7 @@
     const lunchCost = m => m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
     const weekly = Object.entries(plan.checklist).reduce((s, [k, q]) => s + (pantry[k] && pantry[k].saleOnly && !flagsFor(k).sale ? 0 : q * price(k)), 0)
       + ['breakfasts', 'lunches'].reduce((s, grp) => s + Object.entries(plan[grp]).reduce((t, [id, d]) => t + (meals[id] ? d * lunchCost(meals[id]) : 0), 0), 0);
-    return { groceries, out, combined: groceries + out, lines, weekly };
+    return { groceries, out, combined: groceries + out, lines, weekly, checks: shoppingLines.checks || [] };
   }
 
   // ---------- render ----------
@@ -525,9 +558,12 @@
       li.appendChild(btn); ol.appendChild(li);
     }
     const empties = DAYS.filter(day => !plan.days[day.id] && day.buckets.length);
+    const lunchEmpties = LUNCH_DAYS.filter(ld => ld.bucket && !(plan.lunchDays[ld.id] && plan.lunchDays[ld.id].mealId));
     const bar = $('weekTools');
     if (bar) {
-      bar.innerHTML = empties.length ? `<button type="button" class="btn fun" id="btnFill">🪄 Fill ${empties.length === 7 ? 'the week' : empties.length + ' empty night' + (empties.length > 1 ? 's' : '')}</button>` + (empties.length >= 5 ? `<button type="button" class="btn ghost" id="btnCopyPast">↺ Reuse a past week</button>` : '') : '';
+      const nFill = empties.length + lunchEmpties.length;
+      const fillLabel = empties.length && lunchEmpties.length ? 'the week' : empties.length ? empties.length + ' empty night' + (empties.length > 1 ? 's' : '') : lunchEmpties.length + ' lunch' + (lunchEmpties.length > 1 ? 'es' : '');
+      bar.innerHTML = nFill ? `<button type="button" class="btn fun" id="btnFill">🪄 Fill ${fillLabel}</button>` + (empties.length >= 5 ? `<button type="button" class="btn ghost" id="btnCopyPast">↺ Reuse a past week</button>` : '') : '';
       const f = $('btnFill'); if (f) f.addEventListener('click', fillEmpty);
       const c = $('btnCopyPast'); if (c) c.addEventListener('click', () => $('btnPast').click());
     }
@@ -540,14 +576,28 @@
       if (plan.days[day.id] || !day.buckets.length) continue;
       const pool = Object.values(meals).filter(m => day.buckets.includes(m.theme) && !['breakfast', 'lunch'].includes(m.kind) && !used.has(m.id));
       if (!pool.length) continue;
-      const m = pool[Math.floor(Math.random() * pool.length)];
+      const favs = pool.filter(x => isFav(x.id));
+      const pickFrom = favs.length && Math.random() < 0.5 ? favs : pool;   // favorites come up more often
+      const m = pickFrom[Math.floor(Math.random() * pickFrom.length)];
       plan.days[day.id] = { type: 'meal', mealId: m.id, dropped: [], qty: {}, added: [] }; used.add(m.id); n++;
     }
-    if (n && navigator.vibrate) navigator.vibrate([30, 50, 30]);
-    save(); toast(n ? `Filled ${n} night${n > 1 ? 's' : ''}. Tap any day to swap it.` : 'Nothing to fill');
+    let nl = 0;
+    const usedL = new Set(LUNCH_DAYS.map(ld => plan.lunchDays[ld.id] && plan.lunchDays[ld.id].mealId).filter(Boolean));
+    for (const ld of LUNCH_DAYS) {
+      if (!ld.bucket || (plan.lunchDays[ld.id] && plan.lunchDays[ld.id].mealId)) continue;
+      const pool = Object.values(meals).filter(m => m.kind === 'lunch' && m.lunchTheme === ld.bucket && !usedL.has(m.id));
+      if (!pool.length) continue;
+      const favs = pool.filter(m => isFav(m.id));
+      const pickFrom = favs.length && Math.random() < 0.5 ? favs : pool;   // favorites come up more often
+      const m = pickFrom[Math.floor(Math.random() * pickFrom.length)];
+      plan.lunchDays[ld.id] = { mealId: m.id, serves: 2 }; usedL.add(m.id); nl++;
+    }
+    if ((n || nl) && navigator.vibrate) navigator.vibrate([30, 50, 30]);
+    const parts = [n ? `${n} dinner${n > 1 ? 's' : ''}` : '', nl ? `${nl} lunch${nl > 1 ? 'es' : ''}` : ''].filter(Boolean);
+    save(); toast(parts.length ? `Filled ${parts.join(' and ')}. Tap any day to swap it.` : 'Nothing to fill');
   }
 
-  const isOpen = id => id === 'dinners' ? ui.open[id] !== false : ui.open[id] === true;
+  const isOpen = id => (id === 'dinners' || id === 'lunches') ? ui.open[id] !== false : ui.open[id] === true;
   function foldButton(id, title, sum) {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'fold'; b.setAttribute('aria-expanded', isOpen(id));
     b.innerHTML = `<span class="chev">▾</span><span class="fold-title">${esc(title)}</span><span class="fold-sum">${esc(sum)}</span>`;
@@ -565,10 +615,24 @@
     const CARD_GROUPS = [['breakfasts', 'breakfast', 'Breakfasts'], ['lunches', 'lunch', 'Lunches']];
     for (const [grp, kind, label] of CARD_GROUPS) {
       const ids = Object.keys(plan[grp]).filter(id => plan[grp][id] > 0 && meals[id]);
-      const grpCost = ids.reduce((s, id) => s + plan[grp][id] * meals[id].items.reduce((x, it) => x + it.qty * price(it.key), 0), 0);
-      wrap.appendChild(foldButton(grp, label, ids.length ? `${ids.length} · ${money(grpCost)}` : 'none'));
+      let grpCost = ids.reduce((s, id) => s + plan[grp][id] * meals[id].items.reduce((x, it) => x + it.qty * price(it.key), 0), 0);
+      let nPicked = ids.length;
+      for (const ld of SLOTS[kind].days) { const l = plan[SLOTS[kind].store][ld.id]; if (l && meals[l.mealId]) { nPicked++; grpCost += lunchItems(l).reduce((x, it) => x + it.qty * price(it.key), 0); } }
+      wrap.appendChild(foldButton(grp, label, nPicked ? `${nPicked} · ${money(grpCost)}` : 'none'));
       if (!isOpen(grp)) continue;
       const box = document.createElement('div'); box.className = 'group';
+      const cfg = SLOTS[kind];
+      {
+        for (const ld of cfg.days) {
+          const l = plan[cfg.store][ld.id]; const m = l && meals[l.mealId];
+          const row = document.createElement('button'); row.type = 'button'; row.className = 'lrow' + (m ? '' : ' empty');
+          const cost = m ? lunchItems(l).reduce((x, it) => x + it.qty * price(it.key), 0) : 0;
+          row.innerHTML = `<span class="lrow-emoji" aria-hidden="true">${ld.emoji}</span><span class="lrow-main"><span class="lrow-head"><b>${ld.name}</b> <span class="day-theme">${esc(ld.theme)}</span></span><span class="lrow-meal">${m ? (isFav(m.id) ? '<span class="star on mini">★</span>' : '') + esc(m.name.replace(/ \((for 2|family|2 kids)\)$/, '')) : 'Tap to pick ' + kind}</span>${m ? `<span class="crow-sub">for ${l.serves || m.serves || 2}</span>` : ''}</span><span class="crow-price">${m ? money(cost) : ''}</span>`;
+          row.addEventListener('click', () => openLunchDay(ld.id, kind));
+          box.appendChild(row);
+        }
+        if (ids.length) { const h = document.createElement('div'); h.className = 'bucket-title'; h.textContent = 'Extra ' + label.toLowerCase(); box.appendChild(h); }
+      }
       for (const id of ids) {
         const m = meals[id], days = plan[grp][id];
         const perDay = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
@@ -585,7 +649,7 @@
       }
       const pool = Object.values(meals).filter(m => m.kind === kind);
       const arow = document.createElement('div'); arow.className = 'crow';
-      arow.innerHTML = `<div class="crow-sub">${ids.length ? '' : 'None picked for this week.'}</div><div></div><button type="button" class="btn ghost small" data-addcard="${grp}">Add a ${kind}</button>`;
+      arow.innerHTML = `<div class="crow-sub"></div><div></div><button type="button" class="btn ghost small" data-addcard="${grp}">Add an extra ${kind}</button>`;
       box.appendChild(arow); wrap.appendChild(box);
       const addBtn = arow.querySelector('[data-addcard]'); if (addBtn) addBtn.addEventListener('click', () => openAddCard(grp, kind));
     }
@@ -633,6 +697,36 @@
       return q;
     };
     input.addEventListener('input', draw); draw(); return draw;
+  }
+  const servesToggle = (cur) => `<div class="serves"><span>Cooking for</span>${[2, 4].map(n => `<button type="button" class="seg${cur === n ? ' on' : ''}" data-serves="${n}">${n}</button>`).join('')}</div>`;
+  function openLunchDay(id, kind) {
+    kind = kind || 'lunch'; const cfg = SLOTS[kind]; const store = plan[cfg.store];
+    const ld = cfg.days.find(x => x.id === id); const l = store[id];
+    const cur = l && l.mealId;
+    const defServes = ld.serves || (kind === 'lunch' ? 2 : 0);
+    const all = Object.values(meals).filter(m => m.kind === kind).sort(favFirst);
+    const themed = ld.bucket ? all.filter(m => m.lunchTheme === ld.bucket) : [], rest = ld.bucket ? all.filter(m => m.lunchTheme !== ld.bucket) : all;
+    const opt = m => `<button type="button" class="option${m.id === cur ? ' current' : ''}" data-lunch="${esc(m.id)}"><div><div class="option-name">${starHtml(m.id)}${esc(m.name)}</div><div class="option-sub">${m.minutes ? m.minutes + ' min · ' : ''}${m.items.length} item${m.items.length === 1 ? '' : 's'}${m.id === cur ? ' · chosen, tap to see it' : ''}</div></div><div class="option-price">${money(lunchItems({ mealId: m.id, serves: (l && l.serves) || defServes || m.serves }).reduce((x, it) => x + it.qty * price(it.key), 0))}</div></button>`;
+    const plural = kind === 'lunch' ? 'lunches' : 'breakfasts';
+    let html = `<h3>${ld.emoji} ${ld.name} ${kind}${ld.theme ? ': ' + esc(ld.theme) : ''}</h3>` + servesToggle((l && l.serves) || defServes || (cur && meals[cur].serves) || 4);
+    html += `<input class="search" id="lunchFind" type="search" placeholder="Search ${all.length} ${plural}" autocomplete="off">`;
+    if (ld.bucket) html += `<div class="bucket-title">${esc(ld.theme)}</div>` + (themed.length ? themed.map(opt).join('') : `<div class="empty-bucket">No ${esc(ld.theme.toLowerCase())} ${plural} yet.</div>`);
+    html += `<div class="bucket-title">${ld.bucket ? 'Everything else' : 'All ' + plural}</div>` + rest.map(opt).join('');
+    html += `<div class="row-actions"><button type="button" class="btn ghost" id="lunchNew">New ${kind} card</button>${cur ? `<button type="button" class="btn ghost" id="lunchClear">No ${kind} planned</button>` : ''}</div>`;
+    openSheet(html);
+    body.querySelectorAll('[data-serves]').forEach(b => b.addEventListener('click', () => {
+      const n = Number(b.dataset.serves); store[id] = { ...(store[id] || {}), serves: n }; if (!store[id].mealId) delete store[id].mealId;
+      body.querySelectorAll('[data-serves]').forEach(x => x.classList.toggle('on', x === b)); save();
+    }));
+    const find = body.querySelector('#lunchFind');
+    find.addEventListener('input', () => { const q = find.value.trim().toLowerCase(); body.querySelectorAll('[data-lunch]').forEach(b => { b.style.display = !q || b.textContent.toLowerCase().includes(q) ? '' : 'none'; }); });
+    body.querySelectorAll('[data-lunch]').forEach(b => b.addEventListener('click', () => {
+      if (b.dataset.lunch === cur) return openCardEditor(cur);
+      const pickServes = (store[id] && store[id].serves) || defServes || meals[b.dataset.lunch].serves || 4;
+      store[id] = { mealId: b.dataset.lunch, serves: pickServes }; save(); closeSheet(); toast(`${ld.name} ${kind}: ${meals[b.dataset.lunch].name}`);
+    }));
+    body.querySelector('#lunchNew').addEventListener('click', () => openCardEditor(null, { kind, theme: kind }));
+    const clr = body.querySelector('#lunchClear'); if (clr) clr.addEventListener('click', () => { delete store[id]; save(); closeSheet(); });
   }
   function openAddCard(grp, kind) {
     const pool = Object.values(meals).filter(m => m.kind === kind && !(plan[grp][m.id] > 0)).sort(favFirst);
@@ -702,6 +796,25 @@
       wrap.appendChild(box);
     }
     if (!t.lines.length) wrap.innerHTML = '<div class="empty-bucket">Nothing on the list yet. Pick some dinners on the Plan tab.</div>';
+    if (t.checks.length) {
+      const box = document.createElement('div'); box.className = 'sec checkbox';
+      box.innerHTML = `<div class="sec-name"><span>🧂 Make sure you have</span><span class="sec-sub">not in the total</span></div>`;
+      for (const c of t.checks) {
+        const row = document.createElement('div'); row.className = 'li';
+        row.innerHTML = `<div></div><div><div class="li-name">${esc(pantry[c.key].name)}</div><div class="li-sub">for ${esc(c.from.join(', '))}</div></div><div class="li-right"><button type="button" class="btn ghost small">Need it</button></div>`;
+        row.querySelector('button').addEventListener('click', () => { plan.need[c.key] = 1; save(); toast('Added ' + pantry[c.key].name); });
+        box.appendChild(row);
+      }
+      wrap.appendChild(box);
+    }
+    const cats = spendBySection(t), catKeys = Object.keys(cats).sort((a, b) => cats[b] - cats[a]);
+    if (catKeys.length) {
+      const box = document.createElement('div'); box.className = 'sec spendbox';
+      const max = cats[catKeys[0]];
+      box.innerHTML = `<div class="sec-name"><span>📊 Where the money goes</span><span>${money(t.groceries)}</span></div>` +
+        catKeys.map(k => `<div class="bar-row"><span class="bar-label">${esc(SECTION_LABEL[k] || k)}</span><span class="bar-track"><span class="bar-fill" style="width:${Math.max(4, cats[k] / max * 100)}%"></span></span><span class="bar-val">${money(cats[k])}</span></div>`).join('');
+      wrap.appendChild(box);
+    }
     $('listMeta').textContent = `${t.lines.length} item${t.lines.length === 1 ? '' : 's'}` + (coupons ? ` · ${coupons} coupon item${coupons > 1 ? 's' : ''} need the HEB app (not counted in the total)` : '');
     const spent = $('spentInput');
     if (document.activeElement !== spent) spent.value = plan.spent == null ? '' : plan.spent;
@@ -817,8 +930,9 @@
   function openMealEditor(dayId) {
     const d = plan.days[dayId]; const m = meals[d.mealId];
     d.dropped = d.dropped || []; d.qty = d.qty || {}; d.added = d.added || [];
-    const rows = [...m.items, ...d.added];
-    let html = `<h3>${esc(m.name)}</h3><p class="hint">Uncheck what you already have, change amounts, add things. Changes are for this week until you tap Save to card.</p>`;
+    const k = scaleOf(d, m);
+    const rows = [...m.items.map(it => ({ key: it.key, qty: it.qty * k })), ...d.added];
+    let html = `<h3>${starHtml(m.id)}${esc(m.name)}</h3>` + servesToggle(d.serves || m.serves || 4) + `<p class="hint">Uncheck what you already have, change amounts, add things. Changes are for this week until you tap Save to card.</p>`;
     if (m.notes) html += `<div class="notes">${esc(m.notes)}</div>`;
     html += `<div class="group">` + rows.map(it => {
       const p = pantry[it.key]; if (!p) return '';
@@ -843,6 +957,7 @@
       minus.addEventListener('click', () => { d.qty[key] = Math.max(step, Math.round((cur() - step) * 4) / 4); row.querySelector('.n').textContent = packText(d.qty[key], key); save(); });
       plus.addEventListener('click', () => { d.qty[key] = Math.round((cur() + step) * 4) / 4; row.querySelector('.n').textContent = packText(d.qty[key], key); save(); });
     });
+    body.querySelectorAll('[data-serves]').forEach(b => b.addEventListener('click', () => { d.serves = Number(b.dataset.serves); d.qty = {}; save(); openMealEditor(dayId); }));
     body.querySelector('#addIng').addEventListener('click', () => openAddIngredient(dayId));
     body.querySelector('#doneEdit').addEventListener('click', closeSheet);
     body.querySelector('#backEdit').addEventListener('click', () => openDay(dayId));
@@ -850,8 +965,8 @@
     body.querySelector('#saveCard').addEventListener('click', async () => {
       const items = dayItems(d).map(it => ({ key: it.key, qty: it.qty }));
       if (!items.length) { toast('A card needs at least one ingredient'); return; }
-      const card = { ...m, items };
-      d.dropped = []; d.qty = {}; d.added = [];   // the week now matches the card
+      const card = { ...m, items, serves: d.serves || m.serves || 4 };
+      d.dropped = []; d.qty = {}; d.added = []; delete d.serves;   // the week now matches the card
       const ok = await saveMealCard(card); save(); openMealEditor(dayId);
       toast(ok ? 'Card saved' : 'Card saved here; will sync when online');
     });
@@ -952,7 +1067,7 @@
       archiveWeek();
       plan.weekOf = nextSunday();
       for (const day of DAYS) plan.days[day.id] = null;
-      plan.have = []; plan.packs = {}; plan.extras = {}; plan.spent = null; plan.potluckTheme = ''; save(); closeSheet(); toast('New week');
+      plan.have = []; plan.packs = {}; plan.extras = {}; plan.need = {}; plan.lunchDays = {}; plan.breakfastDays = {}; plan.spent = null; plan.potluckTheme = ''; save(); closeSheet(); toast('New week');
     });
   });
 
@@ -976,12 +1091,39 @@
     copy(text + '\n\nOpen the plan: ' + url, 'Link copied. Text it to the other phone; it stays in sync after that.');
   });
 
+  // Estimate vs what was actually spent, week over week, plus the average by section.
+  function spendingChart(weeks) {
+    const t = totals();
+    const rows = [...weeks].reverse().slice(-8).map(w => ({ label: new Date(w.weekOf + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' }), est: Number(w.groceries || 0), spent: w.spent == null ? null : Number(w.spent) }));
+    rows.push({ label: 'This wk', est: t.groceries, spent: plan.spent == null ? null : Number(plan.spent), now: true });
+    const max = Math.max(1, ...rows.map(r => Math.max(r.est, r.spent || 0)));
+    const W = 320, H = 110, pad = 18, bw = Math.min(56, (W - 10) / rows.length), x0 = (W - bw * rows.length) / 2;
+    let svg = `<svg class="chart" viewBox="0 0 ${W} ${H + 18}" role="img" aria-label="Estimate and actual spend by week">`;
+    rows.forEach((r, i) => {
+      const x = x0 + i * bw, h1 = (r.est / max) * (H - pad), h2 = r.spent == null ? 0 : (r.spent / max) * (H - pad);
+      svg += `<rect x="${x + bw * 0.14}" y="${H - h1}" width="${bw * 0.34}" height="${h1}" rx="3" class="c-est${r.now ? ' now' : ''}"><title>Estimate ${money(r.est)}</title></rect>`;
+      if (r.spent != null) svg += `<rect x="${x + bw * 0.52}" y="${H - h2}" width="${bw * 0.34}" height="${h2}" rx="3" class="c-spent"><title>Spent ${money(r.spent)}</title></rect>`;
+      svg += `<text x="${x + bw / 2}" y="${H + 13}" text-anchor="middle" class="c-lab">${esc(r.label)}</text>`;
+      svg += `<text x="${x + bw / 2}" y="${H - Math.max(h1, h2) - 4}" text-anchor="middle" class="c-val">$${Math.round(r.spent != null ? r.spent : r.est)}</text>`;
+    });
+    svg += `</svg>`;
+    const done = weeks.filter(w => w.spent != null);
+    const avgSpent = done.length ? done.reduce((s, w) => s + Number(w.spent), 0) / done.length : null;
+    const catWeeks = weeks.filter(w => w.cats);
+    let catHtml = '';
+    if (catWeeks.length) {
+      const sum = {}; for (const w of catWeeks) for (const [k, v] of Object.entries(w.cats)) sum[k] = (sum[k] || 0) + v;
+      const keys = Object.keys(sum).sort((a, b) => sum[b] - sum[a]); const mx = sum[keys[0]] / catWeeks.length;
+      catHtml = `<div class="bucket-title">Average week by section</div>` + keys.map(k => `<div class="bar-row"><span class="bar-label">${esc(SECTION_LABEL[k] || k)}</span><span class="bar-track"><span class="bar-fill" style="width:${Math.max(4, sum[k] / catWeeks.length / mx * 100)}%"></span></span><span class="bar-val">${money(sum[k] / catWeeks.length)}</span></div>`).join('');
+    }
+    return `<div class="sec spendbox"><div class="sec-name"><span>💵 Spending</span><span>${avgSpent != null ? 'avg ' + money(avgSpent) + ' at H-E-B' : ''}</span></div>${svg}<div class="legend"><span><i class="c-est"></i>Estimate</span><span><i class="c-spent"></i>Actually spent</span></div>${catHtml}</div>`;
+  }
   // Past weeks: look back, or copy a week's dinners into this one.
   $('btnPast').addEventListener('click', async () => {
     openSheet(`<h3>Past weeks</h3><p class="hint">Loading…</p>`);
     const weeks = await loadWeeks();
     if (!weeks.length) { body.innerHTML = `<h3>Past weeks</h3><div class="empty-bucket">Nothing yet. Weeks land here when you tap Start a new week.</div>`; return; }
-    let html = `<h3>Past weeks</h3><p class="hint">Tap a week to copy its dinners into this week.</p>`;
+    let html = `<h3>Past weeks</h3>` + spendingChart(weeks) + `<div class="bucket-title">Tap a week to reuse its dinners</div>`;
     for (const w of weeks) {
       const wk = new Date(w.weekOf + 'T12:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
       const dinners = DAYS.map(day => { const d = w.days && w.days[day.id]; return !d ? null : d.type === 'out' ? `${day.name} ${d.label}` : `${day.name} ${(meals[d.mealId] || {}).name || d.mealId}`; }).filter(Boolean);
@@ -993,7 +1135,7 @@
     body.querySelectorAll('[data-week]').forEach(b => b.addEventListener('click', () => {
       const w = weeks.find(x => x.weekOf === b.dataset.week);
       const planned = DAYS.filter(day => plan.days[day.id]).length;
-      const doCopy = () => { for (const day of DAYS) plan.days[day.id] = w.days && w.days[day.id] ? structuredClone(w.days[day.id]) : null; plan.potluckTheme = w.potluckTheme || ''; save(); closeSheet(); toast('Copied that week\'s dinners'); };
+      const doCopy = () => { for (const day of DAYS) plan.days[day.id] = w.days && w.days[day.id] ? structuredClone(w.days[day.id]) : null; if (w.lunchDays) plan.lunchDays = structuredClone(w.lunchDays); if (w.breakfastDays) plan.breakfastDays = structuredClone(w.breakfastDays); plan.potluckTheme = w.potluckTheme || ''; save(); closeSheet(); toast('Copied that week\'s dinners'); };
       if (!planned) return doCopy();
       body.innerHTML = `<h3>Replace this week's dinners?</h3><p class="hint">You already have ${planned} night${planned > 1 ? 's' : ''} planned. Copying replaces them with the week of ${esc(w.weekOf)}. Your have-its and list tweaks stay.</p><div class="row-actions"><button type="button" class="btn danger" id="copyYes">Replace</button><button type="button" class="btn ghost" id="copyNo">Keep mine</button></div>`;
       body.querySelector('#copyYes').addEventListener('click', doCopy);
@@ -1021,6 +1163,7 @@
       for (const l of bySec[s]) out.push(`• ${l.packs > 1 ? l.packs + '× ' : ''}${pantry[l.key].name} (${pantry[l.key].size})${flagsFor(l.key).coupon ? ' [coupon]' : ''}`);
       out.push('');
     }
+    if (t.checks.length) out.push('MAKE SURE YOU HAVE', ...t.checks.map(c => '• ' + pantry[c.key].name), '');
     return out.join('\n').trim();
   }
   function remindersText() {

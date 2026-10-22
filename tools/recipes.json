@@ -6104,6 +6104,201 @@
     }
    ],
    "notes": "Same idea as the dal tadka, creamier. One pouch each, hot water, 5 minutes, over rice."
+  },
+  {
+   "id": "beef-taco-rice-bowl-lunch",
+   "name": "Taco Beef Rice Bowls (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 2,
+   "minutes": 20,
+   "framework": "Ground beef bowl",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 0.75
+    },
+    {
+     "key": "taco-seasoning",
+     "qty": 0.5
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "pico",
+     "qty": 0.25
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 0.25
+    },
+    {
+     "key": "sour-cream",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown the beef with half the taco packet. Rice in the cooker. Top with pico, cheese and a spoon of sour cream."
+  },
+  {
+   "id": "korean-beef-bowl-lunch",
+   "name": "Korean Ground Beef Bowls (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 2,
+   "minutes": 20,
+   "framework": "Ground beef bowl",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 0.75
+    },
+    {
+     "key": "soy-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "brown-sugar",
+     "qty": 0.25
+    },
+    {
+     "key": "minced-garlic",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "mini-cucumbers",
+     "qty": 0.25
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    }
+   ],
+   "notes": "Brown the beef with garlic, then add a splash of soy and a spoon of brown sugar. Over rice with sliced cucumber and green onion."
+  },
+  {
+   "id": "burger-bowl-lunch",
+   "name": "Burger Bowls (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 2,
+   "minutes": 15,
+   "framework": "Ground beef bowl",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 0.75
+    },
+    {
+     "key": "romaine",
+     "qty": 0.5
+    },
+    {
+     "key": "roma-tomatoes",
+     "qty": 1
+    },
+    {
+     "key": "dill-pickles",
+     "qty": 0.25
+    },
+    {
+     "key": "shredded-cheddar",
+     "qty": 0.25
+    },
+    {
+     "key": "yellow-mustard",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown the beef with salt and pepper. Pile on chopped romaine with tomato, pickles and cheddar. Mustard or ketchup on top."
+  },
+  {
+   "id": "beef-broccoli-bowl-lunch",
+   "name": "Beef and Broccoli Rice Bowls (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 2,
+   "minutes": 20,
+   "framework": "Ground beef bowl",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 0.75
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "teriyaki-sauce",
+     "qty": 0.25
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Steam the broccoli in its bag. Brown the beef, add the broccoli and a few spoons of teriyaki. Over rice."
+  },
+  {
+   "id": "greek-beef-bowl-lunch",
+   "name": "Greek Beef Bowls (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 2,
+   "minutes": 20,
+   "framework": "Ground beef bowl",
+   "items": [
+    {
+     "key": "ground-beef",
+     "qty": 0.75
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "cucumber",
+     "qty": 1
+    },
+    {
+     "key": "cherry-tomatoes",
+     "qty": 0.5
+    },
+    {
+     "key": "feta",
+     "qty": 0.5
+    },
+    {
+     "key": "tzatziki",
+     "qty": 0.25
+    },
+    {
+     "key": "oregano",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Brown the beef with oregano, garlic powder and salt. Rice, cucumber, tomatoes, feta and a spoon of tzatziki."
   }
  ]
 }

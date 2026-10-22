@@ -700,7 +700,8 @@
           "name": "H-E-B Extra Virgin Olive Oil",
           "size": "17 oz"
         }
-      ]
+      ],
+      "stock": "never"
     },
     {
       "key": "ground-beef-85",
@@ -1151,7 +1152,8 @@
           "name": "H-E-B Texas Wildflower Honey",
           "size": "12 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "yogurt",
@@ -1184,7 +1186,8 @@
           "name": "4th & Heart Ghee Clarified Butter - Original",
           "size": "9 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "tallow",
@@ -1195,7 +1198,8 @@
           "name": "Real Good Foods Co. Angus Beef Tallow Cooking Oil",
           "size": "14 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "avocado-oil",
@@ -1206,7 +1210,8 @@
           "name": "H-E-B Avocado Oil",
           "size": "51 oz"
         }
-      ]
+      ],
+      "stock": "never"
     },
     {
       "key": "coconut-oil",
@@ -1217,7 +1222,8 @@
           "name": "H-E-B Organics Refined Coconut Oil",
           "size": "56 oz"
         }
-      ]
+      ],
+      "stock": "never"
     },
     {
       "key": "avocados",
@@ -1635,7 +1641,8 @@
           "name": "H-E-B Yellow Mustard",
           "size": "14 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "brown-mustard",
@@ -1646,7 +1653,8 @@
           "name": "H-E-B Spicy Brown Mustard",
           "size": "12 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "cucumber",
@@ -1767,7 +1775,8 @@
           "name": "Bragg Organic Apple Cider Vinegar with The Mother",
           "size": "16 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "red-wine-vinegar",
@@ -1778,7 +1787,8 @@
           "name": "H-E-B Red Wine Vinegar",
           "size": "16.9 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "white-vinegar",
@@ -1789,7 +1799,8 @@
           "name": "Heinz Distilled White Vinegar",
           "size": "16 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "franks",
@@ -1800,7 +1811,8 @@
           "name": "Frank's RedHot Original Cayenne Pepper Hot Sauce",
           "size": "12 fl oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "tabasco",
@@ -1811,7 +1823,8 @@
           "name": "Tabasco Original Red Pepper Sauce",
           "size": "5 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "cholula",
@@ -1822,7 +1835,8 @@
           "name": "Cholula Original Hot Sauce",
           "size": "5 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "kosher-salt",
@@ -1833,7 +1847,8 @@
           "name": "Morton Coarse Kosher Salt",
           "size": "3 lb"
         }
-      ]
+      ],
+      "stock": "never"
     },
     {
       "key": "sea-salt",
@@ -1844,7 +1859,8 @@
           "name": "Morton Fine Sea Salt",
           "size": "17.6 oz"
         }
-      ]
+      ],
+      "stock": "never"
     },
     {
       "key": "black-pepper",
@@ -1855,7 +1871,8 @@
           "name": "H-E-B Pure Ground Black Pepper",
           "size": "2 oz"
         }
-      ]
+      ],
+      "stock": "never"
     },
     {
       "key": "garlic-powder",
@@ -1866,7 +1883,8 @@
           "name": "H-E-B California Garlic Powder",
           "size": "2.35 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "onion-powder",
@@ -1877,7 +1895,8 @@
           "name": "H-E-B Onion Powder",
           "size": "2.4 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "cumin",
@@ -1888,7 +1907,8 @@
           "name": "H-E-B Ground Cumin",
           "size": "1.8 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "smoked-paprika",
@@ -1899,7 +1919,8 @@
           "name": "H-E-B Smoked Paprika",
           "size": "0.7 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "chili-powder",
@@ -1910,7 +1931,8 @@
           "name": "McCormick Chili Powder",
           "size": "2.5 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "oregano",
@@ -1921,7 +1943,8 @@
           "name": "H-E-B Oregano Leaves",
           "size": "0.5 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "turmeric",
@@ -1932,7 +1955,8 @@
           "name": "H-E-B Ground Turmeric",
           "size": "1 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "green-tea",
@@ -2691,7 +2715,8 @@
           "name": "H-E-B Specialty Series Texas Style Barbeque Sauce",
           "size": "14 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "pepperoni",
@@ -2757,7 +2782,8 @@
           "name": "H-E-B Real Mayonnaise",
           "size": "22 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "dill-pickles",
@@ -2768,7 +2794,8 @@
           "name": "H-E-B Pickle Me Dilley Hamburger Dill Pickle Chips",
           "size": "16 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "sliced-american",
@@ -2790,7 +2817,8 @@
           "name": "H-E-B Tomato Ketchup",
           "size": "32 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "baked-beans",
@@ -2845,7 +2873,8 @@
           "name": "Tony Chachere's Original Creole Seasoning",
           "size": "8 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "italian-seasoning",
@@ -2856,7 +2885,8 @@
           "name": "H-E-B Italian Seasoning",
           "size": "0.75 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "brown-sugar",
@@ -2867,7 +2897,8 @@
           "name": "H-E-B Brown Sugar",
           "size": "2 lbs"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "cornbread-mix",
@@ -2933,7 +2964,8 @@
           "name": "H-E-B Fresh Chopped Garlic - Single Serve",
           "size": "3 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "elbow-macaroni",
@@ -2966,7 +2998,8 @@
           "name": "H-E-B Toasted Sesame Oil",
           "size": "16.9 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "pesto",
@@ -2988,7 +3021,8 @@
           "name": "Hidden Valley Original Ranch Seasoning Mix Packet",
           "size": "2 ct"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "hawaiian-rolls",
@@ -3065,7 +3099,8 @@
           "name": "H-E-B Organics Concord Grape Jelly",
           "size": "17.5 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "hot-dog-buns",
@@ -3153,7 +3188,8 @@
           "name": "Hidden Valley Original Ranch Dressing",
           "size": "16 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "caesar-dressing",
@@ -3164,7 +3200,8 @@
           "name": "H-E-B Creamy Garlic Caesar Dressing",
           "size": "16 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "hummus",
@@ -3219,7 +3256,8 @@
           "name": "bibigo Korean BBQ Marinade & Sauce - Original",
           "size": "16.9 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "kimchi",
@@ -3318,7 +3356,8 @@
           "name": "H-E-B Texas Originals Blackened Seasoning Spice Blend",
           "size": "4.5 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "fettuccine",
@@ -3384,7 +3423,8 @@
           "name": "Hill Country Fare Enriched Yellow Cornmeal",
           "size": "2 lbs"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "tartar-sauce",
@@ -3395,7 +3435,8 @@
           "name": "Kraft Tartar Sauce",
           "size": "12 fl oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "sharp-cheddar",
@@ -3439,7 +3480,8 @@
           "name": "Kikkoman All-Purpose Soy Sauce",
           "size": "10 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "teriyaki-sauce",
@@ -3450,7 +3492,8 @@
           "name": "Kikkoman Teriyaki Sauce & Marinade",
           "size": "10 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "pineapple-chunks",
@@ -3483,7 +3526,8 @@
           "name": "Wish-Bone Italian Dressing",
           "size": "15 oz"
         }
-      ]
+      ],
+      "stock": "check"
     },
     {
       "key": "hot-dogs",

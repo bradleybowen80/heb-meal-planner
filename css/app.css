@@ -368,3 +368,34 @@ body { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
 .star.on { color: #E9A23B; }
 .star.mini { width: auto; height: auto; margin: 0 4px 0 0; font-size: 15px; cursor: default; }
 .sheet h3 .star { font-size: 24px; }
+
+/* Lunch / breakfast day slots */
+.lrow { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 10px; width: 100%; text-align: left; background: none; border: 0; border-top: 1px solid var(--line); padding: 10px 0; font: inherit; color: inherit; }
+.lrow:first-child { border-top: 0; }
+.lrow:active { background: var(--paper); }
+.lrow-emoji { font-size: 22px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; background: var(--primary-soft); }
+.lrow.empty .lrow-emoji { background: #F3ECE2; filter: grayscale(.4); }
+.lrow-main { display: flex; flex-direction: column; min-width: 0; }
+.lrow-head b { font-family: var(--font-head); font-size: 14px; }
+.lrow-meal { font-weight: 700; font-size: 15px; }
+.lrow.empty .lrow-meal { color: var(--ink-2); font-weight: 600; }
+/* Cooking-for toggle */
+.serves { display: flex; align-items: center; gap: 6px; margin: 6px 0 10px; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+.serves span { margin-right: 4px; }
+.seg { border: 1.5px solid var(--line); background: var(--card); border-radius: 10px; min-width: 44px; padding: 6px 10px; font-weight: 800; color: var(--ink); }
+.seg.on { background: var(--primary); border-color: var(--primary); color: #fff; }
+/* Make sure you have + spending */
+.checkbox { background: #FFFBF1; }
+.bar-row { display: grid; grid-template-columns: 112px 1fr 64px; align-items: center; gap: 8px; padding: 5px 0; font-size: 13.5px; }
+.bar-label { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-track { height: 10px; background: #F1E9DE; border-radius: 99px; overflow: hidden; }
+.bar-fill { display: block; height: 100%; background: linear-gradient(90deg, #E8704C, #C9502F); border-radius: 99px; }
+.bar-val { text-align: right; font-weight: 800; }
+.chart { width: 100%; height: auto; margin: 8px 0 2px; }
+.chart .c-est { fill: #E9DCCB; } .chart .c-est.now { fill: #F2B79F; } .chart .c-spent { fill: var(--primary); }
+.chart .c-lab { font-size: 9px; fill: var(--ink-2); font-family: var(--font); }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--ink-2); font-weight: 700; margin-bottom: 6px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.legend i.c-est { background: #E9DCCB; } .legend i.c-spent { background: var(--primary); }
+.spendbox { padding-bottom: 12px; }
+.chart .c-val { font-size: 9px; font-weight: 800; fill: var(--ink); font-family: var(--font); }

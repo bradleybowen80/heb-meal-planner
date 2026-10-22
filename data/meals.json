@@ -4240,7 +4240,8 @@
           "qty": 1
         }
       ],
-      "notes": "Whole-family lunch. Spread mayo, stack turkey, cheddar, lettuce and tomato. Leave veggies off the kids' if they won't eat them."
+      "notes": "Whole-family lunch. Spread mayo, stack turkey, cheddar, lettuce and tomato. Leave veggies off the kids' if they won't eat them.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "ham-swiss-sandwiches",
@@ -4275,7 +4276,8 @@
           "qty": 0.38
         }
       ],
-      "notes": "Adults working from home. Spicy brown mustard, ham, swiss, pickle spear on the side."
+      "notes": "Adults working from home. Spicy brown mustard, ham, swiss, pickle spear on the side.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "pbj-fruit",
@@ -4306,7 +4308,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Classic PB&J for everyone, with mini apples on the side. Add a string cheese for extra protein."
+      "notes": "Classic PB&J for everyone, with mini apples on the side. Add a string cheese for extra protein.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "grilled-cheese-tomato-soup",
@@ -4337,7 +4340,8 @@
           "qty": 2
         }
       ],
-      "notes": "Butter the outside of the bread, two slices of American inside, griddle on medium until golden. Heat the soup with a can of water or milk while they cook."
+      "notes": "Butter the outside of the bread, two slices of American inside, griddle on medium until golden. Heat the soup with a can of water or milk while they cook.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "blt-sourdough",
@@ -4372,7 +4376,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Bake or pan-fry the bacon, toast the sourdough, then mayo, romaine, thick tomato slices and plenty of bacon."
+      "notes": "Adults lunch. Bake or pan-fry the bacon, toast the sourdough, then mayo, romaine, thick tomato slices and plenty of bacon.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "chicken-salad-sandwiches",
@@ -4411,7 +4416,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Pull the rotisserie chicken and chop it. Mix with mayo, diced celery and halved grapes, salt and pepper. Pile on wheat bread with lettuce; extra keeps 3 days."
+      "notes": "Pull the rotisserie chicken and chop it. Mix with mayo, diced celery and halved grapes, salt and pepper. Pile on wheat bread with lettuce; extra keeps 3 days.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "cuban-pressed-sandwiches",
@@ -4450,7 +4456,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Mustard on both sides of the roll, layer ham, swiss and sliced pickles. Butter the outside and press in a hot skillet under a heavy pan, 3 minutes a side."
+      "notes": "Adults lunch. Mustard on both sides of the roll, layer ham, swiss and sliced pickles. Butter the outside and press in a hot skillet under a heavy pan, 3 minutes a side.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "turkey-swiss-melts",
@@ -4485,7 +4492,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Whole family. Build turkey and swiss on sourdough (mustard for the adults), butter the outside and griddle until the cheese melts."
+      "notes": "Whole family. Build turkey and swiss on sourdough (mustard for the adults), butter the outside and griddle until the cheese melts.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "tuna-melts",
@@ -4520,7 +4528,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Mix drained tuna with mayo and diced celery. Spread on bread, top with cheddar and broil or griddle until melty."
+      "notes": "Adults lunch. Mix drained tuna with mayo and diced celery. Spread on bread, top with cheddar and broil or griddle until melty.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "plain-hot-dogs",
@@ -4555,7 +4564,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Boil, grill or pan-sear the franks, toast the buns. Ketchup and mustard bar plus mandarins on the side. Two dogs each."
+      "notes": "Boil, grill or pan-sear the franks, toast the buns. Ketchup and mustard bar plus mandarins on the side. Two dogs each.",
+      "lunchTheme": "easy"
     },
     {
       "id": "chili-cheese-dogs",
@@ -4590,7 +4600,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Heat the chili in a small pot while the franks cook. Dog in bun, ladle chili, top with cheddar and diced onion for whoever wants it."
+      "notes": "Heat the chili in a small pot while the franks cook. Dog in bun, ladle chili, top with cheddar and diced onion for whoever wants it.",
+      "lunchTheme": "easy"
     },
     {
       "id": "turkey-ranch-wraps",
@@ -4629,7 +4640,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Spread ranch on a big tortilla, layer turkey, cheddar, chopped romaine and tomato, roll tight and cut in half."
+      "notes": "Adults lunch. Spread ranch on a big tortilla, layer turkey, cheddar, chopped romaine and tomato, roll tight and cut in half.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "buffalo-chicken-wraps",
@@ -4668,7 +4680,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Toss shredded rotisserie chicken in Frank's and a little butter for adults; keep some plain with ranch for the kids. Wrap with lettuce and cheddar."
+      "notes": "Toss shredded rotisserie chicken in Frank's and a little butter for adults; keep some plain with ranch for the kids. Wrap with lettuce and cheddar.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "chicken-caesar-wraps",
@@ -4703,7 +4716,8 @@
           "qty": 0.2
         }
       ],
-      "notes": "Adults lunch. Chop romaine, toss with Caesar and parmesan, add pulled rotisserie chicken and wrap it up."
+      "notes": "Adults lunch. Chop romaine, toss with Caesar and parmesan, add pulled rotisserie chicken and wrap it up.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "cheese-quesadillas",
@@ -4734,7 +4748,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Cheese between two tortillas in a dry skillet, medium heat, flip once when golden. Cut in wedges, serve with salsa and sour cream."
+      "notes": "Cheese between two tortillas in a dry skillet, medium heat, flip once when golden. Cut in wedges, serve with salsa and sour cream.",
+      "lunchTheme": "mex"
     },
     {
       "id": "chicken-quesadillas-lunch",
@@ -4769,7 +4784,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch, great with leftover rotisserie chicken. Fill tortillas with chicken and jack, toast both sides, top with pico and sour cream."
+      "notes": "Adults lunch, great with leftover rotisserie chicken. Fill tortillas with chicken and jack, toast both sides, top with pico and sour cream.",
+      "lunchTheme": "mex"
     },
     {
       "id": "taco-salad-lunch",
@@ -4816,7 +4832,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Brown the beef with taco seasoning. Chopped lettuce in bowls, beef, tomato, cheese, crushed chips, salsa and sour cream on top."
+      "notes": "Brown the beef with taco seasoning. Chopped lettuce in bowls, beef, tomato, cheese, crushed chips, salsa and sour cream on top.",
+      "lunchTheme": "mex"
     },
     {
       "id": "steak-burrito-bowls",
@@ -4859,7 +4876,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Salt, pepper and cumin the skirt steak, sear hot 3 minutes a side, rest and slice thin. Rice, beans, steak, cheese, pico, avocado, squeeze of lime."
+      "notes": "Adults lunch. Salt, pepper and cumin the skirt steak, sear hot 3 minutes a side, rest and slice thin. Rice, beans, steak, cheese, pico, avocado, squeeze of lime.",
+      "lunchTheme": "bowl"
     },
     {
       "id": "turkey-taco-rice-bowls",
@@ -4898,7 +4916,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch, leftovers make a second day. Brown turkey with taco seasoning, serve over rice with warmed corn, salsa and cheddar."
+      "notes": "Adults lunch, leftovers make a second day. Brown turkey with taco seasoning, serve over rice with warmed corn, salsa and cheddar.",
+      "lunchTheme": "bowl"
     },
     {
       "id": "steak-salad",
@@ -4937,7 +4956,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Sear seasoned sirloin to medium, rest 5 minutes, slice. Pile on chopped romaine with tomato, thin red onion and avocado, ranch on top."
+      "notes": "Adults lunch. Sear seasoned sirloin to medium, rest 5 minutes, slice. Pile on chopped romaine with tomato, thin red onion and avocado, ranch on top.",
+      "lunchTheme": "bowl"
     },
     {
       "id": "chicken-cobb-salad",
@@ -4986,7 +5006,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Hard-boil 2 eggs and crisp a few slices of bacon. Rows of chicken, bacon, egg, avocado, tomato and cheddar over chopped romaine with ranch."
+      "notes": "Adults lunch. Hard-boil 2 eggs and crisp a few slices of bacon. Rows of chicken, bacon, egg, avocado, tomato and cheddar over chopped romaine with ranch.",
+      "lunchTheme": "bowl"
     },
     {
       "id": "ham-fried-rice-bowls",
@@ -5030,7 +5051,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Best with day-old rice. Scramble 3 eggs and set aside. Stir-fry diced ham, chopped carrots and peas, add cold rice and soy sauce, fold the eggs back in."
+      "notes": "Best with day-old rice. Scramble 3 eggs and set aside. Stir-fry diced ham, chopped carrots and peas, add cold rice and soy sauce, fold the eggs back in.",
+      "lunchTheme": "bowl"
     },
     {
       "id": "kids-turkey-cracker-plates",
@@ -5061,7 +5083,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Homemade Lunchables for the two kids. Cut turkey and cheddar slices into squares to stack on crackers, grapes on the side."
+      "notes": "Homemade Lunchables for the two kids. Cut turkey and cheddar slices into squares to stack on crackers, grapes on the side.",
+      "lunchTheme": "easy"
     },
     {
       "id": "kids-pizza-cracker-plates",
@@ -5096,7 +5119,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Pizza Lunchables at home for the kids. Crackers, pepperoni, string cheese pulled into pieces, a little cup of marinara to dip, strawberries on the side."
+      "notes": "Pizza Lunchables at home for the kids. Crackers, pepperoni, string cheese pulled into pieces, a little cup of marinara to dip, strawberries on the side.",
+      "lunchTheme": "easy"
     },
     {
       "id": "kids-pb-apple-plates",
@@ -5131,7 +5155,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "For the two kids. Sliced mini apples and crackers with a peanut butter dip, a string cheese each and baby carrots."
+      "notes": "For the two kids. Sliced mini apples and crackers with a peanut butter dip, a string cheese each and baby carrots.",
+      "lunchTheme": "easy"
     },
     {
       "id": "hummus-snack-board",
@@ -5174,7 +5199,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Lazy family lunch on one big board. Hummus in the middle, carrots, sliced cucumbers, crackers, string cheese, pepperoni and grapes around it."
+      "notes": "Lazy family lunch on one big board. Hummus in the middle, carrots, sliced cucumbers, crackers, string cheese, pepperoni and grapes around it.",
+      "lunchTheme": "easy"
     },
     {
       "id": "ham-cheese-roll-ups-kids",
@@ -5209,7 +5235,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "For the two kids. Layer ham and cheese on a tortilla, roll tight and slice into pinwheels. Mandarins and Goldfish on the side."
+      "notes": "For the two kids. Layer ham and cheese on a tortilla, roll tight and slice into pinwheels. Mandarins and Goldfish on the side.",
+      "lunchTheme": "easy"
     },
     {
       "id": "deli-protein-boxes",
@@ -5249,7 +5276,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch, make two days at once. Hard-boil 4 eggs. Box rolled turkey, cheddar, 2 eggs, a handful of pistachios, cucumbers and grapes."
+      "notes": "Adults lunch, make two days at once. Hard-boil 4 eggs. Box rolled turkey, cheddar, 2 eggs, a handful of pistachios, cucumbers and grapes.",
+      "lunchTheme": "easy"
     },
     {
       "id": "chicken-hummus-protein-boxes",
@@ -5284,7 +5312,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Pull rotisserie chicken into a box with hummus, sliced cucumbers and pepper strips, plus a string cheese."
+      "notes": "Adults lunch. Pull rotisserie chicken into a box with hummus, sliced cucumbers and pepper strips, plus a string cheese.",
+      "lunchTheme": "easy"
     },
     {
       "id": "chicken-noodle-soup-ham-melts",
@@ -5320,7 +5349,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Heat the soup. Griddle ham and American cheese sandwiches in butter until melty. Cut into strips for dunking."
+      "notes": "Heat the soup. Griddle ham and American cheese sandwiches in butter until melty. Cut into strips for dunking.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "chili-cheese-chip-bowls",
@@ -5355,7 +5385,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Frito-pie style. Heat chili, ladle over a handful of chips, top with cheddar, diced onion and sour cream."
+      "notes": "Frito-pie style. Heat chili, ladle over a handful of chips, top with cheddar, diced onion and sour cream.",
+      "lunchTheme": "mex"
     },
     {
       "id": "italian-sub",
@@ -5398,7 +5429,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Split rolls, layer ham, pepperoni and provolone, top with shredded lettuce and tomato, drizzle Italian dressing."
+      "notes": "Adults lunch. Split rolls, layer ham, pepperoni and provolone, top with shredded lettuce and tomato, drizzle Italian dressing.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "egg-salad-sandwiches",
@@ -5433,7 +5465,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Hard-boil 6 eggs 10 minutes, cool and chop. Mix with mayo, a squeeze of mustard, salt and pepper. Serve on wheat with lettuce."
+      "notes": "Adults lunch. Hard-boil 6 eggs 10 minutes, cool and chop. Mix with mayo, a squeeze of mustard, salt and pepper. Serve on wheat with lettuce.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "pizza-quesadillas",
@@ -5464,7 +5497,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Mozzarella and pepperoni between tortillas, toast in a skillet until melted. Cut in wedges and dip in warm marinara."
+      "notes": "Mozzarella and pepperoni between tortillas, toast in a skillet until melted. Cut in wedges and dip in warm marinara.",
+      "lunchTheme": "mex"
     },
     {
       "id": "bean-cheese-burritos",
@@ -5495,7 +5529,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Warm the refried beans, spread in tortillas, add cheddar, roll and toast seam-side down in a skillet. Salsa for dipping."
+      "notes": "Warm the refried beans, spread in tortillas, add cheddar, roll and toast seam-side down in a skillet. Salsa for dipping.",
+      "lunchTheme": "mex"
     },
     {
       "id": "turkey-avocado-club",
@@ -5539,7 +5574,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch. Toast bread, cook a few slices of bacon. Stack turkey, bacon, mashed avocado, lettuce and tomato."
+      "notes": "Adults lunch. Toast bread, cook a few slices of bacon. Stack turkey, bacon, mashed avocado, lettuce and tomato.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "chicken-bacon-ranch-subs",
@@ -5575,7 +5611,8 @@
           "qty": 1.12
         }
       ],
-      "notes": "Cook the bacon. Toss pulled rotisserie chicken with ranch, pile in rolls with bacon and provolone, and bake at 400 F for 6 to 8 minutes until melted."
+      "notes": "Cook the bacon. Toss pulled rotisserie chicken with ranch, pile in rolls with bacon and provolone, and bake at 400 F for 6 to 8 minutes until melted.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "tuna-salad-cracker-plates",
@@ -5610,7 +5647,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Adults lunch, no cooking. Mix tuna with mayo and chopped pickle. Scoop with crackers, carrots on the side."
+      "notes": "Adults lunch, no cooking. Mix tuna with mayo and chopped pickle. Scoop with crackers, carrots on the side.",
+      "lunchTheme": "easy"
     },
     {
       "id": "ham-egg-cheese-melts",
@@ -5642,7 +5680,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "Lunch-for-breakfast. Toast muffins, fry eggs hard, stack with a folded slice of ham and American cheese."
+      "notes": "Lunch-for-breakfast. Toast muffins, fry eggs hard, stack with a folded slice of ham and American cheese.",
+      "lunchTheme": "sandwich"
     },
     {
       "id": "bacon-eggs-toast",
@@ -6012,7 +6051,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-bolognese-bowls-lunch",
@@ -6031,7 +6071,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-butter-bowls-lunch",
@@ -6050,7 +6091,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-teriyaki-bowls-lunch",
@@ -6069,7 +6111,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-mushroom-bowls-lunch",
@@ -6088,7 +6131,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-korean-bowls-lunch",
@@ -6107,7 +6151,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-parmesan-bowls-lunch",
@@ -6126,7 +6171,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-orange-bowls-lunch",
@@ -6145,7 +6191,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-thai-bowls-lunch",
@@ -6164,7 +6211,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "kevins-tomato-pasta-bowls-lunch",
@@ -6183,7 +6231,8 @@
           "qty": 2
         }
       ],
-      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+      "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway.",
+      "lunchTheme": "heat"
     },
     {
       "id": "dal-tadka-rice-lunch",
@@ -6206,7 +6255,8 @@
           "qty": 0.25
         }
       ],
-      "notes": "One pouch each. Add hot water, cover 5 minutes. Rice in the cooker (or a microwave rice cup)."
+      "notes": "One pouch each. Add hot water, cover 5 minutes. Rice in the cooker (or a microwave rice cup).",
+      "lunchTheme": "heat"
     },
     {
       "id": "dal-makhani-rice-lunch",
@@ -6229,7 +6279,208 @@
           "qty": 0.25
         }
       ],
-      "notes": "Same idea as the dal tadka, creamier. One pouch each, hot water, 5 minutes, over rice."
+      "notes": "Same idea as the dal tadka, creamier. One pouch each, hot water, 5 minutes, over rice.",
+      "lunchTheme": "heat"
+    },
+    {
+      "id": "beef-taco-rice-bowl-lunch",
+      "name": "Taco Beef Rice Bowls (for 2)",
+      "kind": "lunch",
+      "theme": "lunch",
+      "tags": [
+        "beef"
+      ],
+      "serves": 2,
+      "minutes": 20,
+      "framework": "Ground beef bowl",
+      "items": [
+        {
+          "key": "ground-beef",
+          "qty": 0.75
+        },
+        {
+          "key": "taco-seasoning",
+          "qty": 0.5
+        },
+        {
+          "key": "jasmine-rice",
+          "qty": 0.25
+        },
+        {
+          "key": "pico",
+          "qty": 0.25
+        },
+        {
+          "key": "mexican-blend",
+          "qty": 0.25
+        },
+        {
+          "key": "sour-cream",
+          "qty": 0.25
+        }
+      ],
+      "notes": "Brown the beef with half the taco packet. Rice in the cooker. Top with pico, cheese and a spoon of sour cream.",
+      "lunchTheme": "bowl"
+    },
+    {
+      "id": "korean-beef-bowl-lunch",
+      "name": "Korean Ground Beef Bowls (for 2)",
+      "kind": "lunch",
+      "theme": "lunch",
+      "tags": [
+        "beef"
+      ],
+      "serves": 2,
+      "minutes": 20,
+      "framework": "Ground beef bowl",
+      "items": [
+        {
+          "key": "ground-beef",
+          "qty": 0.75
+        },
+        {
+          "key": "soy-sauce",
+          "qty": 0.25
+        },
+        {
+          "key": "brown-sugar",
+          "qty": 0.25
+        },
+        {
+          "key": "minced-garlic",
+          "qty": 0.25
+        },
+        {
+          "key": "jasmine-rice",
+          "qty": 0.25
+        },
+        {
+          "key": "mini-cucumbers",
+          "qty": 0.25
+        },
+        {
+          "key": "green-onions",
+          "qty": 1
+        }
+      ],
+      "notes": "Brown the beef with garlic, then add a splash of soy and a spoon of brown sugar. Over rice with sliced cucumber and green onion.",
+      "lunchTheme": "bowl"
+    },
+    {
+      "id": "burger-bowl-lunch",
+      "name": "Burger Bowls (for 2)",
+      "kind": "lunch",
+      "theme": "lunch",
+      "tags": [
+        "beef"
+      ],
+      "serves": 2,
+      "minutes": 15,
+      "framework": "Ground beef bowl",
+      "items": [
+        {
+          "key": "ground-beef",
+          "qty": 0.75
+        },
+        {
+          "key": "romaine",
+          "qty": 0.5
+        },
+        {
+          "key": "roma-tomatoes",
+          "qty": 1
+        },
+        {
+          "key": "dill-pickles",
+          "qty": 0.25
+        },
+        {
+          "key": "shredded-cheddar",
+          "qty": 0.25
+        },
+        {
+          "key": "yellow-mustard",
+          "qty": 0.25
+        }
+      ],
+      "notes": "Brown the beef with salt and pepper. Pile on chopped romaine with tomato, pickles and cheddar. Mustard or ketchup on top.",
+      "lunchTheme": "bowl"
+    },
+    {
+      "id": "beef-broccoli-bowl-lunch",
+      "name": "Beef and Broccoli Rice Bowls (for 2)",
+      "kind": "lunch",
+      "theme": "lunch",
+      "tags": [
+        "beef"
+      ],
+      "serves": 2,
+      "minutes": 20,
+      "framework": "Ground beef bowl",
+      "items": [
+        {
+          "key": "ground-beef",
+          "qty": 0.75
+        },
+        {
+          "key": "broccoli-florets",
+          "qty": 1
+        },
+        {
+          "key": "teriyaki-sauce",
+          "qty": 0.25
+        },
+        {
+          "key": "jasmine-rice",
+          "qty": 0.25
+        }
+      ],
+      "notes": "Steam the broccoli in its bag. Brown the beef, add the broccoli and a few spoons of teriyaki. Over rice.",
+      "lunchTheme": "bowl"
+    },
+    {
+      "id": "greek-beef-bowl-lunch",
+      "name": "Greek Beef Bowls (for 2)",
+      "kind": "lunch",
+      "theme": "lunch",
+      "tags": [
+        "beef"
+      ],
+      "serves": 2,
+      "minutes": 20,
+      "framework": "Ground beef bowl",
+      "items": [
+        {
+          "key": "ground-beef",
+          "qty": 0.75
+        },
+        {
+          "key": "jasmine-rice",
+          "qty": 0.25
+        },
+        {
+          "key": "cucumber",
+          "qty": 1
+        },
+        {
+          "key": "cherry-tomatoes",
+          "qty": 0.5
+        },
+        {
+          "key": "feta",
+          "qty": 0.5
+        },
+        {
+          "key": "tzatziki",
+          "qty": 0.25
+        },
+        {
+          "key": "oregano",
+          "qty": 0.25
+        }
+      ],
+      "notes": "Brown the beef with oregano, garlic powder and salt. Rice, cucumber, tomatoes, feta and a spoon of tzatziki.",
+      "lunchTheme": "bowl"
     }
   ]
 }
