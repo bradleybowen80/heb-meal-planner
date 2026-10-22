@@ -830,23 +830,8 @@
     list.addEventListener('click', e => { if (justDragged) { e.stopPropagation(); e.preventDefault(); } }, true);
   })();
 
-  // Swap days: tap the button, then two days.
-  let swapMode = null; // null | 'pick' | dayId
-  $('btnSwap').addEventListener('click', () => {
-    swapMode = swapMode ? null : 'pick';
-    $('btnSwap').textContent = swapMode ? 'Cancel swap' : 'Swap days';
-    if (swapMode) toast('Tap the two days to swap');
-    renderWeek();
-  });
-  function pickSwap(dayId) {
-    if (swapMode === 'pick') { swapMode = dayId; renderWeek(); return; }
-    const a = swapMode, b = dayId;
-    [plan.days[a], plan.days[b]] = [plan.days[b], plan.days[a]];
-    swapMode = null; $('btnSwap').textContent = 'Swap days'; save(); toast(a === b ? 'Same day, nothing swapped' : 'Swapped');
-  }
-
-  // Weekly section toggle
-  $('foldDinners').addEventListener('click', () => { ui.open.dinners = !isOpen('dinners'); saveUi(); render(); });
+  let swapMode = null;   // drag to swap; no button mode anymore
+  function pickSwap() {}
 
   // Budget target
   $('btnBudget').addEventListener('click', () => {
