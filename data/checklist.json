@@ -90,7 +90,15 @@
         "diet-cola-cf",
         "coffee",
         "sparkling-water",
-        "green-tea"
+        "green-tea",
+        "creamer-coffeemate-fv",
+        "creamer-coffeemate-zero",
+        "creamer-chobani-sweet",
+        "creamer-intl-delight",
+        "chobani-protein-drink",
+        "chobani-20g-drink",
+        "chobani-30g-drink",
+        "chobani-15g-drink"
       ]
     },
     {
@@ -122,7 +130,12 @@
         "kosher-salt",
         "black-pepper",
         "garlic-powder",
-        "half-and-half"
+        "half-and-half",
+        "greek-yogurt-plain",
+        "fage-plain",
+        "greek-yogurt-zero-vanilla",
+        "greek-yogurt-zero-cups",
+        "oikos-triple-zero"
       ]
     }
   ],

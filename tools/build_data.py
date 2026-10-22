@@ -191,6 +191,20 @@ RAW = [
     ("turmeric"            , "8709002", "H-E-B Ground Turmeric", "1 oz", "Pantry", "Aisle 10", 2.29, 2.29, "", None),
     ("green-tea"           , "1644005", "H-E-B Green Tea Bags", "40 ct", "Beverages", "Aisle 25", 4.45, 4.45, "", None),
     # Recipe library pantry, pulled Oct 22, 2026
+    # Yogurt, creamers, Chobani drinks, Oct 22
+    ('greek-yogurt-plain'        , '1502146', 'Chobani 16g Protein Non Fat Plain Greek Yogurt', '32 oz', 'Dairy', 'In Dairy on the Back Wall', 6.27, 6.27, '', None),
+    ('fage-plain'                , '1297099', 'Fage Total 0% Nonfat Plain Greek Yogurt', '32 oz', 'Dairy', 'In Dairy on the Back Wall', 7.31, 7.31, '', None),
+    ('greek-yogurt-zero-vanilla' , '11369027', 'Chobani Zero Sugar Non-Fat Vanilla Greek Yogurt', '32 oz', 'Dairy', 'In Dairy on the Back Wall', 6.27, 6.27, '', None),
+    ('greek-yogurt-zero-cups'    , '5748010', 'Chobani Zero Sugar Mixed Berry Greek Yogurt Cups', '4 ct', 'Dairy', 'In Dairy on the Back Wall', 4.9, 4.9, '', None),
+    ('oikos-triple-zero'         , '1970756', 'Oikos Triple Zero Strawberry Greek Yogurt Cups', '4 ct', 'Dairy', 'In Dairy on the Back Wall', 5.22, 5.22, '', None),
+    ('creamer-coffeemate-fv'     , '1621055', 'Coffee mate Creamer - French Vanilla', '64 oz', 'Dairy', 'In Dairy on the Back Wall', 7.22, 7.22, '', None),
+    ('creamer-coffeemate-zero'   , '3771003', 'Coffee mate Zero Sugar Creamer - French Vanilla', '64 oz', 'Dairy', 'In Dairy on the Back Wall', 7.22, 7.22, '', None),
+    ('creamer-chobani-sweet'     , '4923544', 'Chobani Coffee Creamer - Sweet Cream', '24 oz', 'Dairy', 'In Dairy on the Back Wall', 5.52, 5.52, '', None),
+    ('creamer-intl-delight'      , '5142533', 'International Delight Creamer - Sweet & Creamy', '32 oz', 'Dairy', 'In Dairy on the Back Wall', 4.14, 4.14, '', None),
+    ('chobani-protein-drink'     , '16312516', 'Chobani Protein Drink - Vanilla', '4 ct', 'Dairy', 'In Dairy on the Back Wall', 10.15, 10.15, '', None),
+    ('chobani-20g-drink'         , '4155021', 'Chobani 20g Protein Zero Sugar Yogurt Drink - Vanilla', '10 oz', 'Dairy', 'In Dairy on the Back Wall', 2.91, 2.91, '', None),
+    ('chobani-30g-drink'         , '14811013', 'Chobani 30g Protein Zero Sugar Yogurt Drink - Strawberries & Cream', '14 oz', 'Dairy', 'In Dairy on the Back Wall', 3.85, 3.85, '', None),
+    ('chobani-15g-drink'         , '15421038', 'Chobani 15g Protein Zero Sugar Yogurt Drink - Cherry Berry', '7 oz', 'Dairy', 'In Dairy on the Back Wall', 2.29, 2.29, '', None),
     # Kid snacks, Oct 22
     ('smartfood-white-cheddar' , '3775001', 'Smartfood White Cheddar Popcorn', '6 oz', 'Snacks', 'Aisle 12', 4.18, 3.15, 'pricecut', None),
     ('smartfood-multipack'     , '3723092', 'Smartfood White Cheddar Popcorn Multipack', '10 ct', 'Snacks', 'Aisle 12', 6.28, 6.28, '', None),
