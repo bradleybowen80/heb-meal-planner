@@ -211,6 +211,22 @@ button.li:active { background: var(--paper); }
 .spent-dollar { font-size: 22px; font-weight: 800; }
 .spent input { width: 140px; font-size: 22px; font-weight: 800; padding: 6px 10px; border: 1.5px solid var(--line); border-radius: 10px; }
 
+/* Guide */
+.sec.guide { padding-bottom: 12px; }
+.sec-sub { font-weight: 600; color: var(--ink-2); font-size: 12px; }
+.target { padding: 8px 0; border-top: 1px solid var(--line); }
+.target:first-of-type { border-top: 0; }
+.target-name { font-weight: 800; }
+.target-sub { font-size: 14px; color: var(--ink-2); }
+.guide-note { font-size: 14px; color: var(--ink-2); margin: 8px 0 0; }
+.guide-group { font-weight: 800; font-size: 13px; color: var(--navy); margin: 10px 0 4px; }
+.guide-list { margin: 0; padding-left: 18px; font-size: 15px; }
+.guide-list li { padding: 3px 0; }
+.guide-list em { font-style: normal; color: var(--ink-2); font-size: 13px; }
+.guide-list.compact { columns: 2; column-gap: 18px; font-size: 14px; }
+.guide-list.compact li { break-inside: avoid; }
+.tab { font-size: 14px; }
+
 /* Tabs */
 .tabs {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=27">
+<link rel="stylesheet" href="css/app.css?v=28">
 </head>
 <body>
 
@@ -84,12 +84,69 @@
     <p class="section-hint" id="dealsMeta"></p>
     <div id="deals"></div>
   </section>
+
+  <section class="view hidden" id="viewGuide">
+    <h2 class="section-title">Nutrition guide</h2>
+    <p class="section-hint">How we eat. Meat and eggs are the base; carbs and fats are add-on slots, about 100 calories each.</p>
+
+    <div class="sec guide">
+      <div class="sec-name"><span>Daily targets</span></div>
+      <div class="target"><div class="target-name">Brad</div><div class="target-sub">18 oz raw meat (4 breakfast, 7 lunch, 7 dinner) · 4 eggs · 10 add-on slots (about 1,000 kcal)</div></div>
+      <div class="target"><div class="target-name">Sarah</div><div class="target-sub">14 oz raw meat (4 breakfast, 5 lunch, 5 dinner) · 2 eggs · 7 add-on slots (about 700 kcal)</div></div>
+      <p class="guide-note">Eggs can swap for meat: each egg not eaten is +1 oz raw meat. Brad with no eggs is 22 oz; Sarah is 16 oz.</p>
+    </div>
+
+    <div class="sec guide">
+      <div class="sec-name"><span>Ground rules</span></div>
+      <ul class="guide-list">
+        <li>All meat is weighed <strong>raw</strong>, before cooking.</li>
+        <li>Slots move. Spend them at breakfast, lunch, dinner or snacks as long as the day's total lands.</li>
+        <li>Cooking fat counts. Butter, oil, cream or melted cheese used to cook comes out of your fat slots.</li>
+        <li>Free, unlimited: non-starchy veggies, zero-calorie seasonings, black coffee, water, yellow mustard, hot sauce, lemon juice, vinegar.</li>
+      </ul>
+    </div>
+
+    <div class="sec guide">
+      <div class="sec-name"><span>Carb slots</span><span class="sec-sub">1 slot ≈ 100 kcal, 20 to 25 g net carbs</span></div>
+      <div class="guide-group">Breads, tortillas, grains</div>
+      <ul class="guide-list">
+        <li>Ezekiel sprouted bread: 1 slice <em>(80 kcal, 12 g net)</em></li>
+        <li>Siete almond flour tortilla: 1 <em>(100 kcal, 9 g net, 5.5 g fat)</em></li>
+        <li>Sourdough: 1 slice <em>(100 kcal, 20 g)</em></li>
+        <li>Corn tortillas, street size: 2 <em>(100 kcal, 22 g)</em></li>
+        <li>Flour tortilla, fajita size: 1 <em>(110 kcal, 20 g)</em></li>
+        <li>Whole wheat or sandwich bread: 1 slice <em>(80 to 100 kcal)</em></li>
+        <li>Hamburger or brioche bun: ½ bun, or 1 slider bun <em>(110 kcal; a whole bun is 2 slots)</em></li>
+        <li>Pasta (spaghetti, penne, rigatoni): ½ cup cooked, or 1 oz dry <em>(100 kcal, 20 to 22 g)</em></li>
+        <li>Cooked jasmine or basmati rice: ½ cup <em>(100 kcal, 22 g)</em></li>
+        <li>Potato, russet, white or sweet: 120 g raw <em>(95 kcal, 21 g)</em></li>
+        <li>Dry rolled oats: ¾ cup <em>(110 kcal)</em></li>
+      </ul>
+      <div class="guide-group">Fruit and other carbs</div>
+      <ul class="guide-list compact">
+        <li>1 medium apple, banana or pear</li><li>1¼ cups blueberries</li><li>2 cups strawberries</li><li>1½ cups raspberries or blackberries</li><li>1 large orange</li><li>3 clementines or plums</li><li>2 Medjool dates</li><li>1 cup pineapple</li><li>20 grapes</li><li>2 peaches</li><li>2 cups watermelon</li><li>1½ tbsp honey</li><li>½ cup whole milk or plain yogurt</li><li>¾ cup green peas</li><li>⅔ cup sweet corn</li><li>1 cup winter squash</li>
+      </ul>
+    </div>
+
+    <div class="sec guide">
+      <div class="sec-name"><span>Fat slots</span><span class="sec-sub">1 slot ≈ 100 kcal, 11 g fat</span></div>
+      <ul class="guide-list compact">
+        <li>1 tbsp butter, ghee or tallow</li><li>1 tbsp olive, avocado or coconut oil</li><li>½ cup avocado</li><li>1 oz cheese (cheddar, jack, parmesan)</li><li>2 slices bacon</li><li>50 g sour cream</li><li>2 tbsp heavy cream</li><li>⅓ cup half-and-half</li><li>20 g pistachios</li><li>15 g walnuts or macadamias</li>
+      </ul>
+    </div>
+
+    <div class="sec guide">
+      <div class="sec-name"><span>Free veggies</span><span class="sec-sub">no slots, eat as much as you want</span></div>
+      <p class="guide-note">Broccoli, cauliflower, asparagus, Brussels sprouts, green beans, mushrooms, onions, bell peppers, cucumbers, zucchini, leafy greens, celery, carrots, radishes, cabbage.</p>
+    </div>
+  </section>
 </main>
 
 <nav class="tabs">
   <button class="tab active" data-view="viewPlan" type="button">Plan</button>
   <button class="tab" data-view="viewList" type="button">List</button>
   <button class="tab" data-view="viewDeals" type="button">Deals</button>
+  <button class="tab" data-view="viewGuide" type="button">Guide</button>
 </nav>
 
 <div class="sheet-backdrop hidden" id="backdrop"></div>
@@ -103,6 +160,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=27"></script>
+<script src="js/app.js?v=28"></script>
 </body>
 </html>
