@@ -158,7 +158,10 @@
       if (!first && (dirty || inFlight)) return;   // the user tapped something while we waited
       etag = r.headers.get('ETag');
       if (remote && ((remote.updatedAt || 0) > (plan.updatedAt || 0) || (first && !plan.syncedOnce))) {
-        adopt(remote); plan.syncedOnce = true; dirty = false; clearTimeout(pushTimer); pushTimer = null; render(); if (!first) toast('Updated from the other phone');
+        // Anything this phone changed but never managed to send (an edit right before a reload, say) rides along.
+        const unsent = lastSynced && plan.syncedOnce ? changedPaths(lastSynced, plan) : [];
+        if (unsent.length) { mergeIn(remote); dirty = true; queuePush(); }
+        else { adopt(remote); plan.syncedOnce = true; dirty = false; clearTimeout(pushTimer); pushTimer = null; render(); if (!first) toast('Updated from the other phone'); }
       } else if (!remote || (plan.updatedAt || 0) > (remote.updatedAt || 0)) {
         dirty = true; push();   // this phone is newer (or the database is empty): send ours up
       } else { markSynced(snapshot()); }
