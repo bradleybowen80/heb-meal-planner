@@ -1,0 +1,102 @@
+{
+  "meals": [
+    {
+      "id": "ground-beef-tacos",
+      "name": "Ground Beef Tacos",
+      "kind": "recipe",
+      "theme": "tacos",
+      "serves": 4,
+      "items": [
+        {
+          "key": "ground-beef",
+          "qty": 1
+        },
+        {
+          "key": "taco-seasoning",
+          "qty": 1
+        },
+        {
+          "key": "flour-tortillas",
+          "qty": 0.5
+        },
+        {
+          "key": "shredded-cheddar",
+          "qty": 1
+        },
+        {
+          "key": "sour-cream",
+          "qty": 0.5
+        },
+        {
+          "key": "iceberg-lettuce",
+          "qty": 0.5
+        },
+        {
+          "key": "roma-tomatoes",
+          "qty": 3
+        },
+        {
+          "key": "salsa",
+          "qty": 0.5
+        }
+      ],
+      "notes": "Brown the beef with the seasoning packet. Everyone builds their own."
+    },
+    {
+      "id": "spaghetti-meat-sauce",
+      "name": "Spaghetti with Meat Sauce",
+      "kind": "recipe",
+      "theme": "pasta",
+      "serves": 4,
+      "items": [
+        {
+          "key": "spaghetti",
+          "qty": 1
+        },
+        {
+          "key": "ground-beef",
+          "qty": 1
+        },
+        {
+          "key": "marinara",
+          "qty": 2
+        },
+        {
+          "key": "yellow-onions",
+          "qty": 0.25
+        },
+        {
+          "key": "parmesan",
+          "qty": 0.25
+        },
+        {
+          "key": "garlic-bread",
+          "qty": 1
+        }
+      ],
+      "notes": "Brown beef with half a diced onion, add both jars of sauce, simmer while the pasta cooks. Garlic bread in the oven."
+    },
+    {
+      "id": "kevins-chicken-broccoli-rice",
+      "name": "Kevin's Korean BBQ Chicken, Broccoli, Rice",
+      "kind": "heat-and-add",
+      "theme": "meat-and-three",
+      "serves": 4,
+      "items": [
+        {
+          "key": "kevins-chicken",
+          "qty": 1
+        },
+        {
+          "key": "broccoli-florets",
+          "qty": 1
+        },
+        {
+          "key": "jasmine-rice",
+          "qty": 0.25
+        }
+      ],
+      "notes": "Chicken heats in a pan in 5 minutes. Broccoli steams in its bag. Rice in the cooker."
+    }
+  ]
+}

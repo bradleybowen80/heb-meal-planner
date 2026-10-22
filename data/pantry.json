@@ -1,0 +1,293 @@
+{
+  "store": {
+    "name": "H-E-B Main St",
+    "number": 789,
+    "address": "4800 Main St, Frisco TX 75033"
+  },
+  "sectionOrder": [
+    "Produce",
+    "Bakery",
+    "Meal Simple",
+    "Meat",
+    "Dairy",
+    "Pantry",
+    "Snacks",
+    "Beverages",
+    "Frozen",
+    "Health"
+  ],
+  "items": [
+    {
+      "key": "ground-beef",
+      "hebId": "1661154",
+      "name": "H-E-B Prime 1 Ground Beef Chuck, 80% Lean",
+      "size": "1 lb",
+      "section": "Meat",
+      "unit": "package"
+    },
+    {
+      "key": "taco-seasoning",
+      "hebId": "706450",
+      "name": "H-E-B Taco Seasoning Mix",
+      "size": "1.25 oz",
+      "section": "Pantry",
+      "unit": "package"
+    },
+    {
+      "key": "flour-tortillas",
+      "hebId": "465325",
+      "name": "H-E-B Bakery Flour Tortillas",
+      "size": "20 ct",
+      "section": "Bakery",
+      "unit": "package"
+    },
+    {
+      "key": "shredded-cheddar",
+      "hebId": "127182",
+      "name": "H-E-B Mild Cheddar Shredded Cheese",
+      "size": "8 oz",
+      "section": "Dairy",
+      "unit": "package"
+    },
+    {
+      "key": "sour-cream",
+      "hebId": "314026",
+      "name": "H-E-B Regular Sour Cream",
+      "size": "16 oz",
+      "section": "Dairy",
+      "unit": "package"
+    },
+    {
+      "key": "iceberg-lettuce",
+      "hebId": "319375",
+      "name": "Fresh Iceberg Lettuce",
+      "size": "Each",
+      "section": "Produce",
+      "unit": "package"
+    },
+    {
+      "key": "roma-tomatoes",
+      "hebId": "318578",
+      "name": "Fresh Roma Tomato",
+      "size": "Avg. 0.29 lb (price is per tomato)",
+      "section": "Produce",
+      "unit": "pack (sold by weight)"
+    },
+    {
+      "key": "salsa",
+      "hebId": "3463050",
+      "name": "H-E-B Fresh Salsa - Mild",
+      "size": "16 oz",
+      "section": "Produce",
+      "unit": "package"
+    },
+    {
+      "key": "spaghetti",
+      "hebId": "1567287",
+      "name": "H-E-B Spaghetti Noodles",
+      "size": "16 oz",
+      "section": "Pantry",
+      "unit": "package"
+    },
+    {
+      "key": "marinara",
+      "hebId": "1535352",
+      "name": "H-E-B Healthy Marinara Pasta Sauce",
+      "size": "15.5 oz",
+      "section": "Pantry",
+      "unit": "package"
+    },
+    {
+      "key": "parmesan",
+      "hebId": "3656524",
+      "name": "H-E-B Grated Parmesan Cheese",
+      "size": "8 oz",
+      "section": "Dairy",
+      "unit": "package"
+    },
+    {
+      "key": "garlic-bread",
+      "hebId": "509022",
+      "name": "H-E-B Frozen Garlic Bread - Traditional",
+      "size": "16 oz",
+      "section": "Frozen",
+      "unit": "package"
+    },
+    {
+      "key": "yellow-onions",
+      "hebId": "449732",
+      "name": "Fresh Yellow Onions",
+      "size": "3 lb bag",
+      "section": "Produce",
+      "unit": "package"
+    },
+    {
+      "key": "kevins-chicken",
+      "hebId": "3272540",
+      "name": "Kevin's Natural Foods Paleo Korean Style BBQ Chicken",
+      "size": "16 oz",
+      "section": "Meal Simple",
+      "unit": "package"
+    },
+    {
+      "key": "broccoli-florets",
+      "hebId": "1742409",
+      "name": "Fresh Steamable Broccoli Florets",
+      "size": "12 oz",
+      "section": "Produce",
+      "unit": "package"
+    },
+    {
+      "key": "jasmine-rice",
+      "hebId": "2057455",
+      "name": "H-E-B Thai Hom Mali Jasmine Rice",
+      "size": "2 lbs",
+      "section": "Pantry",
+      "unit": "package"
+    },
+    {
+      "key": "chicken-breast",
+      "hebId": "5244502",
+      "name": "H-E-B Natural Boneless Chicken Breasts - Value Pack",
+      "size": "Avg. 4.9 lbs",
+      "section": "Meat",
+      "unit": "pack (sold by weight)"
+    },
+    {
+      "key": "eggs",
+      "hebId": "2177042",
+      "name": "H-E-B Grade AA Cage Free Large White Eggs",
+      "size": "18 ct",
+      "section": "Dairy",
+      "unit": "package"
+    },
+    {
+      "key": "whole-milk",
+      "hebId": "314130",
+      "name": "H-E-B Whole Milk",
+      "size": "1 gal",
+      "section": "Dairy",
+      "unit": "package"
+    },
+    {
+      "key": "white-bread",
+      "hebId": "395830",
+      "name": "H-E-B Round Top Large White Enriched Sliced Bread",
+      "size": "20 oz",
+      "section": "Bakery",
+      "unit": "package"
+    },
+    {
+      "key": "bananas",
+      "hebId": "377497",
+      "name": "Fresh Bunch of Bananas, 4-7 Bananas",
+      "size": "Avg. 2.4 lbs",
+      "section": "Produce",
+      "unit": "pack (sold by weight)"
+    },
+    {
+      "key": "gala-apples",
+      "hebId": "10540517",
+      "name": "H-E-B Fresh Gala Apples",
+      "size": "3 lb bag",
+      "section": "Produce",
+      "unit": "package"
+    },
+    {
+      "key": "butter",
+      "hebId": "126467",
+      "name": "H-E-B Sweet Cream Salted Butter Sticks",
+      "size": "4 ct",
+      "section": "Dairy",
+      "unit": "package"
+    },
+    {
+      "key": "heb-cola",
+      "hebId": "126644",
+      "name": "H-E-B Original Cola 12 pk Cans",
+      "size": "12 oz cans",
+      "section": "Beverages",
+      "unit": "package"
+    },
+    {
+      "key": "coffee",
+      "hebId": "7421540",
+      "name": "CAFE Ol\u00e9 by H-E-B Taste of DFW Medium Roast Ground Coffee",
+      "size": "12 oz",
+      "section": "Beverages",
+      "unit": "package"
+    },
+    {
+      "key": "protein-shakes",
+      "hebId": "1883112",
+      "name": "Premier Protein 30g Protein Shakes 4 pk Bottles - Chocolate",
+      "size": "11 oz bottles",
+      "section": "Health",
+      "unit": "package"
+    },
+    {
+      "key": "energy-drinks",
+      "hebId": "1445080",
+      "name": "Monster Energy Zero Sugar Energy Drink 4 pk Cans",
+      "size": "16 oz cans",
+      "section": "Beverages",
+      "unit": "package"
+    },
+    {
+      "key": "goldfish",
+      "hebId": "5808502",
+      "name": "Goldfish Baked Cheddar Crackers - Family Size",
+      "size": "10 oz",
+      "section": "Snacks",
+      "unit": "package"
+    },
+    {
+      "key": "string-cheese",
+      "hebId": "1894949",
+      "name": "H-E-B Low Moisture Part-Skim Mozzarella String Cheese, 12 ct",
+      "size": "10 oz",
+      "section": "Dairy",
+      "unit": "package"
+    },
+    {
+      "key": "peanut-butter",
+      "hebId": "1581938",
+      "name": "H-E-B Made in Texas Creamy Peanut Butter",
+      "size": "18 oz",
+      "section": "Pantry",
+      "unit": "package"
+    },
+    {
+      "key": "cereal",
+      "hebId": "2772004",
+      "name": "H-E-B Honey & Nut Corn Flakes Cereal with Granola",
+      "size": "18 oz",
+      "section": "Pantry",
+      "unit": "package"
+    },
+    {
+      "key": "tortilla-chips",
+      "hebId": "1387370",
+      "name": "H-E-B Restaurant-Style White Corn Tortilla Chips - Party Size",
+      "size": "18 oz",
+      "section": "Snacks",
+      "unit": "package"
+    },
+    {
+      "key": "frozen-pizza",
+      "hebId": "288583",
+      "name": "H-E-B Uncured Pepperoni Rising Crust Frozen Pizza",
+      "size": "25.45 oz",
+      "section": "Frozen",
+      "unit": "package"
+    },
+    {
+      "key": "olive-oil",
+      "hebId": "127074",
+      "name": "H-E-B Extra Virgin Olive Oil",
+      "size": "17 oz",
+      "section": "Pantry",
+      "unit": "package"
+    }
+  ]
+}
