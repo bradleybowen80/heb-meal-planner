@@ -357,3 +357,5 @@ body { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
 .list-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 .list-actions .btn { padding: 10px 6px; font-size: 13.5px; line-height: 1.2; }
 .section-title { margin-top: 14px; }
+
+.topbar > * { max-width: 560px; margin-left: auto; margin-right: auto; }
