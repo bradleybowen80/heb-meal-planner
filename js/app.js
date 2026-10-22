@@ -36,7 +36,7 @@
     let key = null;
     try { key = localStorage.getItem(FAM_KEY); } catch (e) { /* ignore */ }
     if (fromUrl && /^[A-Za-z0-9_-]{20,}$/.test(fromUrl) && fromUrl !== key) { key = fromUrl; setTimeout(() => toast('Joined the shared plan'), 400); }
-    if (!key) key = [...crypto.getRandomValues(new Uint8Array(18))].map(b => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[b % 62]).join('');
+    if (!key || key.length < 20) key = [...crypto.getRandomValues(new Uint8Array(24))].map(b => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[b % 62]).join('');
     try { localStorage.setItem(FAM_KEY, key); } catch (e) { /* ignore */ }
     if (fromUrl) history.replaceState(null, '', location.pathname);
     return key;
