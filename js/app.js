@@ -478,10 +478,6 @@
   function renderChecklist() {
     const t = totals();
     const count = Object.values(plan.checklist).filter(q => q > 0).length + Object.values(plan.lunches).filter(q => q > 0).length + Object.values(plan.breakfasts).filter(q => q > 0).length;
-    $('weeklySummary').textContent = count ? `${count} item${count === 1 ? '' : 's'} · ${money(t.weekly)}` : 'nothing yet';
-    $('weeklyToggle').setAttribute('aria-expanded', ui.weeklyOpen);
-    $('weeklyChevron').textContent = ui.weeklyOpen ? '▾' : '▸';
-    $('weeklyBody').classList.toggle('hidden', !ui.weeklyOpen);
     const wrap = $('checklist'); wrap.innerHTML = '';
     // Breakfasts and lunches: cards picked for N days each. Their ingredients land on the list automatically.
     const CARD_GROUPS = [['breakfasts', 'breakfast', 'Breakfasts'], ['lunches', 'lunch', 'Lunches']];
@@ -827,7 +823,6 @@
   }
 
   // Weekly section toggle
-  $('weeklyToggle').addEventListener('click', () => { ui.weeklyOpen = !ui.weeklyOpen; saveUi(); renderChecklist(); });
   $('btnAddWeekly').addEventListener('click', openAddWeekly);
 
   // Budget target

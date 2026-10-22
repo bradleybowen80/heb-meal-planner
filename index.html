@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=29">
+<link rel="stylesheet" href="css/app.css?v=30">
 </head>
 <body>
 
@@ -40,15 +40,8 @@
     <ol class="week" id="week"></ol>
     <p class="section-hint fine">Day prices are what each dinner uses. The list rounds up to whole packages.</p>
 
-    <button class="weekly-toggle" id="weeklyToggle" type="button" aria-expanded="false" aria-controls="weeklyBody">
-      <span class="chev" id="weeklyChevron">▸</span>
-      <span class="weekly-title">Every week</span>
-      <span class="weekly-summary" id="weeklySummary"></span>
-    </button>
-    <div id="weeklyBody" class="hidden">
-      <div class="checklist" id="checklist"></div>
-      <div class="row-actions"><button class="btn ghost" id="btnAddWeekly" type="button">Add a staple</button></div>
-    </div>
+    <div class="checklist" id="checklist"></div>
+    <div class="row-actions"><button class="btn ghost" id="btnAddWeekly" type="button">Add a staple</button></div>
 
     <div class="plan-actions">
       <button class="btn" id="btnShare" type="button">Share plan</button>
@@ -167,6 +160,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=29"></script>
+<script src="js/app.js?v=30"></script>
 </body>
 </html>
