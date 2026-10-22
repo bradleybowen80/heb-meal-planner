@@ -82,7 +82,7 @@
   }
 
   // ---------- render ----------
-  function render() { renderHeader(); renderWeek(); renderChecklist(); renderList(); }
+  function render() { renderHeader(); renderWeek(); renderChecklist(); renderList(); renderDeals(); }
 
   function renderHeader() {
     const t = totals();
@@ -185,6 +185,37 @@
     if (document.activeElement !== spent) spent.value = plan.spent == null ? '' : plan.spent;
     $('spentDiff').textContent = plan.spent == null ? 'Enter the receipt total after the trip to see how close the estimate was.' :
       `Estimate ${money(t.groceries)} · actual ${money(plan.spent)} · ${plan.spent > t.groceries ? 'over by ' + money(plan.spent - t.groceries) : 'under by ' + money(t.groceries - plan.spent)}`;
+  }
+  function renderDeals() {
+    const wrap = $('deals'); wrap.innerHTML = '';
+    const deals = Object.keys(pantry).map(key => ({ key, p: pantry[key], pr: prices[key] || {} }))
+      .filter(d => d.pr.onSale || d.pr.priceCut)
+      .map(d => ({ ...d, saved: (d.pr.listPrice || d.pr.price) - d.pr.price }))
+      .sort((a, b) => b.saved - a.saved);
+    const combos = Object.keys(pantry).filter(key => prices[key] && prices[key].coupon);
+    $('dealsMeta').textContent = `From your pantry, pulled ${pricesDoc.pulled} at ${pricesDoc.store.name}. Sale and price cut ring up automatically.`;
+    if (!deals.length) { wrap.innerHTML = '<div class="empty-bucket">Nothing from the pantry is on sale this week.</div>'; }
+    const box = document.createElement('div'); box.className = 'sec';
+    for (const d of deals) {
+      const used = DAYS.filter(day => dayItems(plan.days[day.id]).some(it => it.key === d.key)).map(day => day.name);
+      const row = document.createElement('div'); row.className = 'li';
+      row.innerHTML = `<div></div><div><div class="li-name">${esc(d.p.name)}<span class="pill sale">${d.pr.onSale ? 'sale' : 'price cut'}</span></div>` +
+        `<div class="li-sub">${esc(d.p.size)} · ${esc(d.pr.aisle || '')}${used.length ? ' · on the plan ' + used.join(', ') : ''}</div></div>` +
+        `<div class="li-right"><div class="li-price"><span class="was">${money(d.pr.listPrice)}</span>${money(d.pr.price)}</div><div class="li-sub">save ${money(d.saved)}</div></div>`;
+      box.appendChild(row);
+    }
+    if (deals.length) wrap.appendChild(box);
+    if (combos.length) {
+      const cbox = document.createElement('div'); cbox.className = 'sec';
+      cbox.innerHTML = '<div class="sec-name"><span>Coupons (HEB app or paper slip)</span></div>';
+      for (const key of combos) {
+        const pr = prices[key], p = pantry[key];
+        const row = document.createElement('div'); row.className = 'li';
+        row.innerHTML = `<div></div><div><div class="li-name">${esc(p.name)}<span class="pill coupon">${pr.couponType === 'combo' ? 'combo deal' : 'coupon'}</span></div><div class="li-sub">${esc(pr.coupon)}</div></div><div class="li-right"><div class="li-price">${money(pr.price)}</div></div>`;
+        cbox.appendChild(row);
+      }
+      wrap.appendChild(cbox);
+    }
   }
   function setPacks(key, n) { plan.packs = plan.packs || {}; plan.packs[key] = n; save(); }
 
