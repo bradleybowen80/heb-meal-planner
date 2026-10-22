@@ -330,20 +330,25 @@
   // ---------- render ----------
   const PROTEIN = { 'ground-beef': 'beef', 'chicken-breast': 'chicken', 'kevins-chicken': 'chicken', 'eggs': 'egg', 'frozen-pizza': 'pizza', 'string-cheese': 'cheese' };
   const cardTags = m => [...new Set((m.tags || []).concat(m.items.map(it => PROTEIN[it.key]).filter(Boolean)))];
-  const mealFilter = { kind: 'all' };
+  const mealFilter = { kind: 'all', tag: 'any', q: '' };
   function renderCatalog() {
-    const chipsEl = $('mealChips'), wrap = $('catalog'); if (!chipsEl) return;
-    const kinds = [['all', 'All'], ['breakfast', 'Breakfast'], ['lunch', 'Lunch'], ['dinner', 'Dinner'], ['items', 'Snacks, drinks, staples']];
+    const selKind = $('selKind'), selTag = $('selTag'), wrap = $('catalog'); if (!selKind) return;
+    const groupNames = checklistDoc.groups.map(g => g.name);
+    const kinds = [['all', 'Everything'], ['breakfast', 'Breakfasts'], ['lunch', 'Lunches'], ['dinner', 'Dinners'], ...groupNames.map(n => ['grp:' + n, n]), ['grp:Ingredients', 'Ingredients']];
     const proteins = [...new Set(Object.values(meals).flatMap(cardTags))].sort();
-    chipsEl.innerHTML = kinds.map(([k, l]) => `<button type="button" class="chip${mealFilter.kind === k ? ' on' : ''}" data-kind="${k}">${l}</button>`).join('') +
-      proteins.map(t => `<button type="button" class="chip${mealFilter.kind === 'tag:' + t ? ' on' : ''}" data-kind="tag:${t}">${esc(t)}</button>`).join('');
-    chipsEl.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { mealFilter.kind = c.dataset.kind; renderCatalog(); }));
+    selKind.innerHTML = kinds.map(([k, l]) => `<option value="${esc(k)}"${mealFilter.kind === k ? ' selected' : ''}>${esc(l)}</option>`).join('');
+    selTag.innerHTML = `<option value="any"${mealFilter.tag === 'any' ? ' selected' : ''}>Any</option>` + proteins.map(t => `<option value="${esc(t)}"${mealFilter.tag === t ? ' selected' : ''}>${esc(t[0].toUpperCase() + t.slice(1))}</option>`).join('');
+    selKind.onchange = () => { mealFilter.kind = selKind.value; renderCatalog(); };
+    const searchEl = $('catSearch'); if (searchEl.value !== mealFilter.q) searchEl.value = mealFilter.q;
+    searchEl.oninput = () => { mealFilter.q = searchEl.value.trim().toLowerCase(); renderCatalog(); };
+    const hit = name => !mealFilter.q || name.toLowerCase().includes(mealFilter.q);
+    selTag.onchange = () => { mealFilter.tag = selTag.value; renderCatalog(); };
     wrap.innerHTML = '';
-    const f = mealFilter.kind;
+    const f = mealFilter.kind, tag = mealFilter.tag;
     const isDinner = m => !['breakfast', 'lunch'].includes(m.kind);
-    const cards = Object.values(meals).filter(m => f === 'all' || (f === 'dinner' && isDinner(m)) || f === m.kind || (f.startsWith('tag:') && cardTags(m).includes(f.slice(4))));
-    if (f !== 'items' && cards.length) {
-      for (const [label, test] of [['Breakfast', m => m.kind === 'breakfast'], ['Lunch', m => m.kind === 'lunch'], ['Dinner', isDinner]]) {
+    const cards = Object.values(meals).filter(m => (f === 'all' || (f === 'dinner' && isDinner(m)) || f === m.kind) && (tag === 'any' || cardTags(m).includes(tag)) && (hit(m.name) || m.items.some(it => pantry[it.key] && hit(pantry[it.key].name))));
+    if (!f.startsWith('grp:')) {
+      for (const [label, test] of [['Breakfasts', m => m.kind === 'breakfast'], ['Lunches', m => m.kind === 'lunch'], ['Dinners', isDinner]]) {
         const group = cards.filter(test); if (!group.length) continue;
         const box = document.createElement('div'); box.className = 'sec';
         box.innerHTML = `<div class="sec-name"><span>${label}</span><span>${group.length}</span></div>`;
@@ -357,13 +362,14 @@
         wrap.appendChild(box);
       }
     }
-    if (f === 'all' || f === 'items') {
-      const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Ingredients' }).name;
+    if (tag === 'any' && (f === 'all' || f.startsWith('grp:'))) {
+      // Staples by their group; everything else by store section so the ingredient list stays navigable.
+      const groupOf = key => { const g = checklistDoc.groups.find(x => x.items.includes(key)); return g ? g.name : 'Ingredients: ' + pantry[key].section; };
       const groups = {};
-      for (const key of Object.keys(pantry)) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
-      const order = [...checklistDoc.groups.map(g => g.name), 'Ingredients'];
-      for (const name of order) {
-        if (!groups[name] || (f === 'items' && name === 'Ingredients')) continue;
+      for (const key of Object.keys(pantry)) if (hit(pantry[key].name)) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
+      const ingSecs = sectionOrder.map(x => 'Ingredients: ' + x).concat(Object.keys(groups).filter(n => n.startsWith('Ingredients: ') && !sectionOrder.includes(n.slice(13))));
+      for (const name of [...groupNames, ...ingSecs]) {
+        if (!groups[name] || (f.startsWith('grp:') && f.slice(4) !== name && !(f === 'grp:Ingredients' && name.startsWith('Ingredients: ')))) continue;
         const box = document.createElement('div'); box.className = 'sec';
         box.innerHTML = `<div class="sec-name"><span>${esc(name)}</span><span>${groups[name].length}</span></div>`;
         for (const key of groups[name]) {
@@ -515,19 +521,17 @@
       box.appendChild(arow); wrap.appendChild(box);
       const addBtn = arow.querySelector('[data-addcard]'); if (addBtn) addBtn.addEventListener('click', () => openAddCard(grp, kind));
     }
-    const stapleCount = Object.values(plan.checklist).filter(q => q > 0).length;
-    const stapleCost = Object.entries(plan.checklist).reduce((s, [k, q]) => s + (pantry[k] && pantry[k].saleOnly && !flagsFor(k).sale ? 0 : q * price(k)), 0);
-    wrap.appendChild(foldButton('staples', 'Snacks, drinks, staples', stapleCount ? `${stapleCount} · ${money(stapleCost)}` : 'none'));
-    if (!isOpen('staples')) return;
     const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other staples' }).name;
     const groups = {};
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && pantry[key]) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
     const order = [...checklistDoc.groups.map(g => g.name), ...Object.keys(groups).filter(n => !checklistDoc.groups.some(g => g.name === n))];
     for (const name of order) {
-      if (!groups[name]) continue;
+      const keys = groups[name] || [];
+      const cost = keys.reduce((s, k) => s + (pantry[k].saleOnly && !flagsFor(k).sale ? 0 : plan.checklist[k] * price(k)), 0);
+      wrap.appendChild(foldButton('grp:' + name, name, keys.length ? `${keys.length} · ${money(cost)}` : 'none'));
+      if (!isOpen('grp:' + name)) continue;
       const box = document.createElement('div'); box.className = 'group';
-      box.innerHTML = `<div class="group-name">${esc(name)}</div>`;
-      for (const key of groups[name]) {
+      for (const key of keys) {
         const p = pantry[key], qty = plan.checklist[key];
         const skipped = p.saleOnly && !flagsFor(key).sale;
         const row = document.createElement('div'); row.className = 'crow' + (skipped ? ' zero' : '');
@@ -535,28 +539,21 @@
           `<div class="crow-price">${skipped ? '' : money(price(key) * qty)}</div>` +
           `<div class="stepper"><button type="button" aria-label="less">−</button><span class="n">${qty}</span><button type="button" aria-label="more">+</button></div>`;
         const [minus, plus] = row.querySelectorAll('button');
-        minus.addEventListener('click', () => { plan.checklist[key] = Math.max(0, qty - 1); save(); });   // at 0 the row goes away
+        minus.addEventListener('click', () => { plan.checklist[key] = Math.max(0, qty - 1); save(); });
         plus.addEventListener('click', () => { plan.checklist[key] = qty + 1; save(); });
         box.appendChild(row);
       }
-      wrap.appendChild(box);
+      const add = document.createElement('div'); add.className = 'crow';
+      add.innerHTML = `<div class="crow-sub">${keys.length ? '' : 'None this week.'}</div><div></div><button type="button" class="btn ghost small" data-addgrp="${esc(name)}">Add</button>`;
+      add.querySelector('[data-addgrp]').addEventListener('click', () => openAddWeekly(name));
+      box.appendChild(add); wrap.appendChild(box);
     }
-    if (!stapleCount) { const e = document.createElement('div'); e.className = 'empty-bucket'; e.textContent = 'No staples yet. Add the packs you buy most weeks: snacks, fruit, drinks, coffee.'; wrap.appendChild(e); }
-    const add = document.createElement('div'); add.className = 'row-actions'; add.innerHTML = '<button type="button" class="btn ghost small" id="btnAddWeekly">Add a staple</button>'; wrap.appendChild(add);
-    add.querySelector('#btnAddWeekly').addEventListener('click', openAddWeekly);
   }
-  function openAddCard(grp, kind) {
-    const pool = Object.values(meals).filter(m => m.kind === kind && !(plan[grp][m.id] > 0));
-    let html = `<h3>Add a ${kind}</h3><p class="hint">Picks it for one day. Change the days on the list after.</p>`;
-    html += pool.length ? pool.map(m => `<button type="button" class="option" data-card="${esc(m.id)}"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">${esc(m.notes || m.items.length + ' items')}</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved ${kind} is already picked.</div>`;
-    openSheet(html);
-    body.querySelectorAll('[data-card]').forEach(b => b.addEventListener('click', () => { plan[grp][b.dataset.card] = 1; save(); closeSheet(); }));
-  }
-  function openAddWeekly() {
+  function openAddWeekly(onlyGroup) {
     const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other' }).name;
     const bySec = {};
-    for (const key of Object.keys(pantry)) if (!(plan.checklist[key] > 0)) (bySec[groupOf(key)] = bySec[groupOf(key)] || []).push(key);
-    let html = `<h3>Add to every week</h3><p class="hint">Tap to add one pack a week. Change the number on the list after.</p>`;
+    for (const key of Object.keys(pantry)) if (!(plan.checklist[key] > 0) && (!onlyGroup || groupOf(key) === onlyGroup)) (bySec[groupOf(key)] = bySec[groupOf(key)] || []).push(key);
+    let html = `<h3>Add ${onlyGroup ? esc(onlyGroup.toLowerCase()) : 'to every week'}</h3><p class="hint">Tap to add one pack a week. Change the number after.</p>`;
     const order = [...checklistDoc.groups.map(g => g.name), ...Object.keys(bySec).filter(n => !checklistDoc.groups.some(g => g.name === n))];
     for (const name of order) {
       if (!bySec[name]) continue;

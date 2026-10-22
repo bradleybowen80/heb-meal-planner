@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=31">
+<link rel="stylesheet" href="css/app.css?v=32">
 </head>
 <body>
 
@@ -81,7 +81,11 @@
   <section class="view hidden" id="viewMeals">
     <h2 class="section-title">Meals and items</h2>
     <p class="section-hint">Every card and every pantry item. Tap one to see or change it.</p>
-    <div class="chips" id="mealChips"></div>
+    <input class="search" id="catSearch" type="search" placeholder="Search cards and items" autocomplete="off">
+    <div class="filters">
+      <label class="select"><span>Show</span><select id="selKind"></select></label>
+      <label class="select"><span>Main ingredient</span><select id="selTag"></select></label>
+    </div>
     <div id="catalog"></div>
   </section>
 
@@ -161,6 +165,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=31"></script>
+<script src="js/app.js?v=32"></script>
 </body>
 </html>
