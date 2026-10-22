@@ -578,6 +578,18 @@
       box.appendChild(add); wrap.appendChild(box);
     }
   }
+  function openAddCard(grp, kind) {
+    const pool = Object.values(meals).filter(m => m.kind === kind && !(plan[grp][m.id] > 0)).sort((a, b) => a.name.localeCompare(b.name));
+    let html = `<h3>Add a ${kind}</h3><p class="hint">Picks it for one day. Change the days with + and − after.</p>`;
+    html += `<div class="row-actions"><button type="button" class="btn ghost" id="newCard">New ${kind} card</button></div>`;
+    if (pool.length > 6) html += `<input class="search" id="cardFind" type="search" placeholder="Search ${pool.length} ${kind === "lunch" ? "lunches" : kind + "s"}" autocomplete="off">`;
+    html += pool.length ? pool.map(m => `<button type="button" class="option" data-card="${esc(m.id)}"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">${m.minutes ? m.minutes + ' min · ' : ''}${m.items.length} items</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved ${kind} is already picked.</div>`;
+    openSheet(html);
+    body.querySelector('#newCard').addEventListener('click', () => openCardEditor(null, { kind, theme: kind, group: grp }));
+    const find = body.querySelector('#cardFind');
+    if (find) find.addEventListener('input', () => { const q = find.value.trim().toLowerCase(); body.querySelectorAll('[data-card]').forEach(b => { b.style.display = !q || b.textContent.toLowerCase().includes(q) ? '' : 'none'; }); });
+    body.querySelectorAll('[data-card]').forEach(b => b.addEventListener('click', () => { plan[grp][b.dataset.card] = 1; save(); closeSheet(); toast('Added'); }));
+  }
   function openAddWeekly(onlyGroup) {
     const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other' }).name;
     const bySec = {};
