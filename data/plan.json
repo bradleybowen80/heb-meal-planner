@@ -1,0 +1,16 @@
+{
+  "weekOf": "2026-10-25",
+  "budget": 250,
+  "spent": null,
+  "days": {
+    "sun": null,
+    "mon": { "type": "out", "label": "Eat out", "amount": 45 },
+    "tue": { "type": "meal", "mealId": "ground-beef-tacos", "dropped": [], "qty": {} },
+    "wed": { "type": "meal", "mealId": "spaghetti-meat-sauce", "dropped": [], "qty": {} },
+    "thu": { "type": "meal", "mealId": "kevins-chicken-broccoli-rice", "dropped": [], "qty": {} },
+    "fri": { "type": "out", "label": "Eat out", "amount": 60 },
+    "sat": null
+  },
+  "checklist": {},
+  "have": []
+}

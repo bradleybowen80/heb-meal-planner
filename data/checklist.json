@@ -1,0 +1,18 @@
+{
+  "groups": [
+    { "id": "breakfast", "name": "Breakfast", "items": ["eggs", "cereal", "whole-milk", "bananas"] },
+    { "id": "lunches", "name": "Lunches", "items": ["white-bread", "peanut-butter", "string-cheese"] },
+    { "id": "snacks", "name": "Kid snacks", "items": ["goldfish", "tortilla-chips"] },
+    { "id": "fruit", "name": "Fruit", "items": ["gala-apples"] },
+    { "id": "drinks", "name": "Drinks", "items": ["energy-drinks", "protein-shakes", "heb-cola", "coffee"] },
+    { "id": "staples", "name": "Staples", "items": ["butter", "olive-oil"] }
+  ],
+  "defaults": {
+    "eggs": 1, "cereal": 1, "whole-milk": 2, "bananas": 1,
+    "white-bread": 1, "peanut-butter": 0, "string-cheese": 1,
+    "goldfish": 1, "tortilla-chips": 0,
+    "gala-apples": 1,
+    "energy-drinks": 1, "protein-shakes": 1, "heb-cola": 1, "coffee": 0,
+    "butter": 0, "olive-oil": 0
+  }
+}

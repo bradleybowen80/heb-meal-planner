@@ -128,6 +128,17 @@ meals = [
         ],
         "notes": "Chicken heats in a pan in 5 minutes. Broccoli steams in its bag. Rice in the cooker.",
     },
+    {
+        "id": "frozen-pizza-night",
+        "name": "Frozen Pizza Night",
+        "kind": "repeat",
+        "theme": "pizza",
+        "serves": 4,
+        "items": [
+            {"key": "frozen-pizza", "qty": 2},
+        ],
+        "notes": "Two pizzas feeds four. Coupon is $1 off each in the HEB app.",
+    },
 ]
 
 out = Path(__file__).resolve().parent.parent / "data"
