@@ -21,6 +21,8 @@ RAW = [
     ("iceberg-lettuce",  "319375",   "Fresh Iceberg Lettuce", "Each", "Produce", "In Produce on the Left Wall", 2.29, 2.29, "", None),
     ("roma-tomatoes",    "318578",   "Fresh Roma Tomato", "Avg. 0.29 lb (price is per tomato)", "Produce", "In Produce", 0.22, 0.22, "", None),
     ("salsa",            "3463050",  "H-E-B Fresh Salsa - Mild", "16 oz", "Produce", "In Produce on the Front Wall", 4.26, 4.26, "", None),
+    ("pico",             "2159976",  "H-E-B Pico de Gallo - Mild", "14 oz", "Produce", "In Produce on the Front Wall", 4.98, 4.98, "", None),
+    ("mexican-blend",    "543845",   "H-E-B Mexican Style Shredded Cheese Blend", "8 oz", "Dairy", "In Meat Market on the Back Wall", 2.98, 2.98, "", None),
     # Spaghetti (Wed)
     ("spaghetti",        "1567287",  "H-E-B Spaghetti Noodles", "16 oz", "Pantry", "Aisle 7", 1.12, 1.12, "", None),
     ("marinara",         "1535352",  "H-E-B Healthy Marinara Pasta Sauce", "15.5 oz", "Pantry", "Aisle 7", 2.58, 2.20, "pricecut", None),
@@ -56,6 +58,9 @@ RAW = [
 # the first in-stock product that is on sale or price-cut; otherwise the first in-stock product.
 # Brad: "we like Rockit apples; when those are out of stock or Honeycrisp are on sale, Honeycrisp."
 ALTERNATES = {
+    "mexican-blend": [
+        ("947310", "H-E-B Mexican Style Shredded Cheese Blend", "16 oz", "In Meat Market on the Back Wall", 4.97, 3.99, "sale", None),
+    ],
     "apples": [
         ("15810062", "H-E-B Fresh Honeycrisp Apples", "3 lb bag", "In Produce", 7.57, 3.28, "pricecut", None),
     ],

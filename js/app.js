@@ -39,6 +39,9 @@
     prices[it.key] = pick.r;
   }
   const meals = Object.fromEntries(mealsDoc.meals.map(m => [m.id, m]));
+  const MEALS_KEY = 'hmp.meals.v1';
+  function overlayMeals(custom) { for (const [id, m] of Object.entries(custom || {})) if (m && m.items) meals[id] = m; }
+  try { overlayMeals(JSON.parse(localStorage.getItem(MEALS_KEY) || 'null')); } catch (e) { /* ignore */ }
   const sectionOrder = pantryDoc.sectionOrder;
 
   // Family key: a long random code that names this family's spot in the database.
@@ -59,6 +62,21 @@
   })();
   const remoteUrl = path => `${DB}/families/${family}/${path}.json`;
 
+  async function loadRemoteMeals() {
+    try {
+      const r = await fetch(remoteUrl('meals'), { cache: 'no-store' }); if (!r.ok) return;
+      const custom = (await r.json()) || {}; overlayMeals(custom);
+      try { localStorage.setItem(MEALS_KEY, JSON.stringify(custom)); } catch (e) { /* ignore */ }
+      render();
+    } catch (e) { /* offline: local cache stands */ }
+  }
+  async function saveMealCard(card) {
+    meals[card.id] = card;
+    let custom = {}; try { custom = JSON.parse(localStorage.getItem(MEALS_KEY) || '{}') || {}; } catch (e) { /* ignore */ }
+    custom[card.id] = card; try { localStorage.setItem(MEALS_KEY, JSON.stringify(custom)); } catch (e) { /* ignore */ }
+    try { const r = await fetch(remoteUrl('meals/' + card.id), { method: 'PUT', body: JSON.stringify(card) }); return r.ok; } catch (e) { return false; }
+  }
+
   let plan = loadPlan();
   function loadPlan() {
     try {
@@ -70,7 +88,7 @@
   function normalize(p) {
     p.days = p.days || {}; for (const d of DAYS) if (p.days[d.id] === undefined) p.days[d.id] = null;
     if (!p.checklist || !Object.keys(p.checklist).length) p.checklist = { ...checklistDoc.defaults };
-    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {};
+    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {}; p.breakfasts = p.breakfasts || {};
     p.budget = Number(p.budget || 0); p.potluckTheme = p.potluckTheme || '';
     if (p.updatedAt) p.syncedOnce = true;
     return p;
@@ -92,7 +110,7 @@
     for (const k of new Set([...Object.keys(a.checklist || {}), ...Object.keys(b.checklist || {})])) if (!same((a.checklist || {})[k], (b.checklist || {})[k])) out.push(['checklist', k]);
     for (const k of new Set([...Object.keys(a.packs || {}), ...Object.keys(b.packs || {})])) if (!same((a.packs || {})[k], (b.packs || {})[k])) out.push(['packs', k]);
     for (const k of new Set([...Object.keys(a.extras || {}), ...Object.keys(b.extras || {})])) if (!same((a.extras || {})[k], (b.extras || {})[k])) out.push(['extras', k]);
-    for (const k of new Set([...Object.keys(a.lunches || {}), ...Object.keys(b.lunches || {})])) if (!same((a.lunches || {})[k], (b.lunches || {})[k])) out.push(['lunches', k]);
+    for (const grp of ['lunches', 'breakfasts']) for (const k of new Set([...Object.keys(a[grp] || {}), ...Object.keys(b[grp] || {})])) if (!same((a[grp] || {})[k], (b[grp] || {})[k])) out.push([grp, k]);
     const ha = new Set(a.have || []), hb = new Set(b.have || []);
     for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
     for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
@@ -258,7 +276,7 @@
   function dayItems(d) {
     if (!d || d.type !== 'meal') return [];
     const m = meals[d.mealId]; if (!m) return [];
-    return m.items
+    return [...m.items, ...(d.added || [])]
       .filter(it => !(d.dropped || []).includes(it.key))
       .map(it => ({ key: it.key, qty: d.qty && d.qty[it.key] != null ? d.qty[it.key] : it.qty }));
   }
@@ -271,7 +289,7 @@
     const add = (key, qty, src) => { if (!pantry[key]) return; if (!need[key]) need[key] = { key, qty: 0, from: new Set() }; need[key].qty += qty; need[key].from.add(src); };
     for (const day of DAYS) for (const it of dayItems(plan.days[day.id])) add(it.key, it.qty, day.name);
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0) add(key, qty, 'weekly');
-    for (const [mealId, days] of Object.entries(plan.lunches)) { const m = meals[mealId]; if (m && days > 0) for (const it of m.items) add(it.key, it.qty * days, 'lunches'); }
+    for (const grp of ['breakfasts', 'lunches']) for (const [mealId, days] of Object.entries(plan[grp])) { const m = meals[mealId]; if (m && days > 0) for (const it of m.items) add(it.key, it.qty * days, grp); }
     for (const [key, qty] of Object.entries(plan.extras)) if (qty > 0) add(key, qty, 'extra');
     return Object.values(need).map(n => {
       const base = Math.max(1, Math.ceil(n.qty - 1e-9));
@@ -287,7 +305,7 @@
     const out = DAYS.reduce((s, d) => s + (plan.days[d.id] && plan.days[d.id].type === 'out' ? Number(plan.days[d.id].amount || 0) : 0), 0);
     const lunchCost = m => m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
     const weekly = Object.entries(plan.checklist).reduce((s, [k, q]) => s + q * price(k), 0)
-      + Object.entries(plan.lunches).reduce((s, [id, d]) => s + (meals[id] ? d * lunchCost(meals[id]) : 0), 0);
+      + ['breakfasts', 'lunches'].reduce((s, grp) => s + Object.entries(plan[grp]).reduce((t, [id, d]) => t + (meals[id] ? d * lunchCost(meals[id]) : 0), 0), 0);
     return { groceries, out, combined: groceries + out, lines, weekly };
   }
 
@@ -325,7 +343,7 @@
       } else {
         const m = meals[d.mealId];
         const p = pillsFor(dayItems(d).map(it => it.key));
-        p.edited = (d.dropped && d.dropped.length) || (d.qty && Object.keys(d.qty).length);
+        p.edited = (d.dropped && d.dropped.length) || (d.qty && Object.keys(d.qty).length) || (d.added && d.added.length);
         mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${pillHtml(p)}</div><div class="day-sub">${esc(m ? m.notes || '' : '')}</div>`;
         priceHtml = `<div class="day-price">${money(dayCost(d))}</div>`;
       }
@@ -339,33 +357,36 @@
 
   function renderChecklist() {
     const t = totals();
-    const count = Object.values(plan.checklist).filter(q => q > 0).length + Object.values(plan.lunches).filter(q => q > 0).length;
+    const count = Object.values(plan.checklist).filter(q => q > 0).length + Object.values(plan.lunches).filter(q => q > 0).length + Object.values(plan.breakfasts).filter(q => q > 0).length;
     $('weeklySummary').textContent = count ? `${count} item${count === 1 ? '' : 's'} · ${money(t.weekly)}` : 'nothing yet';
     $('weeklyToggle').setAttribute('aria-expanded', ui.weeklyOpen);
     $('weeklyChevron').textContent = ui.weeklyOpen ? '▾' : '▸';
     $('weeklyBody').classList.toggle('hidden', !ui.weeklyOpen);
     const wrap = $('checklist'); wrap.innerHTML = '';
-    // Lunches: cards picked for N days each. Their ingredients land on the list automatically.
-    const lunchBox = document.createElement('div'); lunchBox.className = 'group';
-    const lunchIds = Object.keys(plan.lunches).filter(id => plan.lunches[id] > 0 && meals[id]);
-    lunchBox.innerHTML = `<div class="group-name">Lunches</div>`;
-    for (const id of lunchIds) {
-      const m = meals[id], days = plan.lunches[id];
-      const perDay = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
-      const row = document.createElement('div'); row.className = 'crow';
-      row.innerHTML = `<div><div class="crow-name">${esc(m.name)}</div><div class="crow-sub">${esc(m.notes || m.items.length + ' items')}</div></div>` +
-        `<div class="crow-price">${money(perDay * days)}</div>` +
-        `<div class="stepper"><button type="button" aria-label="fewer days">−</button><span class="n">${days}d</span><button type="button" aria-label="more days">+</button></div>`;
-      const [minus, plus] = row.querySelectorAll('button');
-      minus.addEventListener('click', () => { plan.lunches[id] = Math.max(0, days - 1); if (!plan.lunches[id]) delete plan.lunches[id]; save(); });
-      plus.addEventListener('click', () => { plan.lunches[id] = Math.min(7, days + 1); save(); });
-      lunchBox.appendChild(row);
+    // Breakfasts and lunches: cards picked for N days each. Their ingredients land on the list automatically.
+    const CARD_GROUPS = [['breakfasts', 'breakfast', 'Breakfasts'], ['lunches', 'lunch', 'Lunches']];
+    for (const [grp, kind, label] of CARD_GROUPS) {
+      const box = document.createElement('div'); box.className = 'group';
+      const ids = Object.keys(plan[grp]).filter(id => plan[grp][id] > 0 && meals[id]);
+      box.innerHTML = `<div class="group-name">${label}</div>`;
+      for (const id of ids) {
+        const m = meals[id], days = plan[grp][id];
+        const perDay = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
+        const row = document.createElement('div'); row.className = 'crow';
+        row.innerHTML = `<div><div class="crow-name">${esc(m.name)}</div><div class="crow-sub">${esc(m.notes || m.items.length + ' items')}</div></div>` +
+          `<div class="crow-price">${money(perDay * days)}</div>` +
+          `<div class="stepper"><button type="button" aria-label="fewer days">−</button><span class="n">${days}d</span><button type="button" aria-label="more days">+</button></div>`;
+        const [minus, plus] = row.querySelectorAll('button');
+        minus.addEventListener('click', () => { plan[grp][id] = Math.max(0, days - 1); if (!plan[grp][id]) delete plan[grp][id]; save(); });
+        plus.addEventListener('click', () => { plan[grp][id] = Math.min(7, days + 1); save(); });
+        box.appendChild(row);
+      }
+      const pool = Object.values(meals).filter(m => m.kind === kind);
+      const arow = document.createElement('div'); arow.className = 'crow';
+      arow.innerHTML = ids.length || pool.length ? `<div class="crow-sub">${ids.length ? '' : 'None picked for this week.'}</div><div></div><button type="button" class="btn ghost small" data-addcard="${grp}">Add a ${kind}</button>` : `<div class="crow-sub">No ${kind} cards saved yet. Tell Claude what ${kind}s you make and it builds the cards.</div>`;
+      box.appendChild(arow); wrap.appendChild(box);
+      const addBtn = arow.querySelector('[data-addcard]'); if (addBtn) addBtn.addEventListener('click', () => openAddCard(grp, kind));
     }
-    const lunchPool = Object.values(meals).filter(m => m.kind === 'lunch');
-    const lrow = document.createElement('div'); lrow.className = 'crow';
-    lrow.innerHTML = lunchIds.length || lunchPool.length ? `<div class="crow-sub">${lunchIds.length ? '' : 'No lunches picked for this week.'}</div><div></div><button type="button" class="btn ghost small" id="btnAddLunch">Add a lunch</button>` : `<div class="crow-sub">No lunch cards saved yet. Tell Claude what lunches you make (PB&amp;J, turkey wraps, whatever) and it builds the cards.</div>`;
-    lunchBox.appendChild(lrow); wrap.appendChild(lunchBox);
-    const addL = lrow.querySelector('#btnAddLunch'); if (addL) addL.addEventListener('click', openAddLunch);
     const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: pantry[key] ? pantry[key].section : 'Other' }).name;
     const groups = {};
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && pantry[key]) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
@@ -387,14 +408,15 @@
       }
       wrap.appendChild(box);
     }
-    if (!count) { const e = document.createElement('div'); e.className = 'empty-bucket'; e.textContent = 'Nothing else on the weekly list yet. Add the things you buy every week: milk, eggs, snacks, drinks.'; wrap.appendChild(e); }
+    const staples = Object.values(plan.checklist).filter(q => q > 0).length;
+    if (!staples) { const e = document.createElement('div'); e.className = 'empty-bucket'; e.textContent = 'No staples yet. Add the packs you buy most weeks: snacks, fruit, drinks, coffee.'; wrap.appendChild(e); }
   }
-  function openAddLunch() {
-    const pool = Object.values(meals).filter(m => m.kind === 'lunch' && !(plan.lunches[m.id] > 0));
-    let html = `<h3>Add a lunch</h3><p class="hint">Picks it for one day. Change the days on the list after.</p>`;
-    html += pool.length ? pool.map(m => `<button type="button" class="option" data-lunch="${esc(m.id)}"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">${esc(m.notes || m.items.length + ' items')}</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved lunch is already picked.</div>`;
+  function openAddCard(grp, kind) {
+    const pool = Object.values(meals).filter(m => m.kind === kind && !(plan[grp][m.id] > 0));
+    let html = `<h3>Add a ${kind}</h3><p class="hint">Picks it for one day. Change the days on the list after.</p>`;
+    html += pool.length ? pool.map(m => `<button type="button" class="option" data-card="${esc(m.id)}"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">${esc(m.notes || m.items.length + ' items')}</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved ${kind} is already picked.</div>`;
     openSheet(html);
-    body.querySelectorAll('[data-lunch]').forEach(b => b.addEventListener('click', () => { plan.lunches[b.dataset.lunch] = 1; save(); closeSheet(); }));
+    body.querySelectorAll('[data-card]').forEach(b => b.addEventListener('click', () => { plan[grp][b.dataset.card] = 1; save(); closeSheet(); }));
   }
   function openAddWeekly() {
     const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: pantry[key].section }).name;
@@ -424,7 +446,7 @@
       for (const l of bySec[s]) {
         const p = pantry[l.key], pr = prices[l.key] || {}, f = flagsFor(l.key);
         if (f.coupon) coupons++;
-        const forTxt = l.from.filter(x => x !== 'weekly' && x !== 'extra').join(', ');
+        const forTxt = l.from.filter(x => x !== 'weekly' && x !== 'extra').map(x => x === 'breakfasts' ? 'breakfast' : x === 'lunches' ? 'lunch' : x).join(', ');
         const row = document.createElement('div'); row.className = 'li' + (l.have ? ' have' : '');
         row.innerHTML =
           `<input class="li-check" type="checkbox" ${l.have ? 'checked' : ''} aria-label="have it">` +
@@ -545,21 +567,25 @@
 
   function openMealEditor(dayId) {
     const d = plan.days[dayId]; const m = meals[d.mealId];
-    d.dropped = d.dropped || []; d.qty = d.qty || {};
-    let html = `<h3>${esc(m.name)}</h3><p class="hint">This week only. Uncheck what you already have. The saved card doesn't change.</p>`;
+    d.dropped = d.dropped || []; d.qty = d.qty || {}; d.added = d.added || [];
+    const rows = [...m.items, ...d.added];
+    let html = `<h3>${esc(m.name)}</h3><p class="hint">Uncheck what you already have, change amounts, add things. Changes are for this week until you tap Save to card.</p>`;
     if (m.notes) html += `<div class="notes">${esc(m.notes)}</div>`;
-    html += `<div class="group">` + m.items.map(it => {
-      const p = pantry[it.key]; const dropped = d.dropped.includes(it.key); const q = d.qty[it.key] != null ? d.qty[it.key] : it.qty;
+    html += `<div class="group">` + rows.map(it => {
+      const p = pantry[it.key]; if (!p) return '';
+      const dropped = d.dropped.includes(it.key); const q = d.qty[it.key] != null ? d.qty[it.key] : it.qty;
       return `<div class="ing${dropped ? ' dropped' : ''}" data-key="${esc(it.key)}" data-base="${it.qty}"><input class="ing-check" type="checkbox" ${dropped ? '' : 'checked'} aria-label="need it">` +
-        `<div><div class="ing-name">${esc(p.name)}</div><div class="ing-sub">${esc(p.size)} · ${money(price(it.key))} each</div></div>` +
+        `<div><div class="ing-name">${esc(p.name)}</div><div class="ing-sub">${esc(p.size)} · ${money(price(it.key))} each${p.why ? ' · ' + esc(p.why) : ''}</div></div>` +
         `<div class="stepper small"><button type="button" aria-label="less" ${dropped ? 'disabled' : ''}>−</button><span class="n">${packText(q, it.key)}</span><button type="button" aria-label="more" ${dropped ? 'disabled' : ''}>+</button></div></div>`;
     }).join('') + `</div>`;
-    html += `<div class="row-actions"><button type="button" class="btn" id="doneEdit">Done</button><button type="button" class="btn ghost" id="backEdit">Back to dinners</button><button type="button" class="btn ghost" id="resetEdit">Reset to saved card</button></div>`;
+    html += `<div class="row-actions"><button type="button" class="btn ghost" id="addIng">Add an ingredient</button></div>`;
+    html += `<div class="row-actions"><button type="button" class="btn" id="doneEdit">Done</button><button type="button" class="btn ghost" id="saveCard">Save to card</button><button type="button" class="btn ghost" id="backEdit">Back to dinners</button><button type="button" class="btn ghost" id="resetEdit">Reset to saved card</button></div>`;
+    html += `<p class="hint">Save to card makes these ingredients the permanent recipe, for every week, on every phone. Unchecked items are removed from it.</p>`;
     openSheet(html);
     body.querySelectorAll('.ing').forEach(row => {
       const key = row.dataset.key, base = Number(row.dataset.base);
       const [minus, plus] = row.querySelectorAll('.stepper button');
-      const step = base >= 1 ? 1 : base;   // whole packs step by 1, fractional cards step by their own size
+      const step = base >= 1 ? 1 : base;
       row.querySelector('.ing-check').addEventListener('change', e => {
         d.dropped = e.target.checked ? d.dropped.filter(k => k !== key) : [...new Set([...d.dropped, key])];
         row.classList.toggle('dropped', !e.target.checked); minus.disabled = plus.disabled = !e.target.checked; save();
@@ -568,9 +594,33 @@
       minus.addEventListener('click', () => { d.qty[key] = Math.max(step, Math.round((cur() - step) * 4) / 4); row.querySelector('.n').textContent = packText(d.qty[key], key); save(); });
       plus.addEventListener('click', () => { d.qty[key] = Math.round((cur() + step) * 4) / 4; row.querySelector('.n').textContent = packText(d.qty[key], key); save(); });
     });
+    body.querySelector('#addIng').addEventListener('click', () => openAddIngredient(dayId));
     body.querySelector('#doneEdit').addEventListener('click', closeSheet);
     body.querySelector('#backEdit').addEventListener('click', () => openDay(dayId));
-    body.querySelector('#resetEdit').addEventListener('click', () => { d.dropped = []; d.qty = {}; save(); openMealEditor(dayId); });
+    body.querySelector('#resetEdit').addEventListener('click', () => { d.dropped = []; d.qty = {}; d.added = []; save(); openMealEditor(dayId); });
+    body.querySelector('#saveCard').addEventListener('click', async () => {
+      const items = dayItems(d).map(it => ({ key: it.key, qty: it.qty }));
+      if (!items.length) { toast('A card needs at least one ingredient'); return; }
+      const card = { ...m, items };
+      d.dropped = []; d.qty = {}; d.added = [];   // the week now matches the card
+      const ok = await saveMealCard(card); save(); openMealEditor(dayId);
+      toast(ok ? 'Card saved' : 'Card saved here; will sync when online');
+    });
+  }
+  function openAddIngredient(dayId) {
+    const d = plan.days[dayId]; const m = meals[d.mealId];
+    const inCard = new Set([...m.items, ...(d.added || [])].map(it => it.key));
+    const bySec = {};
+    for (const key of Object.keys(pantry)) if (!inCard.has(key)) (bySec[pantry[key].section] = bySec[pantry[key].section] || []).push(key);
+    let html = `<h3>Add to ${esc(m.name)}</h3><p class="hint">Tap one. It goes in at one pack; adjust after.</p>`;
+    for (const sec of [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))]) {
+      html += `<div class="bucket-title">${esc(sec)}</div>` + bySec[sec].map(key => `<button type="button" class="option" data-ing="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
+    }
+    html += `<p class="hint">Not in the pantry yet? Tell Claude the product and it gets pinned to the real H-E-B item with a price.</p>`;
+    openSheet(html);
+    body.querySelectorAll('[data-ing]').forEach(b => b.addEventListener('click', () => {
+      d.added = [...(d.added || []), { key: b.dataset.ing, qty: 1 }]; d.dropped = (d.dropped || []).filter(k => k !== b.dataset.ing); save(); openMealEditor(dayId);
+    }));
   }
 
   function openDeal(key) {
@@ -725,4 +775,5 @@
 
   render();
   pull(true);
+  loadRemoteMeals();
 })();

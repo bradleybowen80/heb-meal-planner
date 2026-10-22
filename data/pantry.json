@@ -106,6 +106,33 @@
       ]
     },
     {
+      "key": "pico",
+      "section": "Produce",
+      "products": [
+        {
+          "hebId": "2159976",
+          "name": "H-E-B Pico de Gallo - Mild",
+          "size": "14 oz"
+        }
+      ]
+    },
+    {
+      "key": "mexican-blend",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "543845",
+          "name": "H-E-B Mexican Style Shredded Cheese Blend",
+          "size": "8 oz"
+        },
+        {
+          "hebId": "947310",
+          "name": "H-E-B Mexican Style Shredded Cheese Blend",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
       "key": "spaghetti",
       "section": "Pantry",
       "products": [

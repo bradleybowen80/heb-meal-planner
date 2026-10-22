@@ -1,16 +1,6 @@
 {
   "groups": [
     {
-      "id": "breakfast",
-      "name": "Breakfast",
-      "items": [
-        "eggs",
-        "cereal",
-        "whole-milk",
-        "bananas"
-      ]
-    },
-    {
       "id": "snacks",
       "name": "Kid snacks",
       "items": [
@@ -45,10 +35,6 @@
     }
   ],
   "defaults": {
-    "eggs": 0,
-    "cereal": 0,
-    "whole-milk": 0,
-    "bananas": 0,
     "goldfish": 0,
     "tortilla-chips": 0,
     "apples": 0,
