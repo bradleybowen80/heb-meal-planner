@@ -62,19 +62,38 @@
   })();
   const remoteUrl = path => `${DB}/families/${family}/${path}.json`;
 
+  const MEALQ_KEY = 'hmp.mealq.v1';   // card saves that haven't reached the database yet
+  const readJson = (k, d) => { try { return JSON.parse(localStorage.getItem(k) || 'null') || d; } catch (e) { return d; } };
+  const writeJson = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignore */ } };
+  let mealsSeen = 0;
   async function loadRemoteMeals() {
     try {
       const r = await fetch(remoteUrl('meals'), { cache: 'no-store' }); if (!r.ok) return;
-      const custom = (await r.json()) || {}; overlayMeals(custom);
-      try { localStorage.setItem(MEALS_KEY, JSON.stringify(custom)); } catch (e) { /* ignore */ }
+      const custom = (await r.json()) || {};
+      const queued = readJson(MEALQ_KEY, {});
+      for (const [id, card] of Object.entries(queued)) custom[id] = card;   // an unsent local save beats the database copy
+      overlayMeals(custom); writeJson(MEALS_KEY, custom); mealsSeen = plan.mealsVersion || 0;
       render();
     } catch (e) { /* offline: local cache stands */ }
   }
   async function saveMealCard(card) {
     meals[card.id] = card;
-    let custom = {}; try { custom = JSON.parse(localStorage.getItem(MEALS_KEY) || '{}') || {}; } catch (e) { /* ignore */ }
-    custom[card.id] = card; try { localStorage.setItem(MEALS_KEY, JSON.stringify(custom)); } catch (e) { /* ignore */ }
-    try { const r = await fetch(remoteUrl('meals/' + card.id), { method: 'PUT', body: JSON.stringify(card) }); return r.ok; } catch (e) { return false; }
+    const custom = readJson(MEALS_KEY, {}); custom[card.id] = card; writeJson(MEALS_KEY, custom);
+    const q = readJson(MEALQ_KEY, {}); q[card.id] = card; writeJson(MEALQ_KEY, q);
+    plan.mealsVersion = Math.max(Date.now(), (plan.mealsVersion || 0) + 1); mealsSeen = plan.mealsVersion;   // tells the other phone to refetch cards
+    return flushMealQueue();
+  }
+  let flushingMeals = false;
+  async function flushMealQueue() {
+    if (flushingMeals) return false; flushingMeals = true; let allOk = true;
+    try {
+      const q = readJson(MEALQ_KEY, {});
+      for (const [id, card] of Object.entries(q)) {
+        const r = await fetch(remoteUrl('meals/' + id), { method: 'PUT', body: JSON.stringify(card) });
+        if (r.ok) { delete q[id]; writeJson(MEALQ_KEY, q); } else allOk = false;
+      }
+    } catch (e) { allOk = false; }
+    flushingMeals = false; return allOk;
   }
 
   let plan = loadPlan();
@@ -114,7 +133,7 @@
     const ha = new Set(a.have || []), hb = new Set(b.have || []);
     for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
     for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
-    for (const k of ['spent', 'budget', 'potluckTheme', 'weekOf']) if (!same(a[k], b[k])) out.push([k]);
+    for (const k of ['spent', 'budget', 'potluckTheme', 'weekOf', 'mealsVersion']) if (!same(a[k], b[k])) out.push([k]);
     return out;
   }
   function applyPaths(from, to, paths) {
@@ -133,12 +152,11 @@
   function markSynced(copy) { lastSynced = copy; try { localStorage.setItem(SYNC_KEY, JSON.stringify({ family, etag, plan: copy })); } catch (e) { /* ignore */ } }
   // Fold the database's copy under this phone's own unsent changes. The base for the next diff is theirs, not the result.
   function mergeIn(theirs) {
-    const mine = lastSynced ? changedPaths(lastSynced, plan) : [];
+    if (theirs.weekOf && plan.weekOf && theirs.weekOf > plan.weekOf) { adopt(theirs); render(); toast('New week started on the other phone'); return true; }
+    // 3. No merge base (never synced, or storage was cleared): if the database is newer take it; otherwise keep only the fields that differ.
+    const mine = lastSynced ? changedPaths(lastSynced, plan) : changedPaths(theirs, plan);
     const merged = normalize(JSON.parse(JSON.stringify(theirs)));
-    if (!lastSynced) {
-      if (!plan.syncedOnce) { adopt(theirs); render(); return true; }          // this phone never synced: the database wins
-      if ((plan.updatedAt || 0) > (theirs.updatedAt || 0)) return false;      // nothing to compare against: keep ours
-    }
+    if (!lastSynced && (!plan.syncedOnce || (theirs.updatedAt || 0) >= (plan.updatedAt || 0))) { adopt(theirs); render(); return true; }
     applyPaths(plan, merged, mine);
     merged.updatedAt = Math.max(Date.now(), (theirs.updatedAt || 0) + 1, (plan.updatedAt || 0) + 1);
     for (const k of Object.keys(plan)) delete plan[k]; Object.assign(plan, merged);
@@ -204,7 +222,7 @@
     if (document.visibilityState !== 'visible') return;
     if (dirty) { if (!pushTimer && !inFlight) push(); }   // a failed save retrying, never a mid-typing debounce
     else pull(false);
-    flushWeekQueue();
+    flushWeekQueue(); if (Object.keys(readJson(MEALQ_KEY, {})).length) flushMealQueue();
   }, 4000);
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pull(false); });
   window.addEventListener('online', () => { if (dirty) push(); else pull(false); flushWeekQueue(); });
@@ -310,7 +328,10 @@
   }
 
   // ---------- render ----------
-  function render() { renderHeader(); renderWeek(); renderChecklist(); renderList(); renderDeals(); }
+  function render() {
+    if ((plan.mealsVersion || 0) > mealsSeen) { mealsSeen = plan.mealsVersion; loadRemoteMeals(); }
+    renderHeader(); renderWeek(); renderChecklist(); renderList(); renderDeals();
+  }
 
   function renderHeader() {
     const t = totals();
