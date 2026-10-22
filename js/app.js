@@ -19,7 +19,7 @@
 
   // ---------- data ----------
   const [pantryDoc, mealsDoc, pricesDoc, checklistDoc, planSeed] = await Promise.all(
-    ['pantry', 'meals', 'prices', 'checklist', 'plan'].map(n => fetch(`data/${n}.json`).then(r => r.json()))
+    ['pantry', 'meals', 'prices', 'checklist', 'plan'].map(n => fetch(`data/${n}.json`, { cache: "no-cache" }).then(r => r.json()))
   );
   const pantry = Object.fromEntries(pantryDoc.items.map(i => [i.key, i]));
   const prices = pricesDoc.prices;
