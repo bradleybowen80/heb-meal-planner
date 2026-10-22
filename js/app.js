@@ -70,6 +70,26 @@
   // The database holds one copy of the plan per family. Every change here is pushed within
   // half a second; every few seconds we check for changes from the other phone. Newest wins.
   let pushTimer = null, dirty = false, inFlight = false, etag = null, syncState = 'idle', booted = false;
+  let lastSynced = null;   // the plan as the database last had it, for working out what this phone changed
+  const snapshot = () => JSON.parse(JSON.stringify(plan));
+  // Which parts of the plan differ between two copies. Granular where two phones plausibly touch different things.
+  function changedPaths(a, b) {
+    const out = []; a = a || {}; b = b || {};
+    const same = (x, y) => JSON.stringify(x === undefined ? null : x) === JSON.stringify(y === undefined ? null : y);
+    for (const id of DAYS.map(d => d.id)) if (!same((a.days || {})[id], (b.days || {})[id])) out.push(['days', id]);
+    for (const k of new Set([...Object.keys(a.checklist || {}), ...Object.keys(b.checklist || {})])) if (!same((a.checklist || {})[k], (b.checklist || {})[k])) out.push(['checklist', k]);
+    for (const k of new Set([...Object.keys(a.packs || {}), ...Object.keys(b.packs || {})])) if (!same((a.packs || {})[k], (b.packs || {})[k])) out.push(['packs', k]);
+    for (const k of new Set([...Object.keys(a.extras || {}), ...Object.keys(b.extras || {})])) if (!same((a.extras || {})[k], (b.extras || {})[k])) out.push(['extras', k]);
+    for (const k of ['have', 'spent', 'budget', 'potluckTheme', 'weekOf']) if (!same(a[k], b[k])) out.push([k]);
+    return out;
+  }
+  function applyPaths(from, to, paths) {
+    for (const p of paths) {
+      if (p.length === 1) { to[p[0]] = JSON.parse(JSON.stringify(from[p[0]] === undefined ? null : from[p[0]])); continue; }
+      to[p[0]] = to[p[0]] || {}; const v = (from[p[0]] || {})[p[1]];
+      if (v === undefined || v === null) delete to[p[0]][p[1]]; else to[p[0]][p[1]] = JSON.parse(JSON.stringify(v));
+    }
+  }
   function setSync(state) { syncState = state; const el = $('syncDot'); if (!el) return; el.className = 'sync ' + state; el.title = { ok: 'Synced', saving: 'Saving', offline: 'Offline, will retry', idle: '' }[state] || ''; }
   function queuePush() { dirty = true; clearTimeout(pushTimer); pushTimer = setTimeout(() => { pushTimer = null; push(); }, 400); }
   async function push() {
@@ -80,13 +100,18 @@
       const headers = { 'X-Firebase-ETag': 'true' }; if (etag) headers['If-Match'] = etag;
       const r = await fetch(remoteUrl('plan'), { method: 'PUT', body: bodyText, headers });
       if (r.status === 412) {
-        // Someone else wrote first. Take theirs if it's newer, then send ours again on top.
+        // Someone else wrote first. Start from theirs, lay this phone's own changes back on top, send again.
         etag = r.headers.get('ETag');
         const theirs = await r.json().catch(() => null);
-        if (theirs && (theirs.updatedAt || 0) > sentAt) { adopt(theirs); render(); toast('Updated from the other phone'); }
-        else dirty = true;
+        if (theirs) {
+          const mine = changedPaths(lastSynced, plan);
+          const merged = normalize(theirs); applyPaths(plan, merged, mine);
+          merged.updatedAt = Math.max(Date.now(), (theirs.updatedAt || 0) + 1, (plan.updatedAt || 0) + 1);
+          adopt(merged); render(); if (mine.length) toast('Merged with the other phone');
+        }
+        dirty = true;
       } else if (!r.ok) { throw new Error(r.status); }
-      else { etag = r.headers.get('ETag'); }
+      else { etag = r.headers.get('ETag'); lastSynced = JSON.parse(bodyText); }
       if (plan.updatedAt !== sentAt) dirty = true;   // edited again while the save was in flight
       setSync(dirty ? 'saving' : 'ok');
     } catch (e) { dirty = true; setSync('offline'); }
@@ -94,7 +119,7 @@
     if (dirty && !pushTimer) queuePush();
   }
   // Swap the plan's contents without changing the object, so open drawers keep working.
-  function adopt(remote) { for (const k of Object.keys(plan)) delete plan[k]; Object.assign(plan, normalize(remote)); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* ignore */ } }
+  function adopt(remote) { for (const k of Object.keys(plan)) delete plan[k]; Object.assign(plan, normalize(remote)); lastSynced = snapshot(); try { localStorage.setItem(STORE_KEY, JSON.stringify(plan)); } catch (e) { /* ignore */ } }
   async function pull(first) {
     if (!first && (dirty || inFlight)) return;   // never read over the top of an unsent edit (boot is the exception)
     try {
@@ -108,7 +133,7 @@
         adopt(remote); plan.syncedOnce = true; dirty = false; clearTimeout(pushTimer); pushTimer = null; render(); if (!first) toast('Updated from the other phone');
       } else if (!remote || (plan.updatedAt || 0) > (remote.updatedAt || 0)) {
         dirty = true; push();   // this phone is newer (or the database is empty): send ours up
-      }
+      } else { lastSynced = snapshot(); }
       if (!dirty) setSync('ok');
     } catch (e) { setSync('offline'); }
     booted = true;
