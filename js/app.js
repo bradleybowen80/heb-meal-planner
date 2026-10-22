@@ -324,30 +324,48 @@
   function renderChecklist() {
     const t = totals();
     const count = Object.values(plan.checklist).filter(q => q > 0).length;
-    $('weeklySummary').textContent = `${count} item${count === 1 ? '' : 's'} · ${money(t.weekly)}`;
+    $('weeklySummary').textContent = count ? `${count} item${count === 1 ? '' : 's'} · ${money(t.weekly)}` : 'nothing yet';
     $('weeklyToggle').setAttribute('aria-expanded', ui.weeklyOpen);
     $('weeklyChevron').textContent = ui.weeklyOpen ? '▾' : '▸';
     $('weeklyBody').classList.toggle('hidden', !ui.weeklyOpen);
     const wrap = $('checklist'); wrap.innerHTML = '';
-    for (const g of checklistDoc.groups) {
+    const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: pantry[key] ? pantry[key].section : 'Other' }).name;
+    const groups = {};
+    for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && pantry[key]) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
+    const order = [...checklistDoc.groups.map(g => g.name), ...Object.keys(groups).filter(n => !checklistDoc.groups.some(g => g.name === n))];
+    for (const name of order) {
+      if (!groups[name]) continue;
       const box = document.createElement('div'); box.className = 'group';
-      box.innerHTML = `<div class="group-name">${esc(g.name)}</div>`;
-      for (const key of g.items) {
-        const p = pantry[key]; if (!p) continue;
-        const qty = plan.checklist[key] || 0;
-        const row = document.createElement('div'); row.className = 'crow' + (qty ? '' : ' zero');
+      box.innerHTML = `<div class="group-name">${esc(name)}</div>`;
+      for (const key of groups[name]) {
+        const p = pantry[key], qty = plan.checklist[key];
+        const row = document.createElement('div'); row.className = 'crow';
         row.innerHTML = `<div><div class="crow-name">${esc(p.name)}</div><div class="crow-sub">${esc(p.size)}</div></div>` +
           `<div class="crow-price">${money(price(key) * qty)}</div>` +
           `<div class="stepper"><button type="button" aria-label="less">−</button><span class="n">${qty}</span><button type="button" aria-label="more">+</button></div>`;
         const [minus, plus] = row.querySelectorAll('button');
-        minus.addEventListener('click', () => { plan.checklist[key] = Math.max(0, qty - 1); save(); });
+        minus.addEventListener('click', () => { plan.checklist[key] = Math.max(0, qty - 1); save(); });   // at 0 the row goes away
         plus.addEventListener('click', () => { plan.checklist[key] = qty + 1; save(); });
         box.appendChild(row);
       }
       wrap.appendChild(box);
     }
+    if (!count) wrap.innerHTML = '<div class="empty-bucket">Nothing on the weekly list yet. Add the things you buy every week: milk, eggs, bread, snacks, drinks.</div>';
   }
-
+  function openAddWeekly() {
+    const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: pantry[key].section }).name;
+    const bySec = {};
+    for (const key of Object.keys(pantry)) if (!(plan.checklist[key] > 0)) (bySec[groupOf(key)] = bySec[groupOf(key)] || []).push(key);
+    let html = `<h3>Add to every week</h3><p class="hint">Tap to add one pack a week. Change the number on the list after.</p>`;
+    const order = [...checklistDoc.groups.map(g => g.name), ...Object.keys(bySec).filter(n => !checklistDoc.groups.some(g => g.name === n))];
+    for (const name of order) {
+      if (!bySec[name]) continue;
+      html += `<div class="bucket-title">${esc(name)}</div>` + bySec[name].map(key => `<button type="button" class="option" data-add="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
+    }
+    html += `<p class="hint">Don't see what you buy? Tell Claude the product and it gets pinned to the real H-E-B item.</p>`;
+    openSheet(html);
+    body.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => { plan.checklist[b.dataset.add] = 1; save(); closeSheet(); toast('Added'); }));
+  }
   function renderList() {
     const t = totals();
     const wrap = $('list'); wrap.innerHTML = '';
@@ -550,6 +568,7 @@
 
   // Weekly section toggle
   $('weeklyToggle').addEventListener('click', () => { ui.weeklyOpen = !ui.weeklyOpen; saveUi(); renderChecklist(); });
+  $('btnAddWeekly').addEventListener('click', openAddWeekly);
 
   // Budget target
   $('btnBudget').addEventListener('click', () => {

@@ -1,18 +1,74 @@
 {
   "groups": [
-    { "id": "breakfast", "name": "Breakfast", "items": ["eggs", "cereal", "whole-milk", "bananas"] },
-    { "id": "lunches", "name": "Lunches", "items": ["white-bread", "peanut-butter", "string-cheese"] },
-    { "id": "snacks", "name": "Kid snacks", "items": ["goldfish", "tortilla-chips"] },
-    { "id": "fruit", "name": "Fruit", "items": ["gala-apples"] },
-    { "id": "drinks", "name": "Drinks", "items": ["energy-drinks", "protein-shakes", "heb-cola", "coffee"] },
-    { "id": "staples", "name": "Staples", "items": ["butter", "olive-oil"] }
+    {
+      "id": "breakfast",
+      "name": "Breakfast",
+      "items": [
+        "eggs",
+        "cereal",
+        "whole-milk",
+        "bananas"
+      ]
+    },
+    {
+      "id": "lunches",
+      "name": "Lunches",
+      "items": [
+        "white-bread",
+        "peanut-butter",
+        "string-cheese"
+      ]
+    },
+    {
+      "id": "snacks",
+      "name": "Kid snacks",
+      "items": [
+        "goldfish",
+        "tortilla-chips"
+      ]
+    },
+    {
+      "id": "fruit",
+      "name": "Fruit",
+      "items": [
+        "gala-apples"
+      ]
+    },
+    {
+      "id": "drinks",
+      "name": "Drinks",
+      "items": [
+        "energy-drinks",
+        "protein-shakes",
+        "heb-cola",
+        "coffee"
+      ]
+    },
+    {
+      "id": "staples",
+      "name": "Staples",
+      "items": [
+        "butter",
+        "olive-oil"
+      ]
+    }
   ],
   "defaults": {
-    "eggs": 1, "cereal": 1, "whole-milk": 2, "bananas": 1,
-    "white-bread": 1, "peanut-butter": 0, "string-cheese": 1,
-    "goldfish": 1, "tortilla-chips": 0,
-    "gala-apples": 1,
-    "energy-drinks": 1, "protein-shakes": 1, "heb-cola": 1, "coffee": 0,
-    "butter": 0, "olive-oil": 0
+    "eggs": 0,
+    "cereal": 0,
+    "whole-milk": 0,
+    "bananas": 0,
+    "white-bread": 0,
+    "peanut-butter": 0,
+    "string-cheese": 0,
+    "goldfish": 0,
+    "tortilla-chips": 0,
+    "gala-apples": 0,
+    "energy-drinks": 0,
+    "protein-shakes": 0,
+    "heb-cola": 0,
+    "coffee": 0,
+    "butter": 0,
+    "olive-oil": 0
   }
 }
