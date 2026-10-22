@@ -387,7 +387,7 @@
       box.appendChild(arow); wrap.appendChild(box);
       const addBtn = arow.querySelector('[data-addcard]'); if (addBtn) addBtn.addEventListener('click', () => openAddCard(grp, kind));
     }
-    const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: pantry[key] ? pantry[key].section : 'Other' }).name;
+    const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other staples' }).name;
     const groups = {};
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && pantry[key]) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
     const order = [...checklistDoc.groups.map(g => g.name), ...Object.keys(groups).filter(n => !checklistDoc.groups.some(g => g.name === n))];
@@ -420,7 +420,7 @@
     body.querySelectorAll('[data-card]').forEach(b => b.addEventListener('click', () => { plan[grp][b.dataset.card] = 1; save(); closeSheet(); }));
   }
   function openAddWeekly() {
-    const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: pantry[key].section }).name;
+    const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other' }).name;
     const bySec = {};
     for (const key of Object.keys(pantry)) if (!(plan.checklist[key] > 0)) (bySec[groupOf(key)] = bySec[groupOf(key)] || []).push(key);
     let html = `<h3>Add to every week</h3><p class="hint">Tap to add one pack a week. Change the number on the list after.</p>`;
@@ -760,6 +760,17 @@
       .map(l => `${l.packs > 1 ? l.packs + 'x ' : ''}${pantry[l.key].name} - ${(prices[l.key] || {}).aisle || pantry[l.key].section}${flagsFor(l.key).coupon ? ' (coupon)' : ''}`)
       .join('\n');
   }
+  $('btnAddExtra').addEventListener('click', () => {
+    const bySec = {};
+    for (const key of Object.keys(pantry)) (bySec[pantry[key].section] = bySec[pantry[key].section] || []).push(key);
+    let html = `<h3>Add to this week's list</h3><p class="hint">One-off, just this trip. Tap to add a pack.</p>`;
+    for (const sec of [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))]) {
+      html += `<div class="bucket-title">${esc(sec)}</div>` + bySec[sec].map(key => `<button type="button" class="option" data-extra="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}${pillHtml(flagsFor(key))}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
+    }
+    html += `<p class="hint">Not in the pantry yet? Tell Claude the product and it gets pinned to the real H-E-B item.</p>`;
+    openSheet(html);
+    body.querySelectorAll('[data-extra]').forEach(b => b.addEventListener('click', () => { const k = b.dataset.extra; plan.extras[k] = (plan.extras[k] || 0) + 1; plan.have = plan.have.filter(x => x !== k); save(); closeSheet(); toast('Added'); }));
+  });
   $('btnNotes').addEventListener('click', () => copy(notesText(), 'Copied. Paste into Notes.'));
   $('btnReminders').addEventListener('click', () => copy(remindersText(), 'Copied. Paste into a Reminders list.'));
 
