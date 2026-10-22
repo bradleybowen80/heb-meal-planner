@@ -133,10 +133,12 @@
     const n = (whole ? whole : '') + fracTxt;
     return `${n || '0'} ${qty > 1 ? 'packs' : 'pack'}`;
   }
+  // The next week: the coming Sunday, or the Sunday after the current plan's week, whichever is later.
   function nextSunday() {
     const d = new Date(); d.setHours(12, 0, 0, 0);
     d.setDate(d.getDate() + ((7 - d.getDay()) % 7 || 7));
-    return d.toISOString().slice(0, 10);
+    const after = new Date(plan.weekOf + 'T12:00:00'); after.setDate(after.getDate() + 7);
+    return (after > d ? after : d).toISOString().slice(0, 10);
   }
 
   // Items a day's dinner actually needs this week (after this-week-only edits).
