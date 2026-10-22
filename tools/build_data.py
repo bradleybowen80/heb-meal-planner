@@ -412,11 +412,11 @@ meals = [
         "theme": "meat-and-three",
         "serves": 4,
         "items": [
-            {"key": "kevins-chicken", "qty": 1},
+            {"key": "kevins-chicken", "qty": 2},
             {"key": "broccoli-florets", "qty": 1},
             {"key": "jasmine-rice", "qty": 0.25},
         ],
-        "notes": "Chicken heats in a pan in 5 minutes. Broccoli steams in its bag. Rice in the cooker.",
+        "notes": "Two 16 oz trays feeds four (one tray is about 2 servings). Chicken heats in a pan in 5 minutes. Broccoli steams in its bag. Rice in the cooker.",
     },
     {
         "id": "slate-shake",
