@@ -41,7 +41,7 @@ RAW = [
     ("butter",           "126467",   "H-E-B Sweet Cream Salted Butter Sticks", "4 ct", "Dairy", "In Dairy on the Right Wall", 3.98, 3.58, "pricecut", None),
     ("heb-cola",         "126644",   "H-E-B Original Cola 12 pk Cans", "12 oz cans", "Beverages", "Aisle 27", 5.00, 5.00, "coupon", "2 for $8 when you buy 2 (exp 2026-11-03)"),
     ("coffee",           "7421540",  "CAFE Olé by H-E-B Taste of DFW Medium Roast Ground Coffee", "12 oz", "Beverages", "Aisle 25", 8.98, 8.98, "coupon", "Buy 2, get free H-E-B Twisters cookies (exp 2026-11-03)"),
-    ("protein-shakes",   "1883112",  "Premier Protein 30g Protein Shakes 4 pk Bottles - Chocolate", "11 oz bottles", "Health", "Aisle 40", 9.58, 9.58, "", None),
+    ("protein-shakes",   "3766635",  "Slate High Protein Milk Shake - Classic Chocolate (20g)", "11 oz can", "Pantry", "Aisle 5", 3.28, 3.28, "", None),   # Brad: Slate 20g chocolate, sold single
     ("energy-drinks",    "1445080",  "Monster Energy Zero Sugar Energy Drink 4 pk Cans", "16 oz cans", "Beverages", "Aisle 27", 9.48, 9.48, "", None),
     ("goldfish",         "5808502",  "Goldfish Baked Cheddar Crackers - Family Size", "10 oz", "Snacks", "Aisle 11", 3.52, 3.52, "", None),
     ("string-cheese",    "1894949",  "H-E-B Low Moisture Part-Skim Mozzarella String Cheese, 12 ct", "10 oz", "Dairy", "In Meat Market on the Back Wall", 3.89, 3.89, "", None),

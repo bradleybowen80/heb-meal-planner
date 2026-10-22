@@ -299,12 +299,12 @@
     },
     {
       "key": "protein-shakes",
-      "section": "Health",
+      "section": "Pantry",
       "products": [
         {
-          "hebId": "1883112",
-          "name": "Premier Protein 30g Protein Shakes 4 pk Bottles - Chocolate",
-          "size": "11 oz bottles"
+          "hebId": "3766635",
+          "name": "Slate High Protein Milk Shake - Classic Chocolate (20g)",
+          "size": "11 oz can"
         }
       ]
     },
