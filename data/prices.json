@@ -6,8 +6,7 @@
   },
   "pulled": "2026-10-21",
   "prices": {
-    "ground-beef": {
-      "hebId": "1661154",
+    "1661154": {
       "price": 7.49,
       "listPrice": 7.49,
       "onSale": false,
@@ -18,8 +17,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "taco-seasoning": {
-      "hebId": "706450",
+    "706450": {
       "price": 0.68,
       "listPrice": 0.68,
       "onSale": false,
@@ -30,8 +28,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "flour-tortillas": {
-      "hebId": "465325",
+    "465325": {
       "price": 3.96,
       "listPrice": 4.88,
       "onSale": false,
@@ -42,8 +39,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "shredded-cheddar": {
-      "hebId": "127182",
+    "127182": {
       "price": 2.98,
       "listPrice": 2.98,
       "onSale": false,
@@ -54,8 +50,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "sour-cream": {
-      "hebId": "314026",
+    "314026": {
       "price": 2.4,
       "listPrice": 2.4,
       "onSale": false,
@@ -66,8 +61,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "iceberg-lettuce": {
-      "hebId": "319375",
+    "319375": {
       "price": 2.29,
       "listPrice": 2.29,
       "onSale": false,
@@ -78,8 +72,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "roma-tomatoes": {
-      "hebId": "318578",
+    "318578": {
       "price": 0.22,
       "listPrice": 0.22,
       "onSale": false,
@@ -90,8 +83,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "salsa": {
-      "hebId": "3463050",
+    "3463050": {
       "price": 4.26,
       "listPrice": 4.26,
       "onSale": false,
@@ -102,8 +94,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "spaghetti": {
-      "hebId": "1567287",
+    "1567287": {
       "price": 1.12,
       "listPrice": 1.12,
       "onSale": false,
@@ -114,8 +105,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "marinara": {
-      "hebId": "1535352",
+    "1535352": {
       "price": 2.2,
       "listPrice": 2.58,
       "onSale": false,
@@ -126,8 +116,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "parmesan": {
-      "hebId": "3656524",
+    "3656524": {
       "price": 3.49,
       "listPrice": 3.49,
       "onSale": false,
@@ -138,8 +127,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "garlic-bread": {
-      "hebId": "509022",
+    "509022": {
       "price": 2.38,
       "listPrice": 2.38,
       "onSale": false,
@@ -150,8 +138,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "yellow-onions": {
-      "hebId": "449732",
+    "449732": {
       "price": 2.82,
       "listPrice": 2.82,
       "onSale": false,
@@ -162,8 +149,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "kevins-chicken": {
-      "hebId": "3272540",
+    "3272540": {
       "price": 9.78,
       "listPrice": 9.78,
       "onSale": false,
@@ -174,8 +160,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "broccoli-florets": {
-      "hebId": "1742409",
+    "1742409": {
       "price": 2.68,
       "listPrice": 2.68,
       "onSale": false,
@@ -186,8 +171,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "jasmine-rice": {
-      "hebId": "2057455",
+    "2057455": {
       "price": 3.57,
       "listPrice": 3.57,
       "onSale": false,
@@ -198,8 +182,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "chicken-breast": {
-      "hebId": "5244502",
+    "5244502": {
       "price": 14.65,
       "listPrice": 22.98,
       "onSale": true,
@@ -210,8 +193,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "eggs": {
-      "hebId": "2177042",
+    "2177042": {
       "price": 4.29,
       "listPrice": 4.29,
       "onSale": false,
@@ -222,8 +204,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "whole-milk": {
-      "hebId": "314130",
+    "314130": {
       "price": 2.82,
       "listPrice": 2.82,
       "onSale": false,
@@ -234,8 +215,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "white-bread": {
-      "hebId": "395830",
+    "395830": {
       "price": 2.48,
       "listPrice": 2.48,
       "onSale": false,
@@ -246,8 +226,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "bananas": {
-      "hebId": "377497",
+    "377497": {
       "price": 1.18,
       "listPrice": 1.18,
       "onSale": false,
@@ -258,10 +237,9 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "gala-apples": {
-      "hebId": "10540517",
-      "price": 2.18,
-      "listPrice": 2.18,
+    "12118021": {
+      "price": 7.99,
+      "listPrice": 7.99,
       "onSale": false,
       "priceCut": false,
       "coupon": null,
@@ -270,8 +248,18 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "butter": {
-      "hebId": "126467",
+    "15810062": {
+      "price": 3.28,
+      "listPrice": 7.57,
+      "onSale": false,
+      "priceCut": true,
+      "coupon": null,
+      "couponType": null,
+      "aisle": "In Produce",
+      "available": true,
+      "pulled": "2026-10-21"
+    },
+    "126467": {
       "price": 3.58,
       "listPrice": 3.98,
       "onSale": false,
@@ -282,8 +270,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "heb-cola": {
-      "hebId": "126644",
+    "126644": {
       "price": 5.0,
       "listPrice": 5.0,
       "onSale": false,
@@ -294,8 +281,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "coffee": {
-      "hebId": "7421540",
+    "7421540": {
       "price": 8.98,
       "listPrice": 8.98,
       "onSale": false,
@@ -306,8 +292,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "protein-shakes": {
-      "hebId": "1883112",
+    "1883112": {
       "price": 9.58,
       "listPrice": 9.58,
       "onSale": false,
@@ -318,8 +303,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "energy-drinks": {
-      "hebId": "1445080",
+    "1445080": {
       "price": 9.48,
       "listPrice": 9.48,
       "onSale": false,
@@ -330,8 +314,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "goldfish": {
-      "hebId": "5808502",
+    "5808502": {
       "price": 3.52,
       "listPrice": 3.52,
       "onSale": false,
@@ -342,8 +325,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "string-cheese": {
-      "hebId": "1894949",
+    "1894949": {
       "price": 3.89,
       "listPrice": 3.89,
       "onSale": false,
@@ -354,8 +336,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "peanut-butter": {
-      "hebId": "1581938",
+    "1581938": {
       "price": 2.62,
       "listPrice": 2.62,
       "onSale": false,
@@ -366,8 +347,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "cereal": {
-      "hebId": "2772004",
+    "2772004": {
       "price": 3.48,
       "listPrice": 3.48,
       "onSale": false,
@@ -378,8 +358,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "tortilla-chips": {
-      "hebId": "1387370",
+    "1387370": {
       "price": 3.58,
       "listPrice": 3.98,
       "onSale": false,
@@ -390,8 +369,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "frozen-pizza": {
-      "hebId": "288583",
+    "288583": {
       "price": 4.46,
       "listPrice": 4.46,
       "onSale": false,
@@ -402,8 +380,7 @@
       "available": true,
       "pulled": "2026-10-21"
     },
-    "olive-oil": {
-      "hebId": "127074",
+    "127074": {
       "price": 8.28,
       "listPrice": 8.28,
       "onSale": false,

@@ -38,8 +38,9 @@ window.hebLookup = async function (queries, n = 6, delay = 1500) {
 };
 
 // Re-price by product id. Reads the structured data on each product page.
-// This is the weekly refresh: pass every hebId in data/pantry.json, write the
-// result into data/prices.json with today's pull date.
+// This is the weekly refresh: pass every products[].hebId in data/pantry.json
+// (preferred AND fallback products), write the result into data/prices.json
+// keyed by hebId, with today's pull date. The app picks between candidates itself.
 window.hebPrices = async function (ids, delay = 700) {
   const out = []; let bots = 0; const t0 = performance.now();
   for (const id of ids) {

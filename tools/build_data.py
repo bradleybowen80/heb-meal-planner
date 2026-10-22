@@ -37,7 +37,7 @@ RAW = [
     ("whole-milk",       "314130",   "H-E-B Whole Milk", "1 gal", "Dairy", "In Dairy on the Back Wall", 2.82, 2.82, "coupon", "Buy Huggies diapers, get this free (exp 2026-11-03)"),
     ("white-bread",      "395830",   "H-E-B Round Top Large White Enriched Sliced Bread", "20 oz", "Bakery", "Aisle 6", 2.48, 2.48, "coupon", "2 for $4 when you buy 2 (exp 2026-11-03)"),
     ("bananas",          "377497",   "Fresh Bunch of Bananas, 4-7 Bananas", "Avg. 2.4 lbs", "Produce", "In Produce", 1.18, 1.18, "", None),
-    ("gala-apples",      "10540517", "H-E-B Fresh Gala Apples", "3 lb bag", "Produce", "In Produce", 2.18, 2.18, "", None),
+    ("apples",           "12118021", "Rockit Fresh Miniature Apples", "3 lb", "Produce", "In Produce", 7.99, 7.99, "", None),
     ("butter",           "126467",   "H-E-B Sweet Cream Salted Butter Sticks", "4 ct", "Dairy", "In Dairy on the Right Wall", 3.98, 3.58, "pricecut", None),
     ("heb-cola",         "126644",   "H-E-B Original Cola 12 pk Cans", "12 oz cans", "Beverages", "Aisle 27", 5.00, 5.00, "coupon", "2 for $8 when you buy 2 (exp 2026-11-03)"),
     ("coffee",           "7421540",  "CAFE Olé by H-E-B Taste of DFW Medium Roast Ground Coffee", "12 oz", "Beverages", "Aisle 25", 8.98, 8.98, "coupon", "Buy 2, get free H-E-B Twisters cookies (exp 2026-11-03)"),
@@ -52,24 +52,24 @@ RAW = [
     ("olive-oil",        "127074",   "H-E-B Extra Virgin Olive Oil", "17 oz", "Pantry", "Aisle 10", 8.28, 8.28, "", None),
 ]
 
+# Fallback products, in order of preference after the main one in RAW. The app picks, each week:
+# the first in-stock product that is on sale or price-cut; otherwise the first in-stock product.
+# Brad: "we like Rockit apples; when those are out of stock or Honeycrisp are on sale, Honeycrisp."
+ALTERNATES = {
+    "apples": [
+        ("15810062", "H-E-B Fresh Honeycrisp Apples", "3 lb bag", "In Produce", 7.57, 3.28, "pricecut", None),
+    ],
+}
+
 # Store-walk order for Main St, used by the Reminders export. Entrance is
 # Produce, then around the perimeter, then numbered aisles. Adjust once Brad
 # confirms his usual path.
 SECTION_ORDER = ["Produce", "Bakery", "Meal Simple", "Meat", "Dairy", "Pantry", "Snacks", "Beverages", "Frozen", "Health"]
 
 pantry = []
-prices = {}
-for key, pid, name, size, section, aisle, list_price, price, flag, coupon in RAW:
-    pantry.append({
-        "key": key,
-        "hebId": pid,
-        "name": name,
-        "size": size,
-        "section": section,
-        "unit": "package" if "Avg." not in size else "pack (sold by weight)",
-    })
-    prices[key] = {
-        "hebId": pid,
+prices = {}   # keyed by H-E-B product id, so every candidate product has its own price record
+def price_rec(aisle, list_price, price, flag, coupon):
+    return {
         "price": price,
         "listPrice": list_price,
         "onSale": flag == "sale",
@@ -80,6 +80,13 @@ for key, pid, name, size, section, aisle, list_price, price, flag, coupon in RAW
         "available": True,
         "pulled": PULL_DATE,
     }
+for key, pid, name, size, section, aisle, list_price, price, flag, coupon in RAW:
+    products = [{"hebId": pid, "name": name, "size": size}]
+    prices[pid] = price_rec(aisle, list_price, price, flag, coupon)
+    for apid, aname, asize, aaisle, alist, aprice, aflag, acoupon in ALTERNATES.get(key, []):
+        products.append({"hebId": apid, "name": aname, "size": asize})
+        prices[apid] = price_rec(aaisle, alist, aprice, aflag, acoupon)
+    pantry.append({"key": key, "section": section, "products": products})
 
 meals = [
     {

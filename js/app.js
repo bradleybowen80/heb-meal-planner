@@ -24,8 +24,20 @@
   const [pantryDoc, mealsDoc, pricesDoc, checklistDoc, planSeed] = await Promise.all(
     ['pantry', 'meals', 'prices', 'checklist', 'plan'].map(n => fetch(`data/${n}.json`, { cache: 'no-cache' }).then(r => r.json()))
   );
-  const pantry = Object.fromEntries(pantryDoc.items.map(i => [i.key, i]));
-  const prices = pricesDoc.prices;
+  // Each pantry item lists its products in order of preference. This week's pick: the first in-stock
+  // product that's on sale or price-cut, otherwise the first in-stock one. `why` explains a non-default pick.
+  const rawPrices = pricesDoc.prices;   // keyed by H-E-B product id
+  const pantry = {}, prices = {};
+  for (const it of pantryDoc.items) {
+    const prods = it.products || [{ hebId: it.hebId, name: it.name, size: it.size }];
+    const recs = prods.map(p => ({ p, r: rawPrices[p.hebId] || {} }));
+    const inStock = recs.filter(x => x.r.available !== false && x.r.price != null);
+    const pick = inStock.find(x => x.r.onSale || x.r.priceCut) || inStock[0] || recs[0];
+    let why = '';
+    if (pick !== recs[0]) why = recs[0].r.available === false ? `${recs[0].p.name} is out of stock` : `on sale, instead of ${recs[0].p.name}`;
+    pantry[it.key] = { key: it.key, section: it.section, name: pick.p.name, size: pick.p.size, hebId: pick.p.hebId, products: prods, why };
+    prices[it.key] = pick.r;
+  }
   const meals = Object.fromEntries(mealsDoc.meals.map(m => [m.id, m]));
   const sectionOrder = pantryDoc.sectionOrder;
 
@@ -58,7 +70,7 @@
   function normalize(p) {
     p.days = p.days || {}; for (const d of DAYS) if (p.days[d.id] === undefined) p.days[d.id] = null;
     if (!p.checklist || !Object.keys(p.checklist).length) p.checklist = { ...checklistDoc.defaults };
-    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {};
+    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {};
     p.budget = Number(p.budget || 0); p.potluckTheme = p.potluckTheme || '';
     if (p.updatedAt) p.syncedOnce = true;
     return p;
@@ -80,6 +92,7 @@
     for (const k of new Set([...Object.keys(a.checklist || {}), ...Object.keys(b.checklist || {})])) if (!same((a.checklist || {})[k], (b.checklist || {})[k])) out.push(['checklist', k]);
     for (const k of new Set([...Object.keys(a.packs || {}), ...Object.keys(b.packs || {})])) if (!same((a.packs || {})[k], (b.packs || {})[k])) out.push(['packs', k]);
     for (const k of new Set([...Object.keys(a.extras || {}), ...Object.keys(b.extras || {})])) if (!same((a.extras || {})[k], (b.extras || {})[k])) out.push(['extras', k]);
+    for (const k of new Set([...Object.keys(a.lunches || {}), ...Object.keys(b.lunches || {})])) if (!same((a.lunches || {})[k], (b.lunches || {})[k])) out.push(['lunches', k]);
     const ha = new Set(a.have || []), hb = new Set(b.have || []);
     for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
     for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
@@ -258,6 +271,7 @@
     const add = (key, qty, src) => { if (!pantry[key]) return; if (!need[key]) need[key] = { key, qty: 0, from: new Set() }; need[key].qty += qty; need[key].from.add(src); };
     for (const day of DAYS) for (const it of dayItems(plan.days[day.id])) add(it.key, it.qty, day.name);
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0) add(key, qty, 'weekly');
+    for (const [mealId, days] of Object.entries(plan.lunches)) { const m = meals[mealId]; if (m && days > 0) for (const it of m.items) add(it.key, it.qty * days, 'lunches'); }
     for (const [key, qty] of Object.entries(plan.extras)) if (qty > 0) add(key, qty, 'extra');
     return Object.values(need).map(n => {
       const base = Math.max(1, Math.ceil(n.qty - 1e-9));
@@ -271,7 +285,9 @@
     const lines = shoppingLines();
     const groceries = lines.reduce((s, l) => s + l.total, 0);
     const out = DAYS.reduce((s, d) => s + (plan.days[d.id] && plan.days[d.id].type === 'out' ? Number(plan.days[d.id].amount || 0) : 0), 0);
-    const weekly = Object.entries(plan.checklist).reduce((s, [k, q]) => s + q * price(k), 0);
+    const lunchCost = m => m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
+    const weekly = Object.entries(plan.checklist).reduce((s, [k, q]) => s + q * price(k), 0)
+      + Object.entries(plan.lunches).reduce((s, [id, d]) => s + (meals[id] ? d * lunchCost(meals[id]) : 0), 0);
     return { groceries, out, combined: groceries + out, lines, weekly };
   }
 
@@ -323,12 +339,33 @@
 
   function renderChecklist() {
     const t = totals();
-    const count = Object.values(plan.checklist).filter(q => q > 0).length;
+    const count = Object.values(plan.checklist).filter(q => q > 0).length + Object.values(plan.lunches).filter(q => q > 0).length;
     $('weeklySummary').textContent = count ? `${count} item${count === 1 ? '' : 's'} · ${money(t.weekly)}` : 'nothing yet';
     $('weeklyToggle').setAttribute('aria-expanded', ui.weeklyOpen);
     $('weeklyChevron').textContent = ui.weeklyOpen ? '▾' : '▸';
     $('weeklyBody').classList.toggle('hidden', !ui.weeklyOpen);
     const wrap = $('checklist'); wrap.innerHTML = '';
+    // Lunches: cards picked for N days each. Their ingredients land on the list automatically.
+    const lunchBox = document.createElement('div'); lunchBox.className = 'group';
+    const lunchIds = Object.keys(plan.lunches).filter(id => plan.lunches[id] > 0 && meals[id]);
+    lunchBox.innerHTML = `<div class="group-name">Lunches</div>`;
+    for (const id of lunchIds) {
+      const m = meals[id], days = plan.lunches[id];
+      const perDay = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
+      const row = document.createElement('div'); row.className = 'crow';
+      row.innerHTML = `<div><div class="crow-name">${esc(m.name)}</div><div class="crow-sub">${esc(m.notes || m.items.length + ' items')}</div></div>` +
+        `<div class="crow-price">${money(perDay * days)}</div>` +
+        `<div class="stepper"><button type="button" aria-label="fewer days">−</button><span class="n">${days}d</span><button type="button" aria-label="more days">+</button></div>`;
+      const [minus, plus] = row.querySelectorAll('button');
+      minus.addEventListener('click', () => { plan.lunches[id] = Math.max(0, days - 1); if (!plan.lunches[id]) delete plan.lunches[id]; save(); });
+      plus.addEventListener('click', () => { plan.lunches[id] = Math.min(7, days + 1); save(); });
+      lunchBox.appendChild(row);
+    }
+    const lunchPool = Object.values(meals).filter(m => m.kind === 'lunch');
+    const lrow = document.createElement('div'); lrow.className = 'crow';
+    lrow.innerHTML = lunchIds.length || lunchPool.length ? `<div class="crow-sub">${lunchIds.length ? '' : 'No lunches picked for this week.'}</div><div></div><button type="button" class="btn ghost small" id="btnAddLunch">Add a lunch</button>` : `<div class="crow-sub">No lunch cards saved yet. Tell Claude what lunches you make (PB&amp;J, turkey wraps, whatever) and it builds the cards.</div>`;
+    lunchBox.appendChild(lrow); wrap.appendChild(lunchBox);
+    const addL = lrow.querySelector('#btnAddLunch'); if (addL) addL.addEventListener('click', openAddLunch);
     const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: pantry[key] ? pantry[key].section : 'Other' }).name;
     const groups = {};
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && pantry[key]) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
@@ -340,7 +377,7 @@
       for (const key of groups[name]) {
         const p = pantry[key], qty = plan.checklist[key];
         const row = document.createElement('div'); row.className = 'crow';
-        row.innerHTML = `<div><div class="crow-name">${esc(p.name)}</div><div class="crow-sub">${esc(p.size)}</div></div>` +
+        row.innerHTML = `<div><div class="crow-name">${esc(p.name)}</div><div class="crow-sub">${esc(p.size)}${p.why ? ' · ' + esc(p.why) : ''}</div></div>` +
           `<div class="crow-price">${money(price(key) * qty)}</div>` +
           `<div class="stepper"><button type="button" aria-label="less">−</button><span class="n">${qty}</span><button type="button" aria-label="more">+</button></div>`;
         const [minus, plus] = row.querySelectorAll('button');
@@ -350,7 +387,14 @@
       }
       wrap.appendChild(box);
     }
-    if (!count) wrap.innerHTML = '<div class="empty-bucket">Nothing on the weekly list yet. Add the things you buy every week: milk, eggs, bread, snacks, drinks.</div>';
+    if (!count) { const e = document.createElement('div'); e.className = 'empty-bucket'; e.textContent = 'Nothing else on the weekly list yet. Add the things you buy every week: milk, eggs, snacks, drinks.'; wrap.appendChild(e); }
+  }
+  function openAddLunch() {
+    const pool = Object.values(meals).filter(m => m.kind === 'lunch' && !(plan.lunches[m.id] > 0));
+    let html = `<h3>Add a lunch</h3><p class="hint">Picks it for one day. Change the days on the list after.</p>`;
+    html += pool.length ? pool.map(m => `<button type="button" class="option" data-lunch="${esc(m.id)}"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">${esc(m.notes || m.items.length + ' items')}</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved lunch is already picked.</div>`;
+    openSheet(html);
+    body.querySelectorAll('[data-lunch]').forEach(b => b.addEventListener('click', () => { plan.lunches[b.dataset.lunch] = 1; save(); closeSheet(); }));
   }
   function openAddWeekly() {
     const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: pantry[key].section }).name;
@@ -385,7 +429,7 @@
         row.innerHTML =
           `<input class="li-check" type="checkbox" ${l.have ? 'checked' : ''} aria-label="have it">` +
           `<div><div class="li-name">${esc(p.name)}${pillHtml(f)}</div>` +
-          `<div class="li-sub">${esc(p.size)} · ${esc(pr.aisle || '')}${forTxt ? ' · for ' + esc(forTxt) : ''}${f.coupon ? '<br>' + esc(pr.coupon) : ''}</div></div>` +
+          `<div class="li-sub">${esc(p.size)} · ${esc(pr.aisle || '')}${forTxt ? ' · for ' + esc(forTxt) : ''}${p.why ? '<br><span class="why">' + esc(p.why) + '</span>' : ''}${f.coupon ? '<br>' + esc(pr.coupon) : ''}</div></div>` +
           `<div class="li-right"><div class="li-price">${f.sale && pr.listPrice ? `<span class="was">${money(pr.listPrice * l.packs)}</span>` : ''}${money(l.packs * l.each)}</div>` +
           `<div class="li-qty"><button type="button" aria-label="fewer">−</button><span class="n">${l.packs}</span><button type="button" aria-label="more">+</button></div></div>`;
         row.querySelector('.li-check').addEventListener('change', e => {
