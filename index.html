@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=30">
+<link rel="stylesheet" href="css/app.css?v=31">
 </head>
 <body>
 
@@ -37,11 +37,12 @@
 
 <main>
   <section class="view" id="viewPlan">
-    <ol class="week" id="week"></ol>
-    <p class="section-hint fine">Day prices are what each dinner uses. The list rounds up to whole packages.</p>
-
+    <button class="fold" id="foldDinners" type="button" data-fold="dinners"><span class="chev">▾</span><span class="fold-title">Dinners</span><span class="fold-sum" id="sumDinners"></span></button>
+    <div id="bodyDinners">
+      <ol class="week" id="week"></ol>
+      <p class="section-hint fine">Day prices are what each dinner uses. The list rounds up to whole packages.</p>
+    </div>
     <div class="checklist" id="checklist"></div>
-    <div class="row-actions"><button class="btn ghost" id="btnAddWeekly" type="button">Add a staple</button></div>
 
     <div class="plan-actions">
       <button class="btn" id="btnShare" type="button">Share plan</button>
@@ -160,6 +161,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=30"></script>
+<script src="js/app.js?v=31"></script>
 </body>
 </html>

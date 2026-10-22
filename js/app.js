@@ -258,7 +258,7 @@
     try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith('hmp.week.')) { const w = JSON.parse(localStorage.getItem(k)); if (!weeks[w.weekOf]) weeks[w.weekOf] = w; } } } catch (e) { /* ignore */ }
     return Object.values(weeks).filter(w => w && w.weekOf).sort((a, b) => b.weekOf.localeCompare(a.weekOf));
   }
-  let ui = { weeklyOpen: false };
+  let ui = { open: {} };
   try { ui = { ...ui, ...JSON.parse(localStorage.getItem(UI_KEY) || '{}') }; } catch (e) { /* ignore */ }
   const saveUi = () => { try { localStorage.setItem(UI_KEY, JSON.stringify(ui)); } catch (e) { /* ignore */ } };
 
@@ -475,16 +475,28 @@
     }
   }
 
+  const isOpen = id => ui.open[id] !== false;
+  function foldButton(id, title, sum) {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'fold'; b.setAttribute('aria-expanded', isOpen(id));
+    b.innerHTML = `<span class="chev">▾</span><span class="fold-title">${esc(title)}</span><span class="fold-sum">${esc(sum)}</span>`;
+    b.addEventListener('click', () => { ui.open[id] = !isOpen(id); saveUi(); render(); });
+    return b;
+  }
   function renderChecklist() {
     const t = totals();
+    const planned = DAYS.filter(d => plan.days[d.id]).length;
+    $('sumDinners').textContent = `${planned} of 7 · ${money(DAYS.reduce((s, d) => s + dayCost(plan.days[d.id]), 0))}`;
+    $('foldDinners').setAttribute('aria-expanded', isOpen('dinners')); $('bodyDinners').classList.toggle('hidden', !isOpen('dinners'));
     const count = Object.values(plan.checklist).filter(q => q > 0).length + Object.values(plan.lunches).filter(q => q > 0).length + Object.values(plan.breakfasts).filter(q => q > 0).length;
     const wrap = $('checklist'); wrap.innerHTML = '';
     // Breakfasts and lunches: cards picked for N days each. Their ingredients land on the list automatically.
     const CARD_GROUPS = [['breakfasts', 'breakfast', 'Breakfasts'], ['lunches', 'lunch', 'Lunches']];
     for (const [grp, kind, label] of CARD_GROUPS) {
-      const box = document.createElement('div'); box.className = 'group';
       const ids = Object.keys(plan[grp]).filter(id => plan[grp][id] > 0 && meals[id]);
-      box.innerHTML = `<div class="group-name">${label}</div>`;
+      const grpCost = ids.reduce((s, id) => s + plan[grp][id] * meals[id].items.reduce((x, it) => x + it.qty * price(it.key), 0), 0);
+      wrap.appendChild(foldButton(grp, label, ids.length ? `${ids.length} · ${money(grpCost)}` : 'none'));
+      if (!isOpen(grp)) continue;
+      const box = document.createElement('div'); box.className = 'group';
       for (const id of ids) {
         const m = meals[id], days = plan[grp][id];
         const perDay = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
@@ -503,6 +515,10 @@
       box.appendChild(arow); wrap.appendChild(box);
       const addBtn = arow.querySelector('[data-addcard]'); if (addBtn) addBtn.addEventListener('click', () => openAddCard(grp, kind));
     }
+    const stapleCount = Object.values(plan.checklist).filter(q => q > 0).length;
+    const stapleCost = Object.entries(plan.checklist).reduce((s, [k, q]) => s + (pantry[k] && pantry[k].saleOnly && !flagsFor(k).sale ? 0 : q * price(k)), 0);
+    wrap.appendChild(foldButton('staples', 'Snacks, drinks, staples', stapleCount ? `${stapleCount} · ${money(stapleCost)}` : 'none'));
+    if (!isOpen('staples')) return;
     const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other staples' }).name;
     const groups = {};
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && pantry[key]) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
@@ -525,8 +541,9 @@
       }
       wrap.appendChild(box);
     }
-    const staples = Object.values(plan.checklist).filter(q => q > 0).length;
-    if (!staples) { const e = document.createElement('div'); e.className = 'empty-bucket'; e.textContent = 'No staples yet. Add the packs you buy most weeks: snacks, fruit, drinks, coffee.'; wrap.appendChild(e); }
+    if (!stapleCount) { const e = document.createElement('div'); e.className = 'empty-bucket'; e.textContent = 'No staples yet. Add the packs you buy most weeks: snacks, fruit, drinks, coffee.'; wrap.appendChild(e); }
+    const add = document.createElement('div'); add.className = 'row-actions'; add.innerHTML = '<button type="button" class="btn ghost small" id="btnAddWeekly">Add a staple</button>'; wrap.appendChild(add);
+    add.querySelector('#btnAddWeekly').addEventListener('click', openAddWeekly);
   }
   function openAddCard(grp, kind) {
     const pool = Object.values(meals).filter(m => m.kind === kind && !(plan[grp][m.id] > 0));
@@ -823,7 +840,7 @@
   }
 
   // Weekly section toggle
-  $('btnAddWeekly').addEventListener('click', openAddWeekly);
+  $('foldDinners').addEventListener('click', () => { ui.open.dinners = !isOpen('dinners'); saveUi(); render(); });
 
   // Budget target
   $('btnBudget').addEventListener('click', () => {
