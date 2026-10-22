@@ -213,9 +213,11 @@ button.li:active { background: var(--paper); }
 .li-qty .n { min-width: 22px; text-align: center; font-weight: 800; font-size: 14px; }
 .why { color: var(--sage); font-weight: 700; }
 .was { font-size: 12px; color: var(--ink-2); text-decoration: line-through; margin-right: 4px; font-weight: 600; }
-.pulled { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--ink-2); margin: 0 0 12px; }
-.pulled.stale { color: var(--coupon); font-weight: 700; }
-.pulled .btn.small { margin-left: auto; }
+.pulled { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px 12px; background: var(--sage-bg); border: 1.5px solid #cfe0cb; border-radius: var(--radius); padding: 12px 14px; margin: 4px 0 6px; font-size: 15px; }
+.pulled.stale { background: var(--coupon-bg); border-color: #ead9a0; }
+.pulled .big { font-weight: 800; font-size: 16px; }
+.pulled .fine { grid-column: 1 / -1; font-size: 13px; color: var(--ink-2); }
+.pulled .why { font-size: 13px; }
 .spent { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px; margin: 8px 0 24px; }
 .spent label { font-weight: 800; }
 .spent-row { display: flex; align-items: center; gap: 6px; margin-top: 6px; }

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=33">
+<link rel="stylesheet" href="css/app.css?v=34">
 </head>
 <body>
 
@@ -37,6 +37,7 @@
 
 <main>
   <section class="view" id="viewPlan">
+    <div class="pulled" id="pulled"></div>
     <button class="fold" id="foldDinners" type="button" data-fold="dinners"><span class="chev">▾</span><span class="fold-title">Dinners</span><span class="fold-sum" id="sumDinners"></span></button>
     <div id="bodyDinners">
       <ol class="week" id="week"></ol>
@@ -60,7 +61,7 @@
         <button class="btn ghost" id="btnAddExtra" type="button">Add an item</button>
       </div>
       <p class="section-hint" id="listMeta"></p>
-      <div class="pulled" id="pulled"></div>
+      <div class="pulled" id="pulledList"></div>
     </div>
     <div id="list"></div>
     <div class="spent">
@@ -166,6 +167,6 @@
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=33"></script>
+<script src="js/app.js?v=34"></script>
 </body>
 </html>

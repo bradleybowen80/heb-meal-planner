@@ -607,15 +607,19 @@
       `Estimate ${money(t.groceries)} · actual ${money(plan.spent)} · ${plan.spent > t.groceries ? 'over by ' + money(plan.spent - t.groceries) : 'under by ' + money(t.groceries - plan.spent)}`;
   }
   function renderPulled() {
-    const el = $('pulled'); if (!el) return;
     const pulled = new Date(pricesDoc.pulled + 'T12:00:00'); const days = Math.floor((Date.now() - pulled) / 864e5);
     const stale = days >= 7;
     const req = plan.refreshRequested && Date.now() - plan.refreshRequested < 864e5 * 2;
-    el.className = 'pulled' + (stale ? ' stale' : '');
-    el.innerHTML = `<span>Prices from ${pulled.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} (${days === 0 ? 'today' : days + ' day' + (days === 1 ? '' : 's') + ' ago'})${stale ? '. Older than this week\'s ad.' : ''}</span>` +
-      (req ? `<span class="why">Refresh requested, Claude will pull the new ad</span>` : `<button type="button" class="btn ghost small" id="btnRefresh">Refresh prices</button>`);
-    const b = el.querySelector('#btnRefresh');
-    if (b) b.addEventListener('click', () => { plan.refreshRequested = Date.now(); save(); toast('Requested. Prices update once Claude pulls the ad.'); });
+    const when = pulled.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    const html = `<span class="big">H-E-B prices refreshed ${when}</span>` +
+      (req ? `<span class="why">Refresh requested</span>` : `<button type="button" class="btn small" data-refresh>Refresh prices</button>`) +
+      `<span class="fine">${stale ? 'Older than this week\'s ad. ' : ''}${days === 0 ? 'Pulled today.' : days + ' day' + (days === 1 ? '' : 's') + ' old.'} Refreshing runs on the desktop computer through Claude; the button here just asks for it. Tapping it on a phone won't do anything by itself.</span>`;
+    for (const id of ['pulled', 'pulledList']) {
+      const el = $(id); if (!el) continue;
+      el.className = 'pulled' + (stale ? ' stale' : ''); el.innerHTML = html;
+      const b = el.querySelector('[data-refresh]');
+      if (b) b.addEventListener('click', () => { plan.refreshRequested = Date.now(); save(); toast('Requested. Claude pulls the ad on the desktop.'); });
+    }
   }
   function setPacks(key, n, base) { plan.packs[key] = { packs: n, base }; save(); }
 
