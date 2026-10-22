@@ -75,6 +75,7 @@ for key, pid, name, size, section, aisle, list_price, price, flag, coupon in RAW
         "onSale": flag == "sale",
         "priceCut": flag == "pricecut",
         "coupon": coupon,
+        "couponType": None if not coupon else ("combo" if coupon.startswith("Buy ") else "coupon"),
         "aisle": aisle,
         "available": True,
         "pulled": PULL_DATE,

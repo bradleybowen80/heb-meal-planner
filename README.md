@@ -29,6 +29,8 @@ Flags:
 ## Build status
 
 1. Pantry + test meals + lookup spike: done (Oct 21, 2026)
-2. Planner UI: next
-3. Shopping list + exports
-4. On-sale view
+2. Planner UI: done, first pass (Oct 21, 2026)
+3. Shopping list + exports: done, first pass (Oct 21, 2026)
+4. On-sale view: next
+
+Live at https://bradleybowen80.github.io/heb-meal-planner/

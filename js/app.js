@@ -48,7 +48,7 @@
   const price = key => (prices[key] && prices[key].price) || 0;
   const flagsFor = key => {
     const p = prices[key] || {};
-    return { sale: p.onSale || p.priceCut, coupon: !!p.coupon };
+    return { sale: p.onSale || p.priceCut, coupon: !!p.coupon, couponLabel: p.couponType === 'combo' ? 'combo deal' : 'coupon' };
   };
 
   // Items a day's dinner actually needs this week (after this-week-only edits).
@@ -115,8 +115,8 @@
       } else {
         const m = meals[d.mealId];
         const edited = (d.dropped && d.dropped.length) || (d.qty && Object.keys(d.qty).length);
-        const pills = dayItems(d).reduce((a, it) => { const f = flagsFor(it.key); a.sale = a.sale || f.sale; a.coupon = a.coupon || f.coupon; return a; }, {});
-        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${edited ? '<span class="pill edited">edited</span>' : ''}${pills.sale ? '<span class="pill sale">sale</span>' : ''}${pills.coupon ? '<span class="pill coupon">coupon</span>' : ''}</div>` +
+        const pills = dayItems(d).reduce((a, it) => { const f = flagsFor(it.key); a.sale = a.sale || f.sale; if (f.coupon && !a.coupon) { a.coupon = true; a.couponLabel = f.couponLabel; } return a; }, {});
+        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${edited ? '<span class="pill edited">edited</span>' : ''}${pills.sale ? '<span class="pill sale">sale</span>' : ''}${pills.coupon ? `<span class="pill coupon">${pills.couponLabel}</span>` : ''}</div>` +
           `<div class="day-sub">${esc(m ? m.notes || '' : '')}</div>`;
         priceHtml = `<div class="day-price">${money(dayCost(d))}</div>`;
       }
@@ -165,7 +165,7 @@
         const row = document.createElement('div'); row.className = 'li' + (l.have ? ' have' : '');
         row.innerHTML =
           `<input class="li-check" type="checkbox" ${l.have ? 'checked' : ''} aria-label="have it">` +
-          `<div><div class="li-name">${esc(p.name)}${f.sale ? '<span class="pill sale">sale</span>' : ''}${f.coupon ? '<span class="pill coupon">coupon</span>' : ''}</div>` +
+          `<div><div class="li-name">${esc(p.name)}${f.sale ? '<span class="pill sale">sale</span>' : ''}${f.coupon ? `<span class="pill coupon">${f.couponLabel}</span>` : ''}</div>` +
           `<div class="li-sub">${esc(p.size)} · ${esc(pr.aisle || '')}${f.coupon ? '<br>' + esc(pr.coupon) : ''}</div></div>` +
           `<div class="li-right"><div class="li-price">${f.sale && pr.listPrice ? `<span class="was">${money(pr.listPrice * l.packs)}</span>` : ''}${money(l.packs * l.each)}</div>` +
           `<div class="li-qty"><button type="button" aria-label="fewer">−</button><span class="n">${l.packs}</span><button type="button" aria-label="more">+</button></div></div>`;
@@ -196,9 +196,9 @@
 
   function mealOption(m, current) {
     const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
-    const pills = m.items.reduce((a, it) => { const f = flagsFor(it.key); a.sale = a.sale || f.sale; a.coupon = a.coupon || f.coupon; return a; }, {});
+    const pills = m.items.reduce((a, it) => { const f = flagsFor(it.key); a.sale = a.sale || f.sale; if (f.coupon && !a.coupon) { a.coupon = true; a.couponLabel = f.couponLabel; } return a; }, {});
     return `<button type="button" class="option${current ? ' current' : ''}" data-meal="${esc(m.id)}">` +
-      `<div><div class="option-name">${esc(m.name)}${pills.sale ? '<span class="pill sale">sale</span>' : ''}${pills.coupon ? '<span class="pill coupon">coupon</span>' : ''}</div>` +
+      `<div><div class="option-name">${esc(m.name)}${pills.sale ? '<span class="pill sale">sale</span>' : ''}${pills.coupon ? `<span class="pill coupon">${pills.couponLabel}</span>` : ''}</div>` +
       `<div class="option-sub">${esc(m.kind === 'heat-and-add' ? 'Heat and add' : m.kind === 'repeat' ? 'Easy' : 'Recipe')} · ${m.items.length} items</div></div>` +
       `<div class="option-price">${money(cost)}</div></button>`;
   }
