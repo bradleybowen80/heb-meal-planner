@@ -646,6 +646,48 @@
     body.querySelector('#addExtra').addEventListener('click', () => { plan.extras[key] = (plan.extras[key] || 0) + 1; plan.have = plan.have.filter(k => k !== key); save(); closeSheet(); toast('Added to the list'); });
   }
 
+  // Drag a day card onto another day to swap them. Press and hold first so scrolling still works.
+  (function dragDays() {
+    const list = $('week'); let src = null, ghost = null, timer = null, startX = 0, startY = 0, active = false, over = null, justDragged = false, scrollV = 0, lastY = 0;
+    (function tick() { if (active && scrollV) window.scrollBy(0, scrollV); requestAnimationFrame(tick); })();
+    const dayAt = (x, y) => { if (ghost) ghost.style.display = 'none'; const el = document.elementFromPoint(x, y); if (ghost) ghost.style.display = ''; return el && el.closest ? el.closest('.day') : null; };
+    const end = () => { clearTimeout(timer); if (ghost) ghost.remove(); ghost = null; if (src) src.classList.remove('lifting'); if (over) over.classList.remove('drop-target'); document.body.classList.remove('dragging'); src = null; over = null; active = false; scrollV = 0; };
+    list.addEventListener('pointerdown', e => {
+      const card = e.target.closest('.day'); if (!card || e.button > 0) return;
+      src = card; startX = e.clientX; startY = e.clientY; active = false;
+      timer = setTimeout(() => {
+        active = true; document.body.classList.add('dragging'); card.classList.add('lifting');
+        ghost = card.cloneNode(true); ghost.className = 'day ghost'; const r = card.getBoundingClientRect();
+        Object.assign(ghost.style, { position: 'fixed', left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', pointerEvents: 'none', zIndex: 50 });
+        document.body.appendChild(ghost); ghost.dataset.dx = e.clientX - r.left; ghost.dataset.dy = e.clientY - r.top;
+        if (navigator.vibrate) navigator.vibrate(10);
+      }, 220);
+    });
+    document.addEventListener('pointermove', e => {
+      if (!src) return;
+      if (!active) { if (Math.hypot(e.clientX - startX, e.clientY - startY) > 8) { clearTimeout(timer); src = null; } return; }
+      e.preventDefault();
+      ghost.style.left = (e.clientX - ghost.dataset.dx) + 'px'; ghost.style.top = (e.clientY - ghost.dataset.dy) + 'px';
+      const edge = 90, bottomBar = 70; lastY = e.clientY;
+      scrollV = e.clientY < edge ? -(edge - e.clientY) / 6 : e.clientY > innerHeight - bottomBar - edge ? (e.clientY - (innerHeight - bottomBar - edge)) / 6 : 0;
+      const t = dayAt(e.clientX, e.clientY);
+      if (over && over !== t) over.classList.remove('drop-target');
+      over = t && t !== src ? t : null; if (over) over.classList.add('drop-target');
+    }, { passive: false });
+    const finish = e => {
+      if (!src) return;
+      if (active) {
+        justDragged = true; setTimeout(() => { justDragged = false; }, 50);
+        const t = dayAt(e.clientX, e.clientY);
+        if (t && t !== src) { const a = src.dataset.day, b = t.dataset.day; [plan.days[a], plan.days[b]] = [plan.days[b], plan.days[a]]; end(); save(); toast('Swapped'); return; }
+        end(); return;
+      }
+      end();
+    };
+    document.addEventListener('pointerup', finish); document.addEventListener('pointercancel', end);
+    list.addEventListener('click', e => { if (justDragged) { e.stopPropagation(); e.preventDefault(); } }, true);
+  })();
+
   // Swap days: tap the button, then two days.
   let swapMode = null; // null | 'pick' | dayId
   $('btnSwap').addEventListener('click', () => {
