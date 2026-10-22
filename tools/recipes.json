@@ -5705,6 +5705,405 @@
     }
    ],
    "notes": "Saute diced pepper and chopped ham for 2 minutes. Make 3-egg omelets one at a time, filling with ham, pepper and cheddar. Kids can have theirs scrambled."
+  },
+  {
+   "id": "kevins-thai-coconut-chicken",
+   "name": "Kevin's Thai Coconut Chicken, Rice and Green Beans",
+   "kind": "heat-and-add",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-thai-coconut",
+     "qty": 2
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Two packs feeds four. Chicken and sauce heat in a skillet in about 8 minutes. Rice in the cooker, green beans steamed with butter."
+  },
+  {
+   "id": "kevins-orange-chicken",
+   "name": "Kevin's Orange Chicken with Rice and Stir-Fry Veggies",
+   "kind": "heat-and-add",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 15,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-orange",
+     "qty": 2
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "stir-fry-veg",
+     "qty": 1
+    }
+   ],
+   "notes": "Two packs feeds four. Crisp the chicken in a skillet or air fryer, toss with the orange sauce. Microwave the stir-fry veggies. Serve over rice."
+  },
+  {
+   "id": "kevins-korean-steak-bowls",
+   "name": "Kevin's Korean BBQ Steak Bowls",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "beef"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "sirloin",
+     "qty": 0.75
+    },
+    {
+     "key": "kevins-sauce-korean",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "broccoli-florets",
+     "qty": 1
+    },
+    {
+     "key": "green-onions",
+     "qty": 1
+    }
+   ],
+   "notes": "Slice sirloin thin and sear hot in batches. Pour in the Kevin's Korean BBQ sauce and toss 1 minute. Serve over rice with steamed broccoli and green onions."
+  },
+  {
+   "id": "kevins-lemongrass-basil-thighs",
+   "name": "Kevin's Lemongrass Basil Chicken Thighs with Rice",
+   "kind": "recipe",
+   "theme": "meat-and-three",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "thighs-boneless",
+     "qty": 1
+    },
+    {
+     "key": "kevins-sauce-lemongrass",
+     "qty": 1
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    },
+    {
+     "key": "bell-peppers",
+     "qty": 1
+    },
+    {
+     "key": "green-beans",
+     "qty": 0.5
+    }
+   ],
+   "notes": "Cut thighs into bites and brown 6 to 7 minutes. Add sliced peppers for 2 minutes, then the lemongrass basil sauce. Serve over rice with green beans."
+  },
+  {
+   "id": "kevins-taco-sauce-chicken-tacos",
+   "name": "Kevin's Taco Sauce Chicken Tacos",
+   "kind": "recipe",
+   "theme": "tacos",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 4,
+   "minutes": 20,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "thighs-boneless",
+     "qty": 1
+    },
+    {
+     "key": "kevins-sauce-taco",
+     "qty": 1
+    },
+    {
+     "key": "corn-tortillas",
+     "qty": 0.75
+    },
+    {
+     "key": "mexican-blend",
+     "qty": 0.5
+    },
+    {
+     "key": "pico",
+     "qty": 0.5
+    },
+    {
+     "key": "limes",
+     "qty": 2
+    }
+   ],
+   "notes": "Brown chopped thighs, then simmer in the Kevin's taco sauce 3 minutes. Serve in warm corn tortillas with cheese, pico and lime."
+  },
+  {
+   "id": "kevins-burrito-bowls-lunch",
+   "name": "Kevin's Chicken Burrito Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-burrito",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-bolognese-bowls-lunch",
+   "name": "Kevin's Beef Bolognese Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "beef"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-bolognese",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-butter-bowls-lunch",
+   "name": "Kevin's Butter Chicken Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-butter",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-teriyaki-bowls-lunch",
+   "name": "Kevin's Teriyaki Chicken Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-teriyaki",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-mushroom-bowls-lunch",
+   "name": "Kevin's Savory Mushroom Chicken Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-mushroom",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-korean-bowls-lunch",
+   "name": "Kevin's Korean BBQ Chicken Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-korean",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-parmesan-bowls-lunch",
+   "name": "Kevin's Parmesan Basil Chicken Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-parmesan",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-orange-bowls-lunch",
+   "name": "Kevin's Orange Chicken Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-orange",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-thai-bowls-lunch",
+   "name": "Kevin's Thai Coconut Chicken Bowl (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-thai",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "kevins-tomato-pasta-bowls-lunch",
+   "name": "Kevin's Roasted Tomato Chicken Pasta (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "chicken"
+   ],
+   "serves": 2,
+   "minutes": 6,
+   "framework": "Heat and add",
+   "items": [
+    {
+     "key": "kevins-bowl-tomato-pasta",
+     "qty": 2
+    }
+   ],
+   "notes": "Frozen single bowls, one each. Microwave about 5 minutes, stir halfway."
+  },
+  {
+   "id": "dal-tadka-rice-lunch",
+   "name": "Cumin Club Dal Tadka and Rice (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "none"
+   ],
+   "serves": 2,
+   "minutes": 10,
+   "framework": "5-minute pack",
+   "items": [
+    {
+     "key": "dal-tadka",
+     "qty": 2
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    }
+   ],
+   "notes": "One pouch each. Add hot water, cover 5 minutes. Rice in the cooker (or a microwave rice cup)."
+  },
+  {
+   "id": "dal-makhani-rice-lunch",
+   "name": "Cumin Club Dal Makhani and Rice (for 2)",
+   "kind": "lunch",
+   "theme": "lunch",
+   "tags": [
+    "none"
+   ],
+   "serves": 2,
+   "minutes": 10,
+   "framework": "5-minute pack",
+   "items": [
+    {
+     "key": "dal-makhani",
+     "qty": 2
+    },
+    {
+     "key": "jasmine-rice",
+     "qty": 0.25
+    }
+   ],
+   "notes": "Same idea as the dal tadka, creamier. One pouch each, hot water, 5 minutes, over rice."
   }
  ]
 }
