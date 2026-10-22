@@ -133,7 +133,7 @@
     const ha = new Set(a.have || []), hb = new Set(b.have || []);
     for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
     for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
-    for (const k of ['spent', 'budget', 'potluckTheme', 'weekOf', 'mealsVersion']) if (!same(a[k], b[k])) out.push([k]);
+    for (const k of ['spent', 'budget', 'potluckTheme', 'weekOf', 'mealsVersion', 'refreshRequested']) if (!same(a[k], b[k])) out.push([k]);
     return out;
   }
   function applyPaths(from, to, paths) {
@@ -435,7 +435,7 @@
 
   function render() {
     if ((plan.mealsVersion || 0) > mealsSeen) { mealsSeen = plan.mealsVersion; loadRemoteMeals(); }
-    renderHeader(); renderWeek(); renderChecklist(); renderList(); renderDeals(); renderCatalog();
+    renderHeader(); renderWeek(); renderChecklist(); renderList(); renderDeals(); renderCatalog(); renderPulled();
   }
 
   function renderHeader() {
@@ -605,6 +605,17 @@
     if (document.activeElement !== spent) spent.value = plan.spent == null ? '' : plan.spent;
     $('spentDiff').textContent = plan.spent == null ? 'Enter the receipt total after the trip to see how close the estimate was.' :
       `Estimate ${money(t.groceries)} · actual ${money(plan.spent)} · ${plan.spent > t.groceries ? 'over by ' + money(plan.spent - t.groceries) : 'under by ' + money(t.groceries - plan.spent)}`;
+  }
+  function renderPulled() {
+    const el = $('pulled'); if (!el) return;
+    const pulled = new Date(pricesDoc.pulled + 'T12:00:00'); const days = Math.floor((Date.now() - pulled) / 864e5);
+    const stale = days >= 7;
+    const req = plan.refreshRequested && Date.now() - plan.refreshRequested < 864e5 * 2;
+    el.className = 'pulled' + (stale ? ' stale' : '');
+    el.innerHTML = `<span>Prices from ${pulled.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} (${days === 0 ? 'today' : days + ' day' + (days === 1 ? '' : 's') + ' ago'})${stale ? '. Older than this week\'s ad.' : ''}</span>` +
+      (req ? `<span class="why">Refresh requested, Claude will pull the new ad</span>` : `<button type="button" class="btn ghost small" id="btnRefresh">Refresh prices</button>`);
+    const b = el.querySelector('#btnRefresh');
+    if (b) b.addEventListener('click', () => { plan.refreshRequested = Date.now(); save(); toast('Requested. Prices update once Claude pulls the ad.'); });
   }
   function setPacks(key, n, base) { plan.packs[key] = { packs: n, base }; save(); }
 
