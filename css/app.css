@@ -105,14 +105,19 @@ main { padding: 14px 16px 0; max-width: 560px; margin: 0 auto; }
 .sheet-backdrop { position: fixed; inset: 0; background: rgba(27,27,27,0.45); z-index: 20; }
 .sheet {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 21;
+  margin: 0 auto; max-width: 600px;
   background: var(--paper); border-radius: 20px 20px 0 0;
-  max-height: 86vh; overflow-y: auto; padding: 8px 16px calc(20px + env(safe-area-inset-bottom));
+  max-height: 78vh; overflow-y: auto; padding: 8px 16px calc(20px + env(safe-area-inset-bottom));
   box-shadow: 0 -8px 30px rgba(0,0,0,0.18);
   animation: up 0.22s ease-out;
 }
 @keyframes up { from { transform: translateY(40px); opacity: 0.6; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .sheet { animation: none; } .budget-fill { transition: none; } }
-.sheet-handle { width: 40px; height: 5px; border-radius: 3px; background: #c9c7bf; margin: 4px auto 12px; }
+.sheet-top { position: sticky; top: 0; z-index: 1; background: var(--paper); display: grid; grid-template-columns: 1fr auto; align-items: center; margin: 0 -16px 8px; padding: 4px 16px 6px; }
+.sheet-handle { width: 40px; height: 5px; border-radius: 3px; background: #c9c7bf; grid-column: 1 / -1; justify-self: center; margin-bottom: 6px; }
+.sheet-close { grid-column: 2; background: var(--card); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 14px; font-weight: 800; font-size: 14px; color: var(--navy); }
+.sheet-close:active { background: var(--line); }
+@media (min-width: 640px) { .sheet { bottom: 24px; border-radius: 20px; } }
 .sheet h3 { margin: 6px 0 2px; font-size: 20px; font-weight: 800; }
 .sheet .hint { color: var(--ink-2); font-size: 14px; margin: 0 0 12px; }
 .bucket-title { font-weight: 800; font-size: 13px; color: var(--ink-2); margin: 16px 0 6px; }

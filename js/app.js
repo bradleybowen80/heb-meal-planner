@@ -225,6 +225,8 @@
   function openSheet(html) { body.innerHTML = html; sheet.classList.remove('hidden'); backdrop.classList.remove('hidden'); sheet.scrollTop = 0; }
   function closeSheet() { sheet.classList.add('hidden'); backdrop.classList.add('hidden'); }
   backdrop.addEventListener('click', closeSheet);
+  $('sheetClose').addEventListener('click', closeSheet);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 
   function mealOption(m, current) {
     const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);

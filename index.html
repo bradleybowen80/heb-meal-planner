@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=7">
+<link rel="stylesheet" href="css/app.css?v=8">
 </head>
 <body>
 
@@ -77,12 +77,15 @@
 
 <div class="sheet-backdrop hidden" id="backdrop"></div>
 <section class="sheet hidden" id="sheet" aria-modal="true" role="dialog">
-  <div class="sheet-handle"></div>
+  <div class="sheet-top">
+    <div class="sheet-handle"></div>
+    <button class="sheet-close" id="sheetClose" type="button" aria-label="Close">Close</button>
+  </div>
   <div id="sheetBody"></div>
 </section>
 
 <div class="toast hidden" id="toast"></div>
 
-<script src="js/app.js?v=7"></script>
+<script src="js/app.js?v=8"></script>
 </body>
 </html>
