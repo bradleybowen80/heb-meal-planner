@@ -348,7 +348,7 @@
         priceHtml = `<div class="day-price">${money(dayCost(d))}</div>`;
       }
       const themeLabel = day.id === 'sun' && plan.potluckTheme ? `${day.theme}: ${esc(plan.potluckTheme)}` : day.theme;
-      btn.innerHTML = `<div><div class="day-name">${day.name}</div><div class="day-theme">${themeLabel}</div></div><div>${mealHtml}</div>${priceHtml}`;
+      btn.innerHTML = `<div><div class="day-name">${day.name}</div><div class="day-theme">${themeLabel}</div></div><div>${mealHtml}</div>${priceHtml}<span class="grip" aria-label="drag to move">⠿</span>`;
       btn.addEventListener('click', () => swapMode ? pickSwap(day.id) : openDay(day.id));
       if (swapMode === day.id) btn.classList.add('selecting');
       li.appendChild(btn); ol.appendChild(li);
@@ -655,14 +655,17 @@
     list.addEventListener('pointerdown', e => {
       const card = e.target.closest('.day'); if (!card || e.button > 0) return;
       src = card; startX = e.clientX; startY = e.clientY; active = false;
+      const onGrip = !!e.target.closest('.grip');
+      if (onGrip) e.preventDefault();
       timer = setTimeout(() => {
         active = true; document.body.classList.add('dragging'); card.classList.add('lifting');
         ghost = card.cloneNode(true); ghost.className = 'day ghost'; const r = card.getBoundingClientRect();
         Object.assign(ghost.style, { position: 'fixed', left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', pointerEvents: 'none', zIndex: 50 });
         document.body.appendChild(ghost); ghost.dataset.dx = e.clientX - r.left; ghost.dataset.dy = e.clientY - r.top;
         if (navigator.vibrate) navigator.vibrate(10);
-      }, 220);
+      }, onGrip ? 0 : 220);
     });
+    list.addEventListener('contextmenu', e => { if (src || justDragged) e.preventDefault(); });
     document.addEventListener('pointermove', e => {
       if (!src) return;
       if (!active) { if (Math.hypot(e.clientX - startX, e.clientY - startY) > 8) { clearTimeout(timer); src = null; } return; }
