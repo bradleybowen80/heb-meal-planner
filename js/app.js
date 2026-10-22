@@ -3,7 +3,7 @@
   'use strict';
 
   const DAYS = [
-    { id: 'sun', name: 'Sun', theme: 'Potluck', buckets: ['potluck', 'pizza', 'bbq'] },
+    { id: 'sun', name: 'Sun', theme: 'Church potluck', buckets: ['potluck', 'pizza', 'bbq'] },
     { id: 'mon', name: 'Mon', theme: 'Easy or out', buckets: ['easy'] },
     { id: 'tue', name: 'Tue', theme: 'Tacos', buckets: ['tacos'] },
     { id: 'wed', name: 'Wed', theme: 'Pasta or pork', buckets: ['pasta', 'pork'] },
@@ -12,7 +12,7 @@
     { id: 'sat', name: 'Sat', theme: 'Pizza or BBQ', buckets: ['pizza', 'bbq'] },
   ];
   const THEME_NAMES = {
-    potluck: 'Potluck', easy: 'Easy', tacos: 'Tacos', pasta: 'Pasta', pork: 'Pork',
+    potluck: 'Dish to bring', easy: 'Easy', tacos: 'Tacos', pasta: 'Pasta', pork: 'Pork',
     'meat-and-three': 'Meat and three', pizza: 'Pizza', bbq: 'BBQ', wildcard: 'Wildcard',
   };
   const STORE_KEY = 'hmp.plan.v1';
