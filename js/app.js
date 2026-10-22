@@ -107,7 +107,7 @@
   function normalize(p) {
     p.days = p.days || {}; for (const d of DAYS) if (p.days[d.id] === undefined) p.days[d.id] = null;
     if (!p.checklist || !Object.keys(p.checklist).length) p.checklist = { ...checklistDoc.defaults };
-    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {}; p.breakfasts = p.breakfasts || {};
+    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {}; p.breakfasts = p.breakfasts || {}; p.itemGroups = p.itemGroups || {};
     p.budget = Number(p.budget || 0); p.potluckTheme = p.potluckTheme || '';
     if (p.updatedAt) p.syncedOnce = true;
     return p;
@@ -129,7 +129,7 @@
     for (const k of new Set([...Object.keys(a.checklist || {}), ...Object.keys(b.checklist || {})])) if (!same((a.checklist || {})[k], (b.checklist || {})[k])) out.push(['checklist', k]);
     for (const k of new Set([...Object.keys(a.packs || {}), ...Object.keys(b.packs || {})])) if (!same((a.packs || {})[k], (b.packs || {})[k])) out.push(['packs', k]);
     for (const k of new Set([...Object.keys(a.extras || {}), ...Object.keys(b.extras || {})])) if (!same((a.extras || {})[k], (b.extras || {})[k])) out.push(['extras', k]);
-    for (const grp of ['lunches', 'breakfasts']) for (const k of new Set([...Object.keys(a[grp] || {}), ...Object.keys(b[grp] || {})])) if (!same((a[grp] || {})[k], (b[grp] || {})[k])) out.push([grp, k]);
+    for (const grp of ['lunches', 'breakfasts', 'itemGroups']) for (const k of new Set([...Object.keys(a[grp] || {}), ...Object.keys(b[grp] || {})])) if (!same((a[grp] || {})[k], (b[grp] || {})[k])) out.push([grp, k]);
     const ha = new Set(a.have || []), hb = new Set(b.have || []);
     for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
     for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
@@ -391,7 +391,8 @@
     }
     if (wrap.children.length === 1) wrap.insertAdjacentHTML('beforeend', '<div class="empty-bucket">Nothing here yet. Tap New card, or tell Claude what you make and it builds the cards.</div>');
   }
-  function openItem(key) {
+  function openItem(key, opts) {
+    opts = opts || {};
     const p = pantry[key];
     let html = `<h3>${esc(p.name)}</h3><p class="hint">${esc(p.size)} · ${money(price(key))}${p.saleOnly ? ' · bought at H-E-B only when on sale, Costco otherwise' : ''}</p>`;
     html += `<div class="bucket-title">Products, in order of preference</div>`;
@@ -402,9 +403,9 @@
     html += `<p class="hint">The first in-stock product that's on sale wins; otherwise the first in-stock one. To change the order or add a product, tell Claude.</p>`;
     const used = Object.values(meals).filter(m => m.items.some(it => it.key === key));
     if (used.length) html += `<div class="bucket-title">Used in</div><p class="hint">${esc(used.map(m => m.name).join(', '))}</p>`;
-    html += `<div class="row-actions"><button type="button" class="btn" id="itemAddWeek">Add to this week's list</button></div>`;
+    if (!opts.onList) html += `<div class="row-actions"><button type="button" class="btn" id="itemAddWeek">Add to this week's list</button></div>`;
     openSheet(html);
-    body.querySelector('#itemAddWeek').addEventListener('click', () => { plan.extras[key] = (plan.extras[key] || 0) + 1; plan.have = plan.have.filter(x => x !== key); save(); closeSheet(); toast('Added'); });
+    if (!opts.onList) body.querySelector('#itemAddWeek').addEventListener('click', () => { plan.extras[key] = (plan.extras[key] || 0) + 1; plan.have = plan.have.filter(x => x !== key); save(); closeSheet(); toast('Added'); });
   }
   // Edit any card from the catalog, no day needed. Works on a draft; Save to card makes it stick.
   const slug = str => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50) || 'card';
@@ -540,6 +541,8 @@
           `<div class="crow-price">${money(perDay * days)}</div>` +
           `<div class="stepper"><button type="button" aria-label="fewer days">−</button><span class="n">${days}d</span><button type="button" aria-label="more days">+</button></div>`;
         const [minus, plus] = row.querySelectorAll('button');
+        const nameCell = row.firstElementChild; nameCell.classList.add('tap'); nameCell.setAttribute('role', 'button');
+        nameCell.addEventListener('click', () => openCardEditor(id));
         minus.addEventListener('click', () => { plan[grp][id] = Math.max(0, days - 1); if (!plan[grp][id]) delete plan[grp][id]; save(); });
         plus.addEventListener('click', () => { plan[grp][id] = Math.min(7, days + 1); save(); });
         box.appendChild(row);
@@ -550,7 +553,7 @@
       box.appendChild(arow); wrap.appendChild(box);
       const addBtn = arow.querySelector('[data-addcard]'); if (addBtn) addBtn.addEventListener('click', () => openAddCard(grp, kind));
     }
-    const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other staples' }).name;
+    const groupOf = key => (plan.itemGroups || {})[key] || (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other staples' }).name;
     const groups = {};
     for (const [key, qty] of Object.entries(plan.checklist)) if (qty > 0 && pantry[key]) (groups[groupOf(key)] = groups[groupOf(key)] || []).push(key);
     const order = [...checklistDoc.groups.map(g => g.name), ...Object.keys(groups).filter(n => !checklistDoc.groups.some(g => g.name === n))];
@@ -568,12 +571,14 @@
           `<div class="crow-price">${skipped ? '' : money(price(key) * qty)}</div>` +
           `<div class="stepper"><button type="button" aria-label="less">−</button><span class="n">${qty}</span><button type="button" aria-label="more">+</button></div>`;
         const [minus, plus] = row.querySelectorAll('button');
+        const nameCell = row.firstElementChild; nameCell.classList.add('tap'); nameCell.setAttribute('role', 'button');
+        nameCell.addEventListener('click', () => openItem(key, { onList: true }));
         minus.addEventListener('click', () => { plan.checklist[key] = Math.max(0, qty - 1); save(); });
         plus.addEventListener('click', () => { plan.checklist[key] = qty + 1; save(); });
         box.appendChild(row);
       }
       const add = document.createElement('div'); add.className = 'crow';
-      add.innerHTML = `<div class="crow-sub">${keys.length ? '' : 'None this week.'}</div><div></div><button type="button" class="btn ghost small" data-addgrp="${esc(name)}">Add</button>`;
+      add.innerHTML = `<div class="crow-sub">${keys.length ? '' : 'None this week.'}</div><div></div><button type="button" class="btn ghost small" data-addgrp="${esc(name)}">Add to ${esc(name.toLowerCase())}</button>`;
       add.querySelector('[data-addgrp]').addEventListener('click', () => openAddWeekly(name));
       box.appendChild(add); wrap.appendChild(box);
     }
@@ -591,18 +596,32 @@
     body.querySelectorAll('[data-card]').forEach(b => b.addEventListener('click', () => { plan[grp][b.dataset.card] = 1; save(); closeSheet(); toast('Added'); }));
   }
   function openAddWeekly(onlyGroup) {
-    const groupOf = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other' }).name;
-    const bySec = {};
-    for (const key of Object.keys(pantry)) if (!(plan.checklist[key] > 0) && (!onlyGroup || groupOf(key) === onlyGroup)) (bySec[groupOf(key)] = bySec[groupOf(key)] || []).push(key);
+    const homeGroup = key => (checklistDoc.groups.find(g => g.items.includes(key)) || { name: 'Other' }).name;
+    const option = key => `<button type="button" class="option" data-add="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}${pantry[key].saleOnly ? ' · only when on sale' : ''}</div></div><div class="option-price">${money(price(key))}</div></button>`;
+    const open = Object.keys(pantry).filter(key => !(plan.checklist[key] > 0)).sort((a, b) => pantry[a].name.localeCompare(pantry[b].name));
+    const mine = onlyGroup ? open.filter(k => homeGroup(k) === onlyGroup) : [];
+    const rest = open.filter(k => !mine.includes(k));
     let html = `<h3>Add ${onlyGroup ? esc(onlyGroup.toLowerCase()) : 'to every week'}</h3><p class="hint">Tap to add one pack a week. Change the number after.</p>`;
-    const order = [...checklistDoc.groups.map(g => g.name), ...Object.keys(bySec).filter(n => !checklistDoc.groups.some(g => g.name === n))];
-    for (const name of order) {
-      if (!bySec[name]) continue;
-      html += `<div class="bucket-title">${esc(name)}</div>` + bySec[name].map(key => `<button type="button" class="option" data-add="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}</div><div class="option-sub">${esc(pantry[key].size)}${pantry[key].saleOnly ? ' · only when on sale' : ''}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
-    }
+    html += `<input class="search" id="addFind" type="search" placeholder="Search everything at H-E-B (${open.length} items)" autocomplete="off">`;
+    if (onlyGroup) html += `<div class="bucket-title" data-head>${esc(onlyGroup)}</div>` + (mine.length ? mine.map(option).join('') : `<div class="empty-bucket" data-head>Everything in ${esc(onlyGroup.toLowerCase())} is already on the list. Pick from below or search.</div>`);
+    const bySec = {};
+    for (const k of rest) (bySec[pantry[k].section] = bySec[pantry[k].section] || []).push(k);
+    const secs = [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))];
+    html += `<div class="bucket-title" data-head>${onlyGroup ? 'Anything else at H-E-B' : 'Everything'}</div>`;
+    for (const sec of secs) html += `<div class="guide-group" data-head>${esc(sec)}</div>` + bySec[sec].map(option).join('');
     html += `<p class="hint">Don't see what you buy? Tell Claude the product and it gets pinned to the real H-E-B item.</p>`;
     openSheet(html);
-    body.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => { plan.checklist[b.dataset.add] = 1; save(); closeSheet(); toast('Added'); }));
+    const find = body.querySelector('#addFind');
+    find.addEventListener('input', () => {
+      const q = find.value.trim().toLowerCase();
+      body.querySelectorAll('[data-add]').forEach(b => { b.style.display = !q || b.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+      body.querySelectorAll('[data-head]').forEach(h => { h.style.display = q ? 'none' : ''; });
+    });
+    body.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => {
+      const key = b.dataset.add; plan.checklist[key] = 1;
+      if (onlyGroup && homeGroup(key) !== onlyGroup) plan.itemGroups[key] = onlyGroup; else delete plan.itemGroups[key];
+      save(); closeSheet(); toast('Added');
+    }));
   }
   function renderList() {
     const t = totals();
@@ -979,12 +998,14 @@
   $('btnAddExtra').addEventListener('click', () => {
     const bySec = {};
     for (const key of Object.keys(pantry)) (bySec[pantry[key].section] = bySec[pantry[key].section] || []).push(key);
-    let html = `<h3>Add to this week's list</h3><p class="hint">One-off, just this trip. Tap to add a pack.</p>`;
+    let html = `<h3>Add to this week's list</h3><p class="hint">One-off, just this trip. Tap to add a pack.</p><input class="search" id="extraFind" type="search" placeholder="Search everything at H-E-B" autocomplete="off">`;
     for (const sec of [...sectionOrder.filter(x => bySec[x]), ...Object.keys(bySec).filter(x => !sectionOrder.includes(x))]) {
       html += `<div class="bucket-title">${esc(sec)}</div>` + bySec[sec].map(key => `<button type="button" class="option" data-extra="${esc(key)}"><div><div class="option-name">${esc(pantry[key].name)}${pillHtml(flagsFor(key))}</div><div class="option-sub">${esc(pantry[key].size)}</div></div><div class="option-price">${money(price(key))}</div></button>`).join('');
     }
     html += `<p class="hint">Not in the pantry yet? Tell Claude the product and it gets pinned to the real H-E-B item.</p>`;
     openSheet(html);
+    const xf = body.querySelector('#extraFind');
+    xf.addEventListener('input', () => { const q = xf.value.trim().toLowerCase(); body.querySelectorAll('[data-extra]').forEach(b => { b.style.display = !q || b.textContent.toLowerCase().includes(q) ? '' : 'none'; }); body.querySelectorAll('.bucket-title').forEach(h => { h.style.display = q ? 'none' : ''; }); });
     body.querySelectorAll('[data-extra]').forEach(b => b.addEventListener('click', () => { const k = b.dataset.extra; plan.extras[k] = (plan.extras[k] || 0) + 1; plan.have = plan.have.filter(x => x !== k); save(); closeSheet(); toast('Added'); }));
   });
   $('btnNotes').addEventListener('click', () => copy(notesText(), 'Copied. Paste into Notes.'));

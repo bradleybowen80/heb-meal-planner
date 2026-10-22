@@ -259,3 +259,6 @@ button.li:active { background: var(--paper); }
 .toast { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 999px; font-weight: 700; font-size: 14px; z-index: 30; box-shadow: var(--shadow); }
 
 :focus-visible { outline: 3px solid #9fd3a6; outline-offset: 2px; }
+
+.tap { cursor: pointer; }
+.tap .crow-name { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }

@@ -1946,6 +1946,413 @@
       ]
     },
     {
+      "key": "smartfood-white-cheddar",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "3775001",
+          "name": "Smartfood White Cheddar Popcorn",
+          "size": "6 oz"
+        }
+      ]
+    },
+    {
+      "key": "smartfood-multipack",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "3723092",
+          "name": "Smartfood White Cheddar Popcorn Multipack",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "smartpop-microwave",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "782520",
+          "name": "Orville Redenbacher's SmartPop! Butter Microwave Popcorn",
+          "size": "12 ct"
+        }
+      ]
+    },
+    {
+      "key": "skinnypop-variety",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "16199014",
+          "name": "SkinnyPop Popped Popcorn Multipack - Variety",
+          "size": "18 ct"
+        }
+      ]
+    },
+    {
+      "key": "chex-mix",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "460909",
+          "name": "Chex Mix Traditional - Family Size",
+          "size": "13.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "chex-mix-multipack",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1733783",
+          "name": "Chex Mix Traditional Multipack",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "scooby-grahams",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "15239035",
+          "name": "Kellogg's Scooby-Doo Baked Graham Cracker Snacks - Honey",
+          "size": "11 oz"
+        }
+      ]
+    },
+    {
+      "key": "cinnamon-graham-sticks",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "661103",
+          "name": "Kellogg's Cinnamon Baked Graham Cracker Sticks",
+          "size": "12 ct"
+        }
+      ]
+    },
+    {
+      "key": "chips-variety-18",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "2309575",
+          "name": "Frito Lay Flavor Mix Variety Pack",
+          "size": "18 ct"
+        }
+      ]
+    },
+    {
+      "key": "chips-variety-42",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "9603009",
+          "name": "Frito Lay Bold Mix Variety Pack",
+          "size": "42 ct"
+        }
+      ]
+    },
+    {
+      "key": "cheesy-chips-variety",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "5423002",
+          "name": "H-E-B Cheesy Chips Variety Pack",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "cheez-it",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1835790",
+          "name": "Cheez-It Original",
+          "size": "12.4 oz"
+        }
+      ]
+    },
+    {
+      "key": "cheez-it-variety",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "4921024",
+          "name": "Cheez-It Variety Pack",
+          "size": "20 ct"
+        }
+      ]
+    },
+    {
+      "key": "goldfish-variety",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "2030694",
+          "name": "Goldfish Variety Pack - Xtra Cheddar & Colors",
+          "size": "20 ct"
+        }
+      ]
+    },
+    {
+      "key": "ritz-bits",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1709855",
+          "name": "Ritz Bits Cheese Sandwich Crackers",
+          "size": "8.8 oz"
+        }
+      ]
+    },
+    {
+      "key": "cheese-crackers-heb",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "15734517",
+          "name": "H-E-B Cheddar Cheese on Cheese Sandwich Crackers",
+          "size": "8 ct"
+        }
+      ]
+    },
+    {
+      "key": "pirates-booty",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1420193",
+          "name": "Pirate's Booty Aged White Cheddar Puffs",
+          "size": "10 oz"
+        }
+      ]
+    },
+    {
+      "key": "cheddar-bunnies",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "618568",
+          "name": "Annie's Cheddar Bunnies",
+          "size": "7.5 oz"
+        }
+      ]
+    },
+    {
+      "key": "teddy-grahams",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "15047038",
+          "name": "Teddy Grahams Honey Multipack",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "animal-crackers",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "15049512",
+          "name": "Barnum's Animal Crackers Multipack",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "pretzels",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "2003233",
+          "name": "Rold Gold Tiny Twists Pretzels",
+          "size": "16 oz"
+        }
+      ]
+    },
+    {
+      "key": "cheetos",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "3723083",
+          "name": "Cheetos Crunchy Multipack",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "doritos",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "3723088",
+          "name": "Doritos Nacho Cheese Multipack",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "lays",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "3723076",
+          "name": "Lay's Classic Multipack",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
+      "key": "sun-chips",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1715701",
+          "name": "SunChips Harvest Cheddar",
+          "size": "7 oz"
+        }
+      ]
+    },
+    {
+      "key": "fruit-snacks",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1238572",
+          "name": "Welch's Mixed Fruit Snacks - Family Size",
+          "size": "40 ct"
+        }
+      ]
+    },
+    {
+      "key": "fruit-snacks-22",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "6015004",
+          "name": "Welch's Mixed Fruit Snacks",
+          "size": "22 ct"
+        }
+      ]
+    },
+    {
+      "key": "granola-bars",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1557594",
+          "name": "Nature Valley Oats 'n Honey Granola Bars",
+          "size": "15 ct"
+        }
+      ]
+    },
+    {
+      "key": "zbars",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1770172",
+          "name": "Clif Kid ZBar - Iced Oatmeal Cookie",
+          "size": "6 ct"
+        }
+      ]
+    },
+    {
+      "key": "nutri-grain",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "118778",
+          "name": "Nutri-Grain Strawberry Bars",
+          "size": "8 ct"
+        }
+      ]
+    },
+    {
+      "key": "rice-krispies-treats",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "2029849",
+          "name": "Rice Krispies Treats Variety Pack",
+          "size": "16 ct"
+        }
+      ]
+    },
+    {
+      "key": "applesauce-pouches",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1785330",
+          "name": "GoGo squeeZ Applesauce Pouches",
+          "size": "12 ct"
+        }
+      ]
+    },
+    {
+      "key": "mandarin-cups",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "4122598",
+          "name": "H-E-B Mandarin Orange Cups",
+          "size": "4 ct"
+        }
+      ]
+    },
+    {
+      "key": "gogurt",
+      "section": "Dairy",
+      "products": [
+        {
+          "hebId": "1017050",
+          "name": "Yoplait GoGurt Strawberry Tubes",
+          "size": "8 ct"
+        }
+      ]
+    },
+    {
+      "key": "babybel",
+      "section": "Deli",
+      "products": [
+        {
+          "hebId": "4343501",
+          "name": "Babybel Original Snack Cheese",
+          "size": "12 ct"
+        }
+      ]
+    },
+    {
+      "key": "oreos",
+      "section": "Snacks",
+      "products": [
+        {
+          "hebId": "1627553",
+          "name": "OREO Cookies - Family Size",
+          "size": "18.12 oz"
+        }
+      ]
+    },
+    {
+      "key": "uncrustables",
+      "section": "Frozen",
+      "products": [
+        {
+          "hebId": "2215070",
+          "name": "Smucker's Uncrustables PB & Grape",
+          "size": "10 ct"
+        }
+      ]
+    },
+    {
       "key": "kevins-thai-coconut",
       "section": "Meal Simple",
       "products": [
