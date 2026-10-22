@@ -362,3 +362,9 @@ body { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
 .day-meal { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 #addHits .option, #extraHits .option, #ingHits .option, #cHits .option { animation: slideUp .15s ease-out; }
 @keyframes slideUp { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.star { display: inline-grid; place-items: center; width: 30px; height: 30px; margin: -6px 4px -6px -6px; font-size: 21px; line-height: 1; color: #D9CBB8; cursor: pointer; vertical-align: middle; border-radius: 50%; transition: transform .15s; }
+.star:active { transform: scale(1.3); }
+.star.on { color: #E9A23B; }
+.star.mini { width: auto; height: auto; margin: 0 4px 0 0; font-size: 15px; cursor: default; }
+.sheet h3 .star { font-size: 24px; }

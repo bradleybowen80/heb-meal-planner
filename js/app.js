@@ -107,7 +107,7 @@
   function normalize(p) {
     p.days = p.days || {}; for (const d of DAYS) if (p.days[d.id] === undefined) p.days[d.id] = null;
     if (!p.checklist || !Object.keys(p.checklist).length) p.checklist = { ...checklistDoc.defaults };
-    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {}; p.breakfasts = p.breakfasts || {}; p.itemGroups = p.itemGroups || {};
+    p.have = p.have || []; p.packs = p.packs || {}; p.extras = p.extras || {}; p.lunches = p.lunches || {}; p.breakfasts = p.breakfasts || {}; p.itemGroups = p.itemGroups || {}; p.favorites = p.favorites || {};
     p.budget = Number(p.budget || 0); p.potluckTheme = p.potluckTheme || '';
     if (p.updatedAt) p.syncedOnce = true;
     return p;
@@ -129,7 +129,7 @@
     for (const k of new Set([...Object.keys(a.checklist || {}), ...Object.keys(b.checklist || {})])) if (!same((a.checklist || {})[k], (b.checklist || {})[k])) out.push(['checklist', k]);
     for (const k of new Set([...Object.keys(a.packs || {}), ...Object.keys(b.packs || {})])) if (!same((a.packs || {})[k], (b.packs || {})[k])) out.push(['packs', k]);
     for (const k of new Set([...Object.keys(a.extras || {}), ...Object.keys(b.extras || {})])) if (!same((a.extras || {})[k], (b.extras || {})[k])) out.push(['extras', k]);
-    for (const grp of ['lunches', 'breakfasts', 'itemGroups']) for (const k of new Set([...Object.keys(a[grp] || {}), ...Object.keys(b[grp] || {})])) if (!same((a[grp] || {})[k], (b[grp] || {})[k])) out.push([grp, k]);
+    for (const grp of ['lunches', 'breakfasts', 'itemGroups', 'favorites']) for (const k of new Set([...Object.keys(a[grp] || {}), ...Object.keys(b[grp] || {})])) if (!same((a[grp] || {})[k], (b[grp] || {})[k])) out.push([grp, k]);
     const ha = new Set(a.have || []), hb = new Set(b.have || []);
     for (const k of hb) if (!ha.has(k)) out.push(['have+', k]);
     for (const k of ha) if (!hb.has(k)) out.push(['have-', k]);
@@ -272,6 +272,21 @@
     return { sale: !!(p.onSale || p.priceCut), coupon: !!p.coupon, couponLabel: p.couponType === 'combo' ? 'combo deal' : 'coupon' };
   };
   const pillsFor = keys => keys.reduce((a, k) => { const f = flagsFor(k); a.sale = a.sale || f.sale; if (f.coupon && !a.coupon) { a.coupon = true; a.couponLabel = f.couponLabel; } return a; }, {});
+  // Favorites: a star on any card. Lives on the plan so both phones share it; never cleared by a new week.
+  const isFav = id => !!(plan.favorites && plan.favorites[id]);
+  const favFirst = (a, b) => (isFav(b.id) - isFav(a.id)) || a.name.localeCompare(b.name);
+  const starHtml = id => `<span class="star${isFav(id) ? ' on' : ''}" role="button" tabindex="0" aria-label="${isFav(id) ? 'Remove from favorites' : 'Add to favorites'}" data-fav="${esc(id)}">${isFav(id) ? '★' : '☆'}</span>`;
+  document.addEventListener('click', e => {
+    const s = e.target.closest && e.target.closest('[data-fav]'); if (!s) return;
+    e.stopPropagation(); e.preventDefault();
+    const id = s.dataset.fav;
+    if (isFav(id)) delete plan.favorites[id]; else plan.favorites[id] = 1;
+    persist();
+    document.querySelectorAll(`[data-fav="${CSS.escape(id)}"]`).forEach(x => { x.classList.toggle('on', isFav(id)); x.textContent = isFav(id) ? '★' : '☆'; });
+    renderWeek(); renderCatalog(); renderChecklist();
+    if (navigator.vibrate) navigator.vibrate(10);
+    toast(isFav(id) ? '★ Saved to favorites' : 'Removed from favorites');
+  }, true);
   const pillHtml = p => (p.edited ? '<span class="pill edited">edited</span>' : '') + (p.sale ? '<span class="pill sale">sale</span>' : '') + (p.coupon ? `<span class="pill coupon">${p.couponLabel}</span>` : '');
   // "½ pack", "1 pack", "1½ packs", "3 pieces" for things sold by weight
   function packText(qty, key) {
@@ -339,7 +354,7 @@
   function renderCatalog() {
     const selKind = $('selKind'), selTag = $('selTag'), wrap = $('catalog'); if (!selKind) return;
     const groupNames = checklistDoc.groups.map(g => g.name);
-    const kinds = [['all', 'Everything'], ['breakfast', 'Breakfasts'], ['lunch', 'Lunches'], ['dinner', 'Dinners'], ...groupNames.map(n => ['grp:' + n, n]), ['grp:Ingredients', 'Ingredients']];
+    const kinds = [['all', 'Everything'], ['fav', '★ Favorites'], ['breakfast', 'Breakfasts'], ['lunch', 'Lunches'], ['dinner', 'Dinners'], ...groupNames.map(n => ['grp:' + n, n]), ['grp:Ingredients', 'Ingredients']];
     const proteins = [...new Set(Object.values(meals).flatMap(cardTags))].sort();
     selKind.innerHTML = kinds.map(([k, l]) => `<option value="${esc(k)}"${mealFilter.kind === k ? ' selected' : ''}>${esc(l)}</option>`).join('');
     selTag.innerHTML = `<option value="any"${mealFilter.tag === 'any' ? ' selected' : ''}>Any</option>` + proteins.map(t => `<option value="${esc(t)}"${mealFilter.tag === t ? ' selected' : ''}>${esc(t[0].toUpperCase() + t.slice(1))}</option>`).join('');
@@ -353,7 +368,7 @@
     nb.querySelector('#btnNewCard').addEventListener('click', () => openCardEditor(null, {}));
     const f = mealFilter.kind, tag = mealFilter.tag;
     const isDinner = m => !['breakfast', 'lunch'].includes(m.kind);
-    const cards = Object.values(meals).filter(m => (f === 'all' || (f === 'dinner' && isDinner(m)) || f === m.kind) && (tag === 'any' || cardTags(m).includes(tag)) && (hit(m.name) || m.items.some(it => pantry[it.key] && hit(pantry[it.key].name))));
+    const cards = Object.values(meals).sort(favFirst).filter(m => (f === 'all' || (f === 'fav' && isFav(m.id)) || (f === 'dinner' && isDinner(m)) || f === m.kind) && (tag === 'any' || cardTags(m).includes(tag)) && (hit(m.name) || m.items.some(it => pantry[it.key] && hit(pantry[it.key].name))));
     if (!f.startsWith('grp:')) {
       for (const [label, test] of [['Breakfasts', m => m.kind === 'breakfast'], ['Lunches', m => m.kind === 'lunch'], ['Dinners', isDinner]]) {
         const group = cards.filter(test); if (!group.length) continue;
@@ -362,13 +377,14 @@
         for (const m of group) {
           const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
           const row = document.createElement('button'); row.type = 'button'; row.className = 'li li-tap';
-          row.innerHTML = `<div></div><div><div class="li-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div><div class="li-sub">${esc(THEME_NAMES[m.theme] || m.theme || '')}${cardTags(m).length ? ' · ' + esc(cardTags(m).join(', ')) : ''} ${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} item${m.items.length === 1 ? "" : "s"} · serves ${m.serves || 4}</div></div><div class="li-right"><div class="li-price">${money(cost)}</div></div>`;
+          row.innerHTML = `<div></div><div><div class="li-name">${starHtml(m.id)}${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div><div class="li-sub">${esc(THEME_NAMES[m.theme] || m.theme || '')}${cardTags(m).length ? ' · ' + esc(cardTags(m).join(', ')) : ''} ${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} item${m.items.length === 1 ? "" : "s"} · serves ${m.serves || 4}</div></div><div class="li-right"><div class="li-price">${money(cost)}</div></div>`;
           row.addEventListener('click', () => openCardEditor(m.id));
           box.appendChild(row);
         }
         wrap.appendChild(box);
       }
     }
+    if (f === 'fav' && !cards.length) { const e = document.createElement('div'); e.className = 'empty-bucket'; e.textContent = 'No favorites yet. Tap the ☆ next to any dinner, lunch or breakfast to save it here.'; wrap.appendChild(e); }
     if (tag === 'any' && (f === 'all' || f.startsWith('grp:'))) {
       // Staples by their group; everything else by store section so the ingredient list stays navigable.
       const groupOf = key => { const g = checklistDoc.groups.find(x => x.items.includes(key)); return g ? g.name : 'Ingredients: ' + pantry[key].section; };
@@ -422,7 +438,7 @@
           `<label class="select"><span>Night</span><select id="cTheme">${THEMES.map(([k, l]) => `<option value="${k}"${draft.theme === k ? ' selected' : ''}>${l}</option>`).join('')}</select></label></div>` +
           `<div class="filters"><label class="select"><span>Serves</span><select id="cServes"><option value="2"${draft.serves === 2 ? ' selected' : ''}>2</option><option value="4"${draft.serves !== 2 ? ' selected' : ''}>4</option></select></label></div>` +
           `<div class="amount-row"><input id="cNotes" class="label" type="text" placeholder="How to make it (optional)" value="${esc(draft.notes || '')}"></div>`
-        : `<h3>${esc(draft.name)}</h3><p class="hint">${esc(THEME_NAMES[draft.theme] || draft.theme || '')} · serves ${draft.serves || 4}. Changes stick when you tap Save to card.</p>`;
+        : `<h3>${starHtml(draft.id)}${esc(draft.name)}</h3><p class="hint">${esc(THEME_NAMES[draft.theme] || draft.theme || '')} · serves ${draft.serves || 4}. Changes stick when you tap Save to card.</p>`;
       if (draft.notes) html += `<div class="notes">${esc(draft.notes)}</div>`;
       html += `<div class="group">` + draft.items.map(it => { const p = pantry[it.key]; if (!p) return ''; return `<div class="ing" data-key="${esc(it.key)}"><button type="button" class="ing-x" aria-label="remove">×</button><div><div class="ing-name">${esc(p.name)}</div><div class="ing-sub">${esc(p.size)} · ${money(price(it.key))} each</div></div><div class="stepper small"><button type="button" aria-label="less">−</button><span class="n">${packText(it.qty, it.key)}</span><button type="button" aria-label="more">+</button></div></div>`; }).join('') + `</div>`;
       html += `<div class="row-actions"><button type="button" class="btn ghost" id="cAdd">Add an ingredient</button></div>`;
@@ -499,7 +515,7 @@
         const m = meals[d.mealId];
         const p = pillsFor(dayItems(d).map(it => it.key));
         p.edited = (d.dropped && d.dropped.length) || (d.qty && Object.keys(d.qty).length) || (d.added && d.added.length);
-        mealHtml = `<div class="day-meal">${esc(m ? m.name : d.mealId)}${pillHtml(p)}</div><div class="day-sub">${m ? (m.minutes ? m.minutes + ' min · ' : '') + m.items.length + (m.items.length === 1 ? ' item' : ' items') : ''}</div>`;
+        mealHtml = `<div class="day-meal">${m && isFav(m.id) ? '<span class="star on mini">★</span>' : ''}${esc(m ? m.name : d.mealId)}${pillHtml(p)}</div><div class="day-sub">${m ? (m.minutes ? m.minutes + ' min · ' : '') + m.items.length + (m.items.length === 1 ? ' item' : ' items') : ''}</div>`;
         priceHtml = `<div class="day-price">${money(dayCost(d))}</div>`;
       }
       const themeLabel = day.id === 'sun' && plan.potluckTheme ? `${day.theme}: ${esc(plan.potluckTheme)}` : day.theme;
@@ -619,11 +635,11 @@
     input.addEventListener('input', draw); draw(); return draw;
   }
   function openAddCard(grp, kind) {
-    const pool = Object.values(meals).filter(m => m.kind === kind && !(plan[grp][m.id] > 0)).sort((a, b) => a.name.localeCompare(b.name));
+    const pool = Object.values(meals).filter(m => m.kind === kind && !(plan[grp][m.id] > 0)).sort(favFirst);
     let html = `<h3>Add a ${kind}</h3><p class="hint">Picks it for one day. Change the days with + and − after.</p>`;
     html += `<div class="row-actions"><button type="button" class="btn ghost" id="newCard">New ${kind} card</button></div>`;
     if (pool.length > 6) html += `<input class="search" id="cardFind" type="search" placeholder="Search ${pool.length} ${kind === "lunch" ? "lunches" : kind + "s"}" autocomplete="off">`;
-    html += pool.length ? pool.map(m => `<button type="button" class="option" data-card="${esc(m.id)}"><div><div class="option-name">${esc(m.name)}</div><div class="option-sub">${m.minutes ? m.minutes + ' min · ' : ''}${m.items.length} item${m.items.length === 1 ? "" : "s"}</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved ${kind} is already picked.</div>`;
+    html += pool.length ? pool.map(m => `<button type="button" class="option" data-card="${esc(m.id)}"><div><div class="option-name">${starHtml(m.id)}${esc(m.name)}</div><div class="option-sub">${m.minutes ? m.minutes + ' min · ' : ''}${m.items.length} item${m.items.length === 1 ? "" : "s"}</div></div><div class="option-price">${money(m.items.reduce((s, it) => s + it.qty * price(it.key), 0))}/day</div></button>`).join('') : `<div class="empty-bucket">Every saved ${kind} is already picked.</div>`;
     openSheet(html);
     body.querySelector('#newCard').addEventListener('click', () => openCardEditor(null, { kind, theme: kind, group: grp }));
     const find = body.querySelector('#cardFind');
@@ -748,7 +764,7 @@
   function mealOption(m, current) {
     const cost = m.items.reduce((s, it) => s + it.qty * price(it.key), 0);
     return `<button type="button" class="option${current ? ' current' : ''}" data-meal="${esc(m.id)}">` +
-      `<div><div class="option-name">${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div>` +
+      `<div><div class="option-name">${starHtml(m.id)}${esc(m.name)}${pillHtml(pillsFor(m.items.map(it => it.key)))}</div>` +
       `<div class="option-sub">${esc(m.kind === 'heat-and-add' ? 'Heat and add' : m.kind === 'repeat' ? 'Easy' : 'Recipe')}${m.minutes ? ' · ' + m.minutes + ' min' : ''} · ${m.items.length} item${m.items.length === 1 ? "" : "s"}${current ? ' · chosen, tap to edit' : ''}</div></div>` +
       `<div class="option-price">${money(cost)}</div></button>`;
   }
@@ -756,7 +772,7 @@
   function openDay(dayId) {
     const day = DAYS.find(d => d.id === dayId); const d = plan.days[dayId];
     const currentMeal = d && d.type === 'meal' ? d.mealId : null;
-    const all = Object.values(meals).filter(m => !['breakfast', 'lunch'].includes(m.kind)).sort((a, b) => a.name.localeCompare(b.name));
+    const all = Object.values(meals).filter(m => !['breakfast', 'lunch'].includes(m.kind)).sort(favFirst);
     const themed = all.filter(m => day.buckets.includes(m.theme));
     const wild = all.filter(m => !day.buckets.includes(m.theme));
     let html = `<h3>${day.name}: ${day.theme}</h3><p class="hint">${day.id === 'sun' ? 'Pick the dish to bring.' : 'Tap a dinner.'}</p>`;
